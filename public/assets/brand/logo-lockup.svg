@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 520" width="100%" height="100%" fill="none">
+  <!-- 4tune.labs Official Complete Lockup -->
+  <g id="brand-lockup">
+    <!-- Top Mark (Shifted slightly upward to accommodate typography) -->
+    <g id="brand-mark-group" transform="translate(0, -10)">
+      <!-- Amber Loop (Top-Left & Bottom-Right Linked Quadrants) -->
+      <g id="amber-knot" stroke="#E5A024" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <path d="M 230 135 H 175 C 152 135 135 152 135 175 V 230 C 135 242 145 250 160 250 H 220" />
+        <path d="M 135 190 H 215" stroke-width="20" />
+        <path d="M 175 175 L 325 325" stroke-width="24" stroke-linecap="round" />
+        <path d="M 270 365 H 325 C 348 365 365 348 365 325 V 270 C 365 258 355 250 340 250 H 280" />
+        <path d="M 285 310 H 365" stroke-width="20" />
+      </g>
+
+      <!-- Electric Emerald Loop (Top-Right & Bottom-Left Linked Quadrants) -->
+      <g id="emerald-knot" stroke="#239D60" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <path d="M 270 135 H 325 C 348 135 365 152 365 175 V 230 C 365 242 355 250 340 250" />
+        <path d="M 325 135 V 225" stroke-width="20" />
+        <path d="M 325 175 L 175 325" stroke-width="24" stroke-linecap="round" />
+        <path d="M 230 365 H 175 C 152 365 135 348 135 325 V 270 C 135 258 145 250 160 250" />
+        <path d="M 175 275 V 365" stroke-width="20" />
+      </g>
+
+      <!-- Central Charcoal Housing / Arrow Frame -->
+      <g id="central-housing">
+        <path d="M 250 148 L 298 194 V 292 H 202 V 194 Z" 
+              fill="#2D3139" 
+              stroke="#2D3139" 
+              stroke-width="10" 
+              stroke-linejoin="round" />
+        <path d="M 250 178 L 274 204 H 262 V 274 H 238 V 204 H 226 Z" 
+              fill="#FFFFFF" />
+        <polygon points="250,224 268,234 268,256 250,266 232,256 232,234" 
+                 fill="#239D60" />
+      </g>
+    </g>
+
+    <!-- Typography Wordmark: 4tune.labs -->
+    <g id="wordmark" transform="translate(250, 440)" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="52" letter-spacing="-0.03em">
+      <text y="0">
+        <tspan fill="#E5A024">4</tspan><tspan fill="#239D60">tune</tspan><tspan fill="#2D3139" font-weight="600">.labs</tspan>
+      </text>
+    </g>
+  </g>
+</svg>

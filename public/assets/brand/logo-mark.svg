@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%" fill="none">
+  <!-- 4tune.labs Official Mark -->
+  <g id="brand-mark" transform="translate(0, 0)">
+    <!-- Amber Loop (Top-Left & Bottom-Right Linked Quadrants) -->
+    <g id="amber-knot" stroke="#E5A024" stroke-width="26" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Top-Left Quadrant Ribbon & Stem -->
+      <path d="M 230 135 H 175 C 152 135 135 152 135 175 V 230 C 135 242 145 250 160 250 H 220" />
+      <path d="M 135 190 H 215" stroke-width="22" />
+      
+      <!-- Amber Diagonal Link -->
+      <path d="M 175 175 L 325 325" stroke-width="26" stroke-linecap="round" />
+      
+      <!-- Bottom-Right Quadrant Ribbon & Stem -->
+      <path d="M 270 365 H 325 C 348 365 365 348 365 325 V 270 C 365 258 355 250 340 250 H 280" />
+      <path d="M 285 310 H 365" stroke-width="22" />
+    </g>
+
+    <!-- Electric Emerald Loop (Top-Right & Bottom-Left Linked Quadrants) -->
+    <g id="emerald-knot" stroke="#239D60" stroke-width="26" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Top-Right Quadrant Ribbon -->
+      <path d="M 270 135 H 325 C 348 135 365 152 365 175 V 230 C 365 242 355 250 340 250" />
+      <path d="M 325 135 V 225" stroke-width="22" />
+
+      <!-- Emerald Diagonal Link -->
+      <path d="M 325 175 L 175 325" stroke-width="26" stroke-linecap="round" />
+
+      <!-- Bottom-Left Quadrant Ribbon -->
+      <path d="M 230 365 H 175 C 152 365 135 348 135 325 V 270 C 135 258 145 250 160 250" />
+      <path d="M 175 275 V 365" stroke-width="22" />
+    </g>
+
+    <!-- Central Charcoal Housing / Arrow Frame -->
+    <g id="central-housing">
+      <!-- Outer House Polygon -->
+      <path d="M 250 148 L 298 194 V 292 H 202 V 194 Z" 
+            fill="#2D3139" 
+            stroke="#2D3139" 
+            stroke-width="10" 
+            stroke-linejoin="round" />
+      
+      <!-- Inner Upward Arrow Cutout -->
+      <path d="M 250 178 L 274 204 H 262 V 274 H 238 V 204 H 226 Z" 
+            fill="#FFFFFF" />
+
+      <!-- Central Hexagon Core -->
+      <polygon points="250,224 268,234 268,256 250,266 232,256 232,234" 
+               fill="#239D60" />
+    </g>
+  </g>
+</svg>
