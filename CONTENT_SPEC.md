@@ -85,7 +85,7 @@
    - Pendaftaran domain kustom (.com/.id) & hosting cepat gratis 1 tahun.
    - Optimasi SEO agar mudah dicari di pencarian Google.
    - *Engineer:* Felich (Divisi Web & AI).
-3. **Paket Kreator & AI Ready (Rp 1.200.000 – Rp 2.500.000):**
+3. **Paket Kreator & AI Ready (Rp 2.500.000 – Rp 6.500.000):**
    - Solusi perangkat keras dan perangkat lunak untuk performa tinggi.
    - Rakit PC workstation kustom atau upgrade maksimal laptop.
    - Integrasi asisten AI/LLM streaming interaktif.
@@ -101,28 +101,30 @@
 - **Upgrade SSD (NVMe M.2):**
   - *Tanpa SSD Baru:* Rp 0
   - *PCIe Gen 3 (~2.400 - 3.500 MB/s - Laptop Standar & Kuliah):*
-    - 256 GB: Rp 320.000 – Rp 420.000
-    - 512 GB: Rp 580.000 – Rp 720.000
-    - 1 TB: Rp 1.050.000 – Rp 1.280.000
+    - 256 GB: Rp 450.000 – Rp 750.000
+    - 512 GB: Rp 850.000 – Rp 1.350.000
+    - 1 TB: Rp 1.500.000 – Rp 2.300.000
   - *PCIe Gen 4 (~5.000 - 7.400 MB/s - Gaming & High-End Workstation):*
-    - 512 GB: Rp 750.000 – Rp 950.000
-    - 1 TB: Rp 1.350.000 – Rp 1.680.000
-    - 2 TB: Rp 2.450.000 – Rp 2.950.000
+    - 512 GB: Rp 1.150.000 – Rp 1.650.000
+    - 1 TB: Rp 1.950.000 – Rp 2.900.000
+    - 2 TB: Rp 3.800.000 – Rp 5.800.000
 - **Ekspansi RAM (SODIMM / DIMM):**
   - *RAM Bawaan Cukup:* Rp 0
   - *DDR4 (3200 MHz - Laptop/PC Standar):*
-    - 8 GB DDR4: Rp 320.000 – Rp 420.000
-    - 16 GB DDR4: Rp 580.000 – Rp 750.000
-    - 32 GB DDR4 (Dual-Channel Kit 2x16GB): Rp 1.150.000 – Rp 1.450.000
+    - 8 GB DDR4: Rp 750.000 – Rp 1.200.000
+    - 16 GB DDR4: Rp 1.400.000 – Rp 2.200.000
+    - 32 GB DDR4 (Dual-Channel Kit 2x16GB): Rp 2.800.000 – Rp 4.200.000
   - *DDR5 (4800 / 5600 MHz - Laptop/PC Modern):*
-    - 8 GB DDR5: Rp 480.000 – Rp 620.000
-    - 16 GB DDR5: Rp 850.000 – Rp 1.150.000
-    - 32 GB DDR5 (Dual-Channel Kit 2x16GB): Rp 1.650.000 – Rp 2.150.000
+    - 8 GB DDR5: Rp 1.800.000 – Rp 2.500.000
+    - 16 GB DDR5: Rp 2.800.000 – Rp 4.500.000
+    - 32 GB DDR5 (Dual-Channel Kit 2x16GB): Rp 7.500.000 – Rp 11.000.000
 - **Add-on Perawatan & Servis:**
-  - Deep Cleaning & Ganti Thermal Paste Premium: +Rp 80.000 (Sangat Dianjurkan)
-  - Instalasi Bersih OS (Windows 11 / Linux) + Driver Teruji: +Rp 60.000
-  - Backup & Penyelamatan Data Partisi: +Rp 50.000
-  - Penggantian Baterai Laptop OEM/Original: +Rp 250.000
+  - Jasa Pasang Sparepart Bawa Sendiri (SSD / RAM): +Rp 35.000 – Rp 60.000
+  - Deep Cleaning & Ganti Thermal Paste Premium: +Rp 80.000 – Rp 120.000 (Sangat Dianjurkan)
+  - Instalasi Bersih OS (Windows 11 / Linux) + Driver Teruji: +Rp 50.000 – Rp 90.000
+  - Backup & Penyelamatan Data Partisi: +Rp 40.000 – Rp 70.000
+  - Penggantian Baterai Laptop OEM/Original: +Rp 280.000 – Rp 480.000
+- **Catatan Penting:** Pemilihan SSD & RAM pada kalkulator sudah *ALL-IN* mencakup unit sparepart baru + jasa pemasangan presisi dan uji kompatibilitas/stabilitas BIOS.
 - **Promo Hari Jum'at:** Diskon 10% untuk seluruh pengerjaan servis hardware.
 
 ### 6.2 Pembuatan Website & Solusi AI

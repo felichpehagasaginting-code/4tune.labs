@@ -216,7 +216,11 @@ export function CostEstimator() {
                       </div>
                       {opt.description && <span className="opt-desc">{opt.description}</span>}
                       <span className="opt-price">
-                        {opt.minPrice === 0 ? "Gratis / Lewati" : `${formatRupiah(opt.minPrice)}`}
+                        {opt.minPrice === 0
+                          ? "Gratis / Lewati"
+                          : opt.minPrice === opt.maxPrice
+                          ? formatRupiah(opt.minPrice)
+                          : `${formatRupiah(opt.minPrice)} – ${formatRupiah(opt.maxPrice)}`}
                       </span>
                     </button>
                   ))}
@@ -273,7 +277,11 @@ export function CostEstimator() {
                       </div>
                       {opt.description && <span className="opt-desc">{opt.description}</span>}
                       <span className="opt-price">
-                        {opt.minPrice === 0 ? "Tidak Ditambah" : `${formatRupiah(opt.minPrice)}`}
+                        {opt.minPrice === 0
+                          ? "Tidak Ditambah"
+                          : opt.minPrice === opt.maxPrice
+                          ? formatRupiah(opt.minPrice)
+                          : `${formatRupiah(opt.minPrice)} – ${formatRupiah(opt.maxPrice)}`}
                       </span>
                     </button>
                   ))}
@@ -368,7 +376,7 @@ export function CostEstimator() {
                 <p className="summary-explain">
                   {isZeroSelection
                     ? "Silakan pilih minimal satu opsi penyimpanan (SSD), RAM, atau layanan servis untuk memunculkan estimasi biaya."
-                    : "Estimasi biaya ramah mahasiswa/UMKM berdasarkan harga unit sparepart baru bergaransi dan jasa pengerjaan. Tanpa biaya siluman."}
+                    : "Estimasi biaya ALL-IN ramah mahasiswa/UMKM: sudah mencakup unit sparepart baru bergaransi resmi, jasa bongkar-pasang presisi, serta pengujian stabilitas BIOS. Tanpa biaya siluman."}
                 </p>
 
                 <div className="summary-list">
@@ -415,7 +423,7 @@ export function CostEstimator() {
                 </div>
 
                 <span className="summary-guarantee">
-                  <i /> Ditangani langsung oleh Sukron (&ldquo;Cuklon&rdquo;) &amp; Zulkifli (&ldquo;Mamad&rdquo;).
+                  <i /> Sudah termasuk jasa pemasangan presisi &amp; dites langsung oleh Sukron (&ldquo;Cuklon&rdquo;) &amp; Zulkifli (&ldquo;Mamad&rdquo;).
                 </span>
               </div>
             </div>

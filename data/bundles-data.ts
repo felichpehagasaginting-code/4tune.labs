@@ -20,8 +20,8 @@ export const BUNDLES_DATA: BundleItem[] = [
     badgeType: "hot",
     title: "Paket Skripsi Anti-Panik",
     targetUser: "Mahasiswa tingkat akhir yang butuh laptop ngebut, adem, dan data tersimpan aman.",
-    priceDisplay: "Mulai Rp 540.000",
-    priceNote: "Sudah termasuk unit SSD 512GB NVMe baru & jasa",
+    priceDisplay: "Mulai Rp 980.000",
+    priceNote: "Sudah termasuk unit SSD 512GB NVMe baru & jasa lengkap",
     description: "Kombinasi lengkap agar laptop Anda tidak lag saat membuka ratusan halaman dokumen, olah data SPSS/Python, atau meeting daring bersama dosen pembimbing.",
     features: [
       "Upgrade SSD 512 GB NVMe Kecepatan Tinggi",

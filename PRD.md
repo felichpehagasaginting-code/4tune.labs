@@ -61,7 +61,7 @@ Studio ini mengusung moto **"Dari kode web hingga hardware, beres tanpa perantar
 * Tiga pilihan paket terstruktur:
   1. **Paket Mahasiswa Fresh & Kencang (Rp 120k – 170k):** Deep cleaning, pasta pendingin, optimasi startup, diskon hari Jum'at.
   2. **Paket UMKM Go-Online (Rp 450k – 850k):** Landing page Next.js, mobile friendly, integrasi WA & Maps, SEO lokal.
-  3. **Paket Kreator & AI Ready (Rp 1.2jt – 2.5jt):** Rakit workstation/upgrade maksimal, integrasi agen AI/dashboard interaktif.
+  3. **Paket Kreator & AI Ready (Rp 2.5jt – 6.5jt):** Rakit workstation/upgrade maksimal, integrasi agen AI/dashboard interaktif.
 * Checklist pekerjaan transparan dan penanggung jawab teknisi tertera pada masing-masing paket.
 
 ### 2.4 CostEstimator (Kalkulator Biaya Interaktif)
