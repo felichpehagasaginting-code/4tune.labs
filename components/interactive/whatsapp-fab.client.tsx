@@ -76,7 +76,9 @@ export function WhatsAppFab() {
               onClick={() => setIsOpen(false)}
             >
               <div className="wa-channel-icon" aria-hidden="true">
-                🛠️
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+                </svg>
               </div>
               <div className="wa-channel-info">
                 <div className="wa-channel-name">
@@ -99,7 +101,11 @@ export function WhatsAppFab() {
               onClick={() => setIsOpen(false)}
             >
               <div className="wa-channel-icon" aria-hidden="true">
-                💻
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                  <line x1="8" y1="21" x2="16" y2="21" />
+                  <line x1="12" y1="17" x2="12" y2="21" />
+                </svg>
               </div>
               <div className="wa-channel-info">
                 <div className="wa-channel-name">
@@ -115,7 +121,13 @@ export function WhatsAppFab() {
           </div>
 
           <div className="wa-popover-footer">
-            <span>📍 Asrama Sarana Citra Widya Edukasi (Bekasi)</span>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: "6px", justifyContent: "center" }}>
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+              Asrama Sarana Citra Widya Edukasi (Bekasi)
+            </span>
           </div>
         </div>
       )}

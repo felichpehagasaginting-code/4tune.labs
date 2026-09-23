@@ -17,7 +17,7 @@ interface PresetItem {
   id: string;
   title: string;
   badge: string;
-  icon: string;
+  icon: React.ReactNode;
   desc: string;
   ssd: string;
   ram: string;
@@ -31,7 +31,12 @@ const HARDWARE_PRESETS: PresetItem[] = [
     id: "skripsi",
     title: "Paket Skripsi Ngebut",
     badge: "Paling Diminati",
-    icon: "🎓",
+    icon: (
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+        <path d="M6 12v5c3 3 9 3 12 0v-5" />
+      </svg>
+    ),
     desc: "SSD 512GB + Deep Clean + Backup Data",
     ssd: "ssd-512-gen3",
     ram: "ram-none",
@@ -43,7 +48,11 @@ const HARDWARE_PRESETS: PresetItem[] = [
     id: "adem",
     title: "Laptop Dingin & Segar",
     badge: "Servis Hemat",
-    icon: "❄️",
+    icon: (
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z" />
+      </svg>
+    ),
     desc: "Deep Clean + Repasta Termal Premium",
     ssd: "ssd-none",
     ram: "ram-none",
@@ -55,7 +64,11 @@ const HARDWARE_PRESETS: PresetItem[] = [
     id: "bawa-part",
     title: "Bawa Part Sendiri",
     badge: "Jasa Saja",
-    icon: "🛠️",
+    icon: (
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+      </svg>
+    ),
     desc: "Jasa Pasang SSD/RAM & Tes BIOS",
     ssd: "ssd-none",
     ram: "ram-none",
@@ -67,7 +80,11 @@ const HARDWARE_PRESETS: PresetItem[] = [
     id: "gaming",
     title: "Gaming & Render Maksimal",
     badge: "Performa Tinggi",
-    icon: "⚡",
+    icon: (
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+      </svg>
+    ),
     desc: "SSD 1TB Gen 4 + RAM 16GB DDR5 + Deep Clean",
     ssd: "ssd-1tb-gen4",
     ram: "ram-16gb-ddr5",
@@ -586,7 +603,7 @@ export function CostEstimator() {
                   <div className="toggle-ui" />
                   <div>
                     <span className="toggle-title">
-                      {isRealFriday ? "🎉 Promo Spesial Hari Jum'at (Aktif Otomatis)" : "Klaim Promo Spesial Hari Jum'at"}
+                      {isRealFriday ? "Promo Spesial Hari Jum'at (Aktif Otomatis)" : "Klaim Promo Spesial Hari Jum'at"}
                     </span>
                     <p className="toggle-sub">Dapatkan potongan diskon 10% untuk seluruh pengerjaan servis hardware di hari Jum&apos;at.</p>
                   </div>
@@ -610,7 +627,7 @@ export function CostEstimator() {
                   )}
                   {isFridayPromo && !isZeroSelection && (
                     <span className="discount-tag">
-                      {isRealFriday ? "🎉 Diskon Jum'at 10% Aktif" : "Sudah Termasuk Diskon 10%"}
+                      {isRealFriday ? "Diskon Jum'at 10% Aktif" : "Sudah Termasuk Diskon 10%"}
                     </span>
                   )}
                 </div>
@@ -682,7 +699,12 @@ export function CostEstimator() {
                     {isFridayPromo && !isZeroSelection && discountMin > 0 && (
                       <div className="breakdown-row breakdown-row-discount">
                         <div className="breakdown-left">
-                          <span className="breakdown-name">🎉 Diskon Spesial Hari Jum&apos;at (10%)</span>
+                          <span className="breakdown-name" style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                            </svg>
+                            <span>Diskon Spesial Hari Jum&apos;at (10%)</span>
+                          </span>
                           <span className="breakdown-detail">Potongan langsung seluruh hardware &amp; servis</span>
                         </div>
                         <span className="breakdown-discount-val">
@@ -715,9 +737,13 @@ export function CostEstimator() {
                   <button
                     type="button"
                     onClick={() => copyToClipboard("+6283894496994", "hw-no")}
-                    style={{ fontSize: "11.5px", fontFamily: "var(--font-mono)", color: "rgba(244,242,234,0.7)", background: "none", border: "none", cursor: "pointer", padding: "0" }}
+                    style={{ fontSize: "11.5px", fontFamily: "var(--font-mono)", color: "rgba(244,242,234,0.7)", background: "none", border: "none", cursor: "pointer", padding: "0", display: "inline-flex", alignItems: "center", gap: "5px" }}
                   >
-                    {copiedType === "hw-no" ? "✓ No WA Sukron Tersalin!" : "📋 Salin No WA (+62 838-9449-6994)"}
+                    <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                    </svg>
+                    <span>{copiedType === "hw-no" ? "No WA Sukron Tersalin!" : "Salin No WA (+62 838-9449-6994)"}</span>
                   </button>
                 </div>
 
@@ -844,9 +870,13 @@ export function CostEstimator() {
                   <button
                     type="button"
                     onClick={() => copyToClipboard("+6282386526982", "sw-no")}
-                    style={{ fontSize: "11.5px", fontFamily: "var(--font-mono)", color: "rgba(244,242,234,0.7)", background: "none", border: "none", cursor: "pointer", padding: "0" }}
+                    style={{ fontSize: "11.5px", fontFamily: "var(--font-mono)", color: "rgba(244,242,234,0.7)", background: "none", border: "none", cursor: "pointer", padding: "0", display: "inline-flex", alignItems: "center", gap: "5px" }}
                   >
-                    {copiedType === "sw-no" ? "✓ No WA Felich Tersalin!" : "📋 Salin No WA (+62 823-8652-6982)"}
+                    <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                    </svg>
+                    <span>{copiedType === "sw-no" ? "No WA Felich Tersalin!" : "Salin No WA (+62 823-8652-6982)"}</span>
                   </button>
                 </div>
 

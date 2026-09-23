@@ -77,7 +77,12 @@ export function BeforeAfterSlider() {
             {/* "AFTER" Layer (Underneath / Full Width) */}
             <div className="ba-layer ba-after">
               <div className="ba-visual-card after-card">
-                <div className="ba-chip clean">✅ SESUDAH SERVIS (4tune.labs)</div>
+                <div className="ba-chip clean" style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                  <span>SESUDAH SERVIS (4tune.labs)</span>
+                </div>
                 <div className="ba-mockup-content">
                   {/* Schematic representation of clean heatsink & fan */}
                   <svg viewBox="0 0 600 360" className="ba-schematic-svg" aria-hidden="true">
@@ -139,7 +144,14 @@ export function BeforeAfterSlider() {
               style={{ clipPath: `polygon(0 0, ${sliderPos}% 0, ${sliderPos}% 100%, 0 100%)` }}
             >
               <div className="ba-visual-card before-card">
-                <div className="ba-chip dirty">⚠️ SEBELUM SERVIS (Kotor &amp; Kering)</div>
+                <div className="ba-chip dirty" style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                    <line x1="12" y1="9" x2="12" y2="13" />
+                    <line x1="12" y1="17" x2="12.01" y2="17" />
+                  </svg>
+                  <span>SEBELUM SERVIS (Kotor &amp; Kering)</span>
+                </div>
                 <div className="ba-mockup-content">
                   {/* Schematic representation of clogged dirty heatsink & fan */}
                   <svg viewBox="0 0 600 360" className="ba-schematic-svg" aria-hidden="true">
@@ -225,8 +237,13 @@ export function BeforeAfterSlider() {
           </div>
 
           <div className="ba-caption">
-            <p>
-              💡 <em>Geser garis tengah ke kiri / kanan (atau gunakan tombol panah keyboard) untuk membandingkan kondisi modul thermal sebelum dan sesudah penanganan teknisi 4tune.labs.</em>
+            <p style={{ display: "inline-flex", alignItems: "center", gap: "6px", justifyContent: "center" }}>
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, color: "var(--amber)" }} aria-hidden="true">
+                <line x1="9" y1="18" x2="15" y2="18" />
+                <line x1="10" y1="22" x2="14" y2="22" />
+                <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14" />
+              </svg>
+              <span><em>Geser garis tengah ke kiri / kanan (atau gunakan tombol panah keyboard) untuk membandingkan kondisi modul thermal sebelum dan sesudah penanganan teknisi 4tune.labs.</em></span>
             </p>
           </div>
         </div>

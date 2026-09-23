@@ -136,7 +136,12 @@ export function SolutionFinder() {
       <div className="accordion-stack">
         {filteredSolutions.length === 0 ? (
           <div className="solution-empty-state" data-reveal>
-            <div className="empty-icon">🔍</div>
+            <div className="empty-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" style={{ margin: "0 auto", color: "var(--amber)" }}>
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+            </div>
             <h3>Keluhan Anda Belum Tercantum?</h3>
             <p>
               Jangan khawatir. Tidak semua masalah laptop atau kebutuhan sistem tercatat di daftar ini.

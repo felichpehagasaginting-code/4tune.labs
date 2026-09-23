@@ -36,7 +36,7 @@ export function Footer() {
               </div>
               <div className="flex items-center gap-2 text-muted">
                 <Activity size={13} className="text-neutral-300" />
-                <span>Base: Indonesia 🇮🇩 // Mahasiswa Rekayasa</span>
+                <span>Base: Indonesia (ID) // Mahasiswa Rekayasa</span>
               </div>
             </div>
           </div>
