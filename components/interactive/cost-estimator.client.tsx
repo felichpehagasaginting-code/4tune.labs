@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { HARDWARE_PRICING, SOFTWARE_PRICING } from "@/data/pricing-matrix";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -13,22 +13,97 @@ function formatRupiah(amount: number): string {
   }).format(amount);
 }
 
+interface PresetItem {
+  id: string;
+  title: string;
+  badge: string;
+  icon: string;
+  desc: string;
+  ssd: string;
+  ram: string;
+  services: string[];
+  ssdFilter: "all" | "gen3" | "gen4";
+  ramFilter: "all" | "ddr4" | "ddr5";
+}
+
+const HARDWARE_PRESETS: PresetItem[] = [
+  {
+    id: "skripsi",
+    title: "Paket Skripsi Ngebut",
+    badge: "Paling Diminati",
+    icon: "🎓",
+    desc: "SSD 512GB + Deep Clean + Backup Data",
+    ssd: "ssd-512-gen3",
+    ram: "ram-none",
+    services: ["deep-clean", "backup-data"],
+    ssdFilter: "gen3",
+    ramFilter: "all",
+  },
+  {
+    id: "adem",
+    title: "Laptop Dingin & Segar",
+    badge: "Servis Hemat",
+    icon: "❄️",
+    desc: "Deep Clean + Repasta Termal Premium",
+    ssd: "ssd-none",
+    ram: "ram-none",
+    services: ["deep-clean"],
+    ssdFilter: "all",
+    ramFilter: "all",
+  },
+  {
+    id: "bawa-part",
+    title: "Bawa Part Sendiri",
+    badge: "Jasa Saja",
+    icon: "🛠️",
+    desc: "Jasa Pasang SSD/RAM & Tes BIOS",
+    ssd: "ssd-none",
+    ram: "ram-none",
+    services: ["install-only"],
+    ssdFilter: "all",
+    ramFilter: "all",
+  },
+  {
+    id: "gaming",
+    title: "Gaming & Render Maksimal",
+    badge: "Performa Tinggi",
+    icon: "⚡",
+    desc: "SSD 1TB Gen 4 + RAM 16GB DDR5 + Deep Clean",
+    ssd: "ssd-1tb-gen4",
+    ram: "ram-16gb-ddr5",
+    services: ["deep-clean"],
+    ssdFilter: "gen4",
+    ramFilter: "ddr5",
+  },
+];
+
 export function CostEstimator() {
   const [activeTab, setActiveTab] = useState<"hardware" | "software">("hardware");
   const [copiedType, setCopiedType] = useState<string>("");
   const [isRealFriday, setIsRealFriday] = useState<boolean>(false);
 
+  // Preset & Compatibility State
+  const [activePreset, setActivePreset] = useState<string>("skripsi");
+  const [laptopModel, setLaptopModel] = useState<string>("");
+  const [pricePulse, setPricePulse] = useState<boolean>(false);
+  const [showMobileBar, setShowMobileBar] = useState<boolean>(false);
+
   // Hardware State
   const [selectedSsd, setSelectedSsd] = useState<string>("ssd-512-gen3");
   const [selectedRam, setSelectedRam] = useState<string>("ram-none");
-  const [ssdFilter, setSsdFilter] = useState<"all" | "gen3" | "gen4">("all");
+  const [ssdFilter, setSsdFilter] = useState<"all" | "gen3" | "gen4">("gen3");
   const [ramFilter, setRamFilter] = useState<"all" | "ddr4" | "ddr5">("all");
-  const [selectedServices, setSelectedServices] = useState<string[]>(["deep-clean"]);
+  const [selectedServices, setSelectedServices] = useState<string[]>(["deep-clean", "backup-data"]);
   const [isFridayPromo, setIsFridayPromo] = useState<boolean>(false);
 
   // Software State
   const [selectedWebType, setSelectedWebType] = useState<string>("web-landing");
   const [selectedAddons, setSelectedAddons] = useState<string[]>(["seo-gmaps"]);
+
+  // Refs for Scroll Detection
+  const estimatorWrapperRef = useRef<HTMLDivElement>(null);
+  const summaryRef = useRef<HTMLDivElement>(null);
+  const swSummaryRef = useRef<HTMLDivElement>(null);
 
   // Detect real-world Friday on client mount
   useEffect(() => {
@@ -39,6 +114,57 @@ export function CostEstimator() {
         setIsFridayPromo(true);
       }
     }
+  }, []);
+
+  // Trigger pulse micro-interaction on price changes
+  useEffect(() => {
+    setPricePulse(true);
+    const timer = setTimeout(() => setPricePulse(false), 450);
+    return () => clearTimeout(timer);
+  }, [selectedSsd, selectedRam, selectedServices, isFridayPromo, selectedWebType, selectedAddons]);
+
+  // Mobile Sticky Floating Bar Scroll Listener
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const handleScroll = () => {
+      if (!estimatorWrapperRef.current) return;
+      const wrapRect = estimatorWrapperRef.current.getBoundingClientRect();
+      const isInside = wrapRect.top < window.innerHeight * 0.75 && wrapRect.bottom > 180;
+
+      const currentCard = activeTab === "hardware" ? summaryRef.current : swSummaryRef.current;
+      let isSummaryInView = false;
+      if (currentCard) {
+        const sumRect = currentCard.getBoundingClientRect();
+        isSummaryInView = sumRect.top < window.innerHeight - 80 && sumRect.bottom > 80;
+      }
+
+      setShowMobileBar(isInside && !isSummaryInView);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [activeTab]);
+
+  // Listen to external preset selection (e.g. from CuratedBundles)
+  useEffect(() => {
+    const handleCustomPreset = (e: Event) => {
+      const customEv = e as CustomEvent<{ presetId: string; tab?: "hardware" | "software" }>;
+      if (!customEv.detail) return;
+      if (customEv.detail.tab) {
+        setActiveTab(customEv.detail.tab);
+      }
+      if (customEv.detail.presetId) {
+        const found = HARDWARE_PRESETS.find((p) => p.id === customEv.detail.presetId);
+        if (found) {
+          applyPreset(found);
+        }
+      }
+    };
+
+    window.addEventListener("4tune:apply-preset", handleCustomPreset);
+    return () => window.removeEventListener("4tune:apply-preset", handleCustomPreset);
   }, []);
 
   const handleTabChange = (tab: "hardware" | "software") => {
@@ -56,6 +182,48 @@ export function CostEstimator() {
     }
   };
 
+  const scrollToSummary = () => {
+    const target = activeTab === "hardware" ? summaryRef.current : swSummaryRef.current;
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  };
+
+  const applyPreset = (preset: PresetItem) => {
+    setActivePreset(preset.id);
+    setSelectedSsd(preset.ssd);
+    setSelectedRam(preset.ram);
+    setSelectedServices(preset.services);
+    setSsdFilter(preset.ssdFilter);
+    setRamFilter(preset.ramFilter);
+    setTimeout(() => ScrollTrigger.refresh(), 100);
+  };
+
+  const handleSsdSelect = (ssdId: string) => {
+    setSelectedSsd(ssdId);
+    setActivePreset("custom");
+  };
+
+  const handleRamSelect = (ramId: string) => {
+    setSelectedRam(ramId);
+    setActivePreset("custom");
+  };
+
+  const toggleHardwareService = (serviceId: string) => {
+    setSelectedServices((prev) =>
+      prev.includes(serviceId) ? prev.filter((id) => id !== serviceId) : [...prev, serviceId]
+    );
+    setActivePreset("custom");
+    setTimeout(() => ScrollTrigger.refresh(), 100);
+  };
+
+  const toggleSoftwareAddon = (addonId: string) => {
+    setSelectedAddons((prev) =>
+      prev.includes(addonId) ? prev.filter((id) => id !== addonId) : [...prev, addonId]
+    );
+    setTimeout(() => ScrollTrigger.refresh(), 100);
+  };
+
   // Filter hardware options based on generation pills
   const filteredSsdOptions = HARDWARE_PRICING.ssd.options.filter((opt) => {
     if (opt.id === "ssd-none") return true;
@@ -69,20 +237,26 @@ export function CostEstimator() {
     return opt.generation === ramFilter;
   });
 
-  // Calculate Hardware Total
+  // Calculate Hardware Total & Discounts
   const currentSsd = HARDWARE_PRICING.ssd.options.find((o) => o.id === selectedSsd) || HARDWARE_PRICING.ssd.options[0];
   const currentRam = HARDWARE_PRICING.ram.options.find((o) => o.id === selectedRam) || HARDWARE_PRICING.ram.options[0];
   const currentServices = HARDWARE_PRICING.services.filter((s) => selectedServices.includes(s.id));
 
   const isZeroSelection = currentSsd.id === "ssd-none" && currentRam.id === "ram-none" && currentServices.length === 0;
 
-  let hwMin = currentSsd.minPrice + currentRam.minPrice + currentServices.reduce((acc, curr) => acc + curr.minPrice, 0);
-  let hwMax = currentSsd.maxPrice + currentRam.maxPrice + currentServices.reduce((acc, curr) => acc + curr.maxPrice, 0);
+  const rawHwMin = currentSsd.minPrice + currentRam.minPrice + currentServices.reduce((acc, curr) => acc + curr.minPrice, 0);
+  const rawHwMax = currentSsd.maxPrice + currentRam.maxPrice + currentServices.reduce((acc, curr) => acc + curr.maxPrice, 0);
+
+  let hwMin = rawHwMin;
+  let hwMax = rawHwMax;
 
   if (isFridayPromo && !isZeroSelection) {
     hwMin = Math.round(hwMin * 0.9);
     hwMax = Math.round(hwMax * 0.9);
   }
+
+  const discountMin = isFridayPromo && !isZeroSelection ? rawHwMin - hwMin : 0;
+  const discountMax = isFridayPromo && !isZeroSelection ? rawHwMax - hwMax : 0;
 
   // Calculate Software Total
   const currentWebType = SOFTWARE_PRICING.type.options.find((o) => o.id === selectedWebType) || SOFTWARE_PRICING.type.options[0];
@@ -92,21 +266,8 @@ export function CostEstimator() {
   const swMax = currentWebType.maxPrice + currentAddons.reduce((acc, curr) => acc + curr.maxPrice, 0);
 
   // Generate WhatsApp Links
-  const toggleHardwareService = (serviceId: string) => {
-    setSelectedServices((prev) =>
-      prev.includes(serviceId) ? prev.filter((id) => id !== serviceId) : [...prev, serviceId]
-    );
-    setTimeout(() => ScrollTrigger.refresh(), 100);
-  };
-
-  const toggleSoftwareAddon = (addonId: string) => {
-    setSelectedAddons((prev) =>
-      prev.includes(addonId) ? prev.filter((id) => id !== addonId) : [...prev, addonId]
-    );
-    setTimeout(() => ScrollTrigger.refresh(), 100);
-  };
-
   const getHardwareWaUrl = () => {
+    const modelNote = laptopModel.trim() ? `- Tipe Laptop: ${laptopModel.trim()}%0A` : "";
     const ssdLabel =
       currentSsd.id === "ssd-none"
         ? "Tidak perlu SSD"
@@ -118,7 +279,7 @@ export function CostEstimator() {
     const servLabels = currentServices.length > 0 ? currentServices.map((s) => s.label).join(", ") : "Tidak ada servis tambahan";
     const promoNote = isFridayPromo ? " (Diskon Hari Jum'at Aktif 10%)" : "";
 
-    const message = `Hai Sukron (4tune.labs), saya cek estimasi biaya servis di web:%0A- SSD: ${ssdLabel}%0A- RAM: ${ramLabel}%0A- Layanan: ${servLabels}${promoNote}%0A- Estimasi Biaya: ${formatRupiah(hwMin)} – ${formatRupiah(hwMax)}.%0A%0ABisa bantu cek ketersediaan sparepart dan waktu pengerjaan untuk laptop saya? Terima kasih.`;
+    const message = `Hai Sukron (4tune.labs), saya cek estimasi biaya servis di web:%0A${modelNote}- SSD: ${ssdLabel}%0A- RAM: ${ramLabel}%0A- Layanan: ${servLabels}${promoNote}%0A- Estimasi Biaya: ${formatRupiah(hwMin)} – ${formatRupiah(hwMax)}.%0A%0ABisa bantu cek ketersediaan sparepart dan waktu pengerjaan untuk laptop saya? Terima kasih.`;
     return `https://wa.me/6283894496994?text=${message}`;
   };
 
@@ -131,7 +292,7 @@ export function CostEstimator() {
   };
 
   return (
-    <div className="estimator-wrapper">
+    <div className="estimator-wrapper" ref={estimatorWrapperRef}>
       {/* Switcher Tab */}
       <div className="estimator-tabs" role="tablist" aria-label="Pilih Divisi Estimasi">
         <button
@@ -166,6 +327,86 @@ export function CostEstimator() {
           /* ================= HARDWARE ESTIMATOR ================= */
           <div className="estimator-grid">
             <div className="estimator-inputs">
+              {/* Feature 4: 1-Click Solution Presets */}
+              <div className="estimator-presets-block">
+                <span className="presets-label">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                  </svg>
+                  <span>Pilih Cepat Berdasarkan Kebutuhan (1-Click Preset)</span>
+                </span>
+                <div className="presets-grid">
+                  {HARDWARE_PRESETS.map((preset) => {
+                    const isPresetActive = activePreset === preset.id;
+                    return (
+                      <button
+                        key={preset.id}
+                        type="button"
+                        onClick={() => applyPreset(preset)}
+                        className={`preset-chip ${isPresetActive ? "active" : ""}`}
+                      >
+                        <div className="preset-top">
+                          <span className="preset-icon">{preset.icon}</span>
+                          <span className="preset-badge">{preset.badge}</span>
+                        </div>
+                        <span className="preset-title">{preset.title}</span>
+                        <span className="preset-desc">{preset.desc}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Feature 2: Laptop Compatibility Helper & Model Input */}
+              <div className="compat-helper">
+                <div className="compat-info-row">
+                  <div className="compat-badge-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <circle cx="12" cy="12" r="10" />
+                      <line x1="12" y1="16" x2="12" y2="12" />
+                      <line x1="12" y1="8" x2="12.01" y2="8" />
+                    </svg>
+                  </div>
+                  <div className="compat-text">
+                    <span className="compat-title">Bingung Tipe Slot RAM atau SSD Laptop Anda?</span>
+                    <p className="compat-desc">
+                      Tekan <code>Ctrl + Shift + Esc</code> → tab <b>Performance</b> → <b>Memory</b> di Windows untuk cek jenis DDR4/DDR5. Atau ketikkan tipe laptop Anda di bawah ini agar teknisi (Sukron &amp; Mamad) langsung memeriksa kompatibilitasnya.
+                    </p>
+                  </div>
+                </div>
+                <div className="laptop-input-wrapper">
+                  <label htmlFor="laptop-model-input" className="laptop-input-label">
+                    <span>Seri / Tipe Laptop Anda</span>
+                    <span className="optional-tag">Opsional • Terhubung Otomatis ke WhatsApp</span>
+                  </label>
+                  <div className="input-with-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                      <line x1="2" y1="20" x2="22" y2="20" />
+                    </svg>
+                    <input
+                      id="laptop-model-input"
+                      type="text"
+                      value={laptopModel}
+                      onChange={(e) => setLaptopModel(e.target.value)}
+                      placeholder="Contoh: Asus TUF Gaming A15, Lenovo Ideapad Slim 3, Acer Nitro 5..."
+                      className="laptop-input"
+                    />
+                    {laptopModel && (
+                      <button
+                        type="button"
+                        onClick={() => setLaptopModel("")}
+                        className="clear-input-btn"
+                        title="Hapus input"
+                        aria-label="Hapus input tipe laptop"
+                      >
+                        ×
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+
               {/* SSD Choice */}
               <div className="input-group">
                 <label className="group-label">
@@ -203,7 +444,7 @@ export function CostEstimator() {
                     <button
                       key={opt.id}
                       type="button"
-                      onClick={() => setSelectedSsd(opt.id)}
+                      onClick={() => handleSsdSelect(opt.id)}
                       className={`option-btn ${selectedSsd === opt.id ? "selected" : ""}`}
                     >
                       <div className="opt-header-row">
@@ -264,7 +505,7 @@ export function CostEstimator() {
                     <button
                       key={opt.id}
                       type="button"
-                      onClick={() => setSelectedRam(opt.id)}
+                      onClick={() => handleRamSelect(opt.id)}
                       className={`option-btn ${selectedRam === opt.id ? "selected" : ""}`}
                     >
                       <div className="opt-header-row">
@@ -354,10 +595,10 @@ export function CostEstimator() {
             </div>
 
             {/* Hardware Result Card */}
-            <div className="estimator-summary">
+            <div className="estimator-summary" ref={summaryRef}>
               <div className="summary-card">
                 <span className="summary-kicker">Estimasi Biaya Transparan</span>
-                <div className="summary-price">
+                <div className={`summary-price ${pricePulse ? "price-pulse" : ""}`}>
                   {isZeroSelection ? (
                     <span className="price-val" style={{ fontSize: "1.35rem", color: "var(--amber)" }}>
                       Pilih Kebutuhan Anda
@@ -379,18 +620,76 @@ export function CostEstimator() {
                     : "Estimasi biaya ALL-IN ramah mahasiswa/UMKM: sudah mencakup unit sparepart baru bergaransi resmi, jasa bongkar-pasang presisi, serta pengujian stabilitas BIOS. Tanpa biaya siluman."}
                 </p>
 
-                <div className="summary-list">
-                  <div className="s-row">
-                    <span>Penyimpanan:</span>
-                    <b>{currentSsd.id === "ssd-none" ? "Tidak ada" : currentSsd.label}</b>
+                {/* Feature 3: Itemized Breakdown Table */}
+                <div className="summary-breakdown">
+                  <div className="breakdown-header">
+                    <span>Rincian Biaya Transparan</span>
+                    <span className="breakdown-subtitle">Tanpa Biaya Siluman</span>
                   </div>
-                  <div className="s-row">
-                    <span>RAM:</span>
-                    <b>{currentRam.id === "ram-none" ? "Bawaan" : currentRam.label}</b>
-                  </div>
-                  <div className="s-row">
-                    <span>Layanan Tambahan:</span>
-                    <b>{currentServices.length > 0 ? `${currentServices.length} Item Terpilih` : "Nol"}</b>
+
+                  <div className="breakdown-list">
+                    {/* SSD Breakdown */}
+                    <div className="breakdown-row">
+                      <div className="breakdown-left">
+                        <span className="breakdown-name">Penyimpanan (SSD)</span>
+                        <span className="breakdown-detail">
+                          {currentSsd.id === "ssd-none" ? "Tidak perlu SSD baru" : currentSsd.label}
+                        </span>
+                      </div>
+                      <span className="breakdown-val">
+                        {currentSsd.minPrice === 0 ? "Rp 0" : `${formatRupiah(currentSsd.minPrice)} – ${formatRupiah(currentSsd.maxPrice)}`}
+                      </span>
+                    </div>
+
+                    {/* RAM Breakdown */}
+                    <div className="breakdown-row">
+                      <div className="breakdown-left">
+                        <span className="breakdown-name">Memori (RAM)</span>
+                        <span className="breakdown-detail">
+                          {currentRam.id === "ram-none" ? "RAM bawaan cukup" : currentRam.label}
+                        </span>
+                      </div>
+                      <span className="breakdown-val">
+                        {currentRam.minPrice === 0 ? "Rp 0" : `${formatRupiah(currentRam.minPrice)} – ${formatRupiah(currentRam.maxPrice)}`}
+                      </span>
+                    </div>
+
+                    {/* Services Breakdown */}
+                    {currentServices.map((serv) => (
+                      <div key={serv.id} className="breakdown-row">
+                        <div className="breakdown-left">
+                          <span className="breakdown-name">{serv.label}</span>
+                          <span className="breakdown-detail">Layanan servis pengerjaan</span>
+                        </div>
+                        <span className="breakdown-val">
+                          +{formatRupiah(serv.minPrice)} – +{formatRupiah(serv.maxPrice)}
+                        </span>
+                      </div>
+                    ))}
+
+                    {/* Installation Status */}
+                    {(currentSsd.id !== "ssd-none" || currentRam.id !== "ram-none") && (
+                      <div className="breakdown-row breakdown-row-highlight">
+                        <div className="breakdown-left">
+                          <span className="breakdown-name">Jasa Pasang &amp; Uji Diagnostik</span>
+                          <span className="breakdown-detail">Bongkar pasang presisi + memory/burn-in test BIOS</span>
+                        </div>
+                        <span className="badge-included">Termasuk (Gratis)</span>
+                      </div>
+                    )}
+
+                    {/* Friday Promo Discount Highlight */}
+                    {isFridayPromo && !isZeroSelection && discountMin > 0 && (
+                      <div className="breakdown-row breakdown-row-discount">
+                        <div className="breakdown-left">
+                          <span className="breakdown-name">🎉 Diskon Spesial Hari Jum&apos;at (10%)</span>
+                          <span className="breakdown-detail">Potongan langsung seluruh hardware &amp; servis</span>
+                        </div>
+                        <span className="breakdown-discount-val">
+                          -{formatRupiah(discountMin)} – -{formatRupiah(discountMax)}
+                        </span>
+                      </div>
+                    )}
                   </div>
                 </div>
 
@@ -504,10 +803,10 @@ export function CostEstimator() {
             </div>
 
             {/* Software Result Card */}
-            <div className="estimator-summary">
+            <div className="estimator-summary" ref={swSummaryRef}>
               <div className="summary-card">
                 <span className="summary-kicker">Estimasi Pengembangan Web</span>
-                <div className="summary-price">
+                <div className={`summary-price ${pricePulse ? "price-pulse" : ""}`}>
                   <span className="price-val">{formatRupiah(swMin)} – {formatRupiah(swMax)}</span>
                 </div>
                 <p className="summary-explain">
@@ -558,6 +857,50 @@ export function CostEstimator() {
             </div>
           </div>
         )}
+      </div>
+
+      {/* Feature 1: Mobile Sticky Floating Summary Bar */}
+      <div
+        className={`mobile-floating-bar ${showMobileBar ? "visible" : ""}`}
+        aria-live="polite"
+      >
+        <div className="mobile-bar-inner">
+          <div className="mobile-bar-left">
+            <span className="mobile-bar-label">
+              Total {activeTab === "hardware" ? "Hardware" : "Website"}
+              {activeTab === "hardware" && isFridayPromo && !isZeroSelection && (
+                <span className="mobile-bar-promo">Disc 10%</span>
+              )}
+            </span>
+            <span className={`mobile-bar-price ${pricePulse ? "price-pulse" : ""}`}>
+              {activeTab === "hardware"
+                ? isZeroSelection
+                  ? "Pilih Kebutuhan"
+                  : `${formatRupiah(hwMin)} – ${formatRupiah(hwMax)}`
+                : `${formatRupiah(swMin)} – ${formatRupiah(swMax)}`}
+            </span>
+          </div>
+          <div className="mobile-bar-right">
+            <button
+              type="button"
+              className="mobile-bar-details-btn"
+              onClick={scrollToSummary}
+            >
+              Rincian
+            </button>
+            <a
+              className="btn btn-primary mobile-bar-cta"
+              target="_blank"
+              rel="noopener noreferrer"
+              href={activeTab === "hardware" ? getHardwareWaUrl() : getSoftwareWaUrl()}
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+              </svg>
+              <span>Chat WA ↗</span>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   );

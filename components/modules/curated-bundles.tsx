@@ -1,7 +1,42 @@
+"use client";
+
 import React from "react";
 import { BUNDLES_DATA, BundleItem } from "@/data/bundles-data";
+import { useLenis } from "@/providers/smooth-scroll.client";
 
 export function CuratedBundles() {
+  const lenis = useLenis();
+
+  const handleCustomizeInEstimator = (bundleId: string) => {
+    let presetId = "skripsi";
+    let tab: "hardware" | "software" = "hardware";
+
+    if (bundleId === "bundle-fresh") {
+      presetId = "adem";
+    } else if (bundleId === "bundle-creators") {
+      presetId = "gaming";
+    } else if (bundleId === "bundle-umkm") {
+      tab = "software";
+    }
+
+    // Dispatch event to cost estimator
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(
+        new CustomEvent("4tune:apply-preset", {
+          detail: { presetId, tab },
+        })
+      );
+    }
+
+    // Smooth scroll to calculator
+    if (lenis) {
+      lenis.scrollTo("#kalkulator-biaya", { offset: -72 });
+    } else {
+      const el = document.getElementById("kalkulator-biaya");
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <div className="bundles-grid">
       {BUNDLES_DATA.map((bundle: BundleItem) => (
@@ -39,14 +74,23 @@ export function CuratedBundles() {
               DIPERIKSA OLEH<br />
               <strong>{bundle.leadPerson}</strong>
             </span>
-            <a
-              className="btn btn-primary btn-sm magnetic w-full"
-              target="_blank"
-              rel="noopener noreferrer"
-              href={bundle.waLink}
-            >
-              {bundle.ctaText} ↗
-            </a>
+            <div className="bundle-actions">
+              <a
+                className="btn btn-primary btn-sm magnetic w-full"
+                target="_blank"
+                rel="noopener noreferrer"
+                href={bundle.waLink}
+              >
+                {bundle.ctaText} ↗
+              </a>
+              <button
+                type="button"
+                className="btn btn-ghost btn-sm w-full bundle-calc-bridge"
+                onClick={() => handleCustomizeInEstimator(bundle.id)}
+              >
+                Kustomisasi di Kalkulator ⚙️
+              </button>
+            </div>
           </div>
         </article>
       ))}
