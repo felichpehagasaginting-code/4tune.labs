@@ -50,7 +50,8 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/og-image.png",
+        url: "https://4tunelabs.vercel.app/og-image.png",
+        secureUrl: "https://4tunelabs.vercel.app/og-image.png",
         width: 1200,
         height: 630,
         alt: "4tune.labs — Studio Rekayasa Software & Servis Hardware PC",
@@ -63,7 +64,7 @@ export const metadata: Metadata = {
     title: "4tune.labs — Studio Rekayasa Software & Servis Hardware PC",
     description:
       "Dari kode web modern hingga sirkuit hardware, kami bereskan tuntas. Transparan, bergaransi, dan ramah kantong mahasiswa & UMKM.",
-    images: ["/og-image.png"],
+    images: ["https://4tunelabs.vercel.app/og-image.png"],
   },
   icons: {
     icon: "/icon.svg",
@@ -82,6 +83,9 @@ export default function RootLayout({
       className={`${plusJakarta.variable} ${jetbrainsMono.variable}`}
       suppressHydrationWarning
     >
+      <head>
+        <link rel="image_src" href="https://4tunelabs.vercel.app/og-image.png" />
+      </head>
       <body className="antialiased">
         <SmoothScrollProvider>
           {children}
