@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLenis } from "@/providers/smooth-scroll.client";
@@ -8,7 +8,6 @@ import { CostEstimator } from "@/components/interactive/cost-estimator.client";
 import { SolutionFinder } from "@/components/modules/solution-finder";
 import { CuratedBundles } from "@/components/modules/curated-bundles";
 import { LabNotes } from "@/components/modules/lab-notes";
-import { WhatsAppFab } from "@/components/interactive/whatsapp-fab.client";
 import { BeforeAfterSlider } from "@/components/interactive/before-after-slider.client";
 import { LabLocation } from "@/components/modules/lab-location";
 import { TrustGuarantee } from "@/components/modules/trust-guarantee";
@@ -42,6 +41,14 @@ export default function Home() {
     }
   };
 
+  const closeMenu = useCallback(() => {
+    setMenuOpen(false);
+    document.body.classList.remove("menu-open");
+    if (lenis) {
+      lenis.start();
+    }
+  }, [lenis]);
+
   // Close mobile drawer when an anchor link is clicked
   const handleNavClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
@@ -49,9 +56,7 @@ export default function Home() {
   ) => {
     e.preventDefault();
     if (menuOpen) {
-      setMenuOpen(false);
-      document.body.classList.remove("menu-open");
-      if (lenis) lenis.start();
+      closeMenu();
     }
 
     setTimeout(() => {
@@ -73,8 +78,7 @@ export default function Home() {
       document.body.classList.add("menu-open");
       if (lenis) lenis.stop();
     } else {
-      document.body.classList.remove("menu-open");
-      if (lenis) lenis.start();
+      closeMenu();
     }
   };
 
@@ -82,14 +86,20 @@ export default function Home() {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape" && menuOpen) {
-        setMenuOpen(false);
-        document.body.classList.remove("menu-open");
-        if (lenis) lenis.start();
+        closeMenu();
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [menuOpen, lenis]);
+  }, [menuOpen, closeMenu]);
+
+  // Deterministic scroll unfreeze on unmount
+  useEffect(() => {
+    return () => {
+      document.body.classList.remove("menu-open");
+      if (lenis) lenis.start();
+    };
+  }, [lenis]);
 
   useEffect(() => {
     if (!pageRef.current) return;
@@ -483,6 +493,18 @@ export default function Home() {
 
       {/* Mobile Drawer Menu */}
       <div className="menu-drawer" id="menu" aria-hidden={!menuOpen}>
+        <div className="menu-drawer-top">
+          <button
+            type="button"
+            className="menu-close-btn"
+            onClick={closeMenu}
+            aria-label="Tutup menu navigasi"
+          >
+            <span className="close-icon" aria-hidden="true">✕</span>
+            <span>Tutup</span>
+          </button>
+        </div>
+
         <a
           className="m-link"
           href="#solusi-kendala"
@@ -546,6 +568,7 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
             href="https://wa.me/6283894496994?text=Hai%204tune.labs%2C%20saya%20ingin%20diskusi%20soal%20proyek."
+            onClick={closeMenu}
           >
             Chat WhatsApp
           </a>
@@ -878,7 +901,7 @@ export default function Home() {
                     Penyelamat perangkat kuliah &amp; kerja Anda. Mulai dari laptop lemot yang butuh upgrade SSD &amp; ekspansi RAM
                     agar booting hitungan detik, instalasi bersih OS (Windows/Linux) &amp; software esensial, perbaikan hardware laptop &amp; PC,
                     service gadget (HP &amp; Tablet), hingga deep cleaning kipas &amp; penggantian pasta pendingin thermal. Pengerjaan transparan,
-                    data Anda aman terjamin, dan bergaransi resmi.
+                    data Anda aman terjamin, serah terima unit di Lab Kamar 304 atau antar-jemput (gratis jalan kaki asrama/kampus, kosan luar berbayar sesuai jarak), serta bergaransi resmi.
                   </p>
                   <div className="chips">
                     <span>Upgrade SSD &amp; RAM</span>
@@ -1005,7 +1028,7 @@ export default function Home() {
         {/* ================= STANDAR PRIVASI & GARANSI SOP ================= */}
         <TrustGuarantee />
 
-        {/* ================= BASIS LAB & ANTAR-JEMPUT ASRAMA SCWE ================= */}
+        {/* ================= BASIS LAB & LAYANAN ANTAR-JEMPUT ASRAMA SCWE ================= */}
         <LabLocation />
 
         {/* ================= KARYA ================= */}
@@ -1491,9 +1514,6 @@ export default function Home() {
 
       {/* Floating In-Page Section Quick-Nav Rail */}
       <QuickNavRail />
-
-      {/* Floating Dual-Role WhatsApp Speed-Dial */}
-      <WhatsAppFab />
 
       {/* Shared Logo SVG Symbol Definition */}
       <svg width="0" height="0" className="absolute pointer-events-none" aria-hidden="true">

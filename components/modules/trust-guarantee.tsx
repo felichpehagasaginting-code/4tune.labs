@@ -77,6 +77,24 @@ export function TrustGuarantee() {
             </div>
           ))}
         </div>
+
+        <div className="guarantee-pickup-banner" data-reveal>
+          <div className="pickup-banner-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="1" y="3" width="15" height="13" />
+              <polygon points="16 8 20 8 23 11 23 16 16 16 8" />
+              <circle cx="5.5" cy="18.5" r="2.5" />
+              <circle cx="18.5" cy="18.5" r="2.5" />
+            </svg>
+          </div>
+          <div className="pickup-banner-text">
+            <strong>SOP Antar-Jemput Unit &amp; Drop-Off Transparan</strong>
+            <p>
+              <strong>Gratis (Rp 0):</strong> Khusus berlaku untuk jarak yang masuk akal ditempuh dengan <em>jalan kaki</em> (dalam lingkungan Asrama SCWE, antar kamar/gedung asrama, dan kawasan utama kampus Politeknik CWE).<br />
+              <strong>Di Luar Jarak Jalan Kaki:</strong> Untuk kosan luar atau area berjarak kendaraan (Cibuntu, Gandamekar, Setu, dsk.), dikenakan ongkos kirim/bensin terjangkau sesuai jarak tempuh (atau opsi titik temu COD / kurir ojol).
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   );

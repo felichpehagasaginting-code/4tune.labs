@@ -16,14 +16,21 @@ export function BeforeAfterSlider() {
     setSliderPos(percent);
   }, []);
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (e.touches[0]) {
+      handleMove(e.touches[0].clientX);
+    }
+  };
+
   const handleTouchMove = (e: React.TouchEvent) => {
     if (e.touches[0]) {
       handleMove(e.touches[0].clientX);
     }
   };
 
-  const handleMouseDown = () => {
+  const handleMouseDown = (e: React.MouseEvent) => {
     isDragging.current = true;
+    handleMove(e.clientX);
   };
 
   const handleMouseUp = () => {
@@ -34,6 +41,10 @@ export function BeforeAfterSlider() {
     if (isDragging.current) {
       handleMove(e.clientX);
     }
+  };
+
+  const handleClick = (e: React.MouseEvent) => {
+    handleMove(e.clientX);
   };
 
   // Keyboard navigation for accessibility
@@ -70,7 +81,9 @@ export function BeforeAfterSlider() {
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}
             onMouseLeave={handleMouseUp}
+            onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
+            onClick={handleClick}
             role="region"
             aria-label="Komparasi Visual Kondisi Sebelum dan Sesudah Servis"
           >

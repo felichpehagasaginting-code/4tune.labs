@@ -31,6 +31,7 @@ Platform resmi **4tune.labs**, studio rekayasa teknologi independen yang didirik
   - Geometri vektor presisi tinggi yang memadukan 4 pita ribbon interlocking (Amber `#E4A932` & Green `#369966`), prisma rumah arsitektural (`#424449`), dan heksagon inti.
 * **SolutionFinder (Pencari Solusi Kendala):**
   - Modul diagnostik interaktif berbasis gejala keluhan nyata (laptop panas, boot lemot, tugas akhir, website UMKM).
+  - Quick Symptom Chips: chip diagnosa instan yang otomatis mengisi query pencarian dan membuka solusi terkait (*auto-expand*).
   - Filter pills kategori yang dapat digeser secara horizontal pada perangkat mobile (*touch momentum swipe*).
   - Tautan WhatsApp langsung yang membawa ringkasan diagnosa keluhan klien secara otomatis.
 * **CuratedBundles (Paket Pilihan Terkurasi):**
@@ -40,15 +41,25 @@ Platform resmi **4tune.labs**, studio rekayasa teknologi independen yang didirik
   - Kalkulator real-time dengan tab kategori dinamis (Hardware Servis vs Pembuatan Web & AI).
   - Pilihan kapasitas SSD berkecepatan tinggi (PCIe Gen 3 hemat & Gen 4 ultra-fast), ekspansi RAM (DDR4 3200MHz & DDR5 5600MHz) dengan visual badge generasi dan sub-filter pills.
   - Multi-select add-on pengerjaan hardware (deep cleaning, instalasi OS, penggantian baterai) dan toggle promo otomatis hari Jum'at (10% OFF).
+  - Visualisasi harga coret (*strike-through pricing*) proporsional saat diskon Jum'at aktif.
+  - **Swipeable Bottom Sheet (Vaul):** Rekapitulasi rincian biaya mobile terpadu tanpa scroll-jump, terkoordinasi dengan scroll engine Lenis (`data-lenis-prevent`).
   - Format pesan WhatsApp otomatis sekali klik dan tombol salin ringkasan estimasi ke clipboard.
+* **BeforeAfterSlider (Komparasi Thermal & Radiator):**
+  - Slider komparasi interaktif sebelum vs sesudah servis dengan dukungan tap instan dan touch target 44px (`touch-action: pan-y`).
+* **LabLocation & Peta Interaktif OpenFreeMap:**
+  - Basis fisik di **Asrama Sarana Citra Widya Edukasi (SCWE) Gedung 2 Lantai 3 Kamar 304**.
+  - Peta interaktif live ditenagai **OpenFreeMap** via **MapLibre GL JS** dengan worker lokal same-origin, bebas API key.
+  - Mode switcher antara Peta Interaktif Live dan Skema Radius Konsentris.
+  - Kebijakan antar-jemput transparan: **Gratis (Rp 0)** untuk jarak jalan kaki (lingkungan asrama & kampus CWE); **Berbayar** sesuai jarak tempuh untuk kosan luar atau area sekitarnya.
+  - Tombol instan salin alamat lengkap & patokan lab dengan fallback clipboard.
 * **Portfolio Showcase (Karya Terpilih) & Lab Notes:**
   - Galeri proyek rekayasa nyata (Felys AI Companion, Nettas PB AI, Sistem Pembelajaran TRPL 2026, dll.) dengan modal detail interaktif.
-  - Artikel teknis dan studi kasus pemecahan masalah hardware/software.
+  - Modal Reader Lab Notes full-screen di mobile dengan sticky header (`env(safe-area-inset-top)`) yang ramah pembaca.
 * **Command Palette (`Ctrl+K` / `Cmd+K`):**
   - Antarmuka pencarian cepat bergaya keyboard-first untuk navigasi instan antar section dan modul.
 * **Responsive Multi-Device Design:**
   - Fluid typography clamp dan zero horizontal scroll pada layar smartphone (320px–430px), tablet (768px–1024px), laptop, hingga layar desktop lebar.
-  - Menu drawer mobile dengan stacking context aman (`z-index: 120`), tombol burger silang 'X' kontras tinggi, dan dukungan tombol `ESC`.
+  - Menu drawer mobile dengan tombol tutup eksplisit `[✕ Tutup]` (44×44px), penutupan via `Escape`, dan pelepasan scroll lock Lenis deterministik.
   - Dukungan penuh iOS *safe area insets* (notch & Dynamic Island).
 
 ---

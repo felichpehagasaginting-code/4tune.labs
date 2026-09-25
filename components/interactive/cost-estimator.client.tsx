@@ -3,6 +3,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { HARDWARE_PRICING, SOFTWARE_PRICING } from "@/data/pricing-matrix";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Drawer } from "vaul";
+import { useLenis } from "@/providers/smooth-scroll.client";
 
 function formatRupiah(amount: number): string {
   if (amount === 0) return "Rp 0";
@@ -11,6 +13,11 @@ function formatRupiah(amount: number): string {
     currency: "IDR",
     maximumFractionDigits: 0,
   }).format(amount);
+}
+
+function formatPriceRange(min: number, max: number): string {
+  if (min === max) return formatRupiah(min);
+  return `${formatRupiah(min)} – ${formatRupiah(max)}`;
 }
 
 interface PresetItem {
@@ -98,12 +105,26 @@ export function CostEstimator() {
   const [activeTab, setActiveTab] = useState<"hardware" | "software">("hardware");
   const [copiedType, setCopiedType] = useState<string>("");
   const [isRealFriday, setIsRealFriday] = useState<boolean>(false);
+  const lenis = useLenis();
 
   // Preset & Compatibility State
   const [activePreset, setActivePreset] = useState<string>("skripsi");
   const [laptopModel, setLaptopModel] = useState<string>("");
   const [pricePulse, setPricePulse] = useState<boolean>(false);
   const [showMobileBar, setShowMobileBar] = useState<boolean>(false);
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState<boolean>(false);
+
+  // Sync Lenis scroll freeze with Vaul Bottom Sheet
+  useEffect(() => {
+    if (isBottomSheetOpen) {
+      if (lenis) lenis.stop();
+    } else {
+      if (lenis) lenis.start();
+    }
+    return () => {
+      if (lenis) lenis.start();
+    };
+  }, [isBottomSheetOpen, lenis]);
 
   // Hardware State
   const [selectedSsd, setSelectedSsd] = useState<string>("ssd-512-gen3");
@@ -296,7 +317,7 @@ export function CostEstimator() {
     const servLabels = currentServices.length > 0 ? currentServices.map((s) => s.label).join(", ") : "Tidak ada servis tambahan";
     const promoNote = isFridayPromo ? " (Diskon Hari Jum'at Aktif 10%)" : "";
 
-    const message = `Hai Sukron (4tune.labs), saya cek estimasi biaya servis di web:%0A${modelNote}- SSD: ${ssdLabel}%0A- RAM: ${ramLabel}%0A- Layanan: ${servLabels}${promoNote}%0A- Estimasi Biaya: ${formatRupiah(hwMin)} – ${formatRupiah(hwMax)}.%0A%0ABisa bantu cek ketersediaan sparepart dan waktu pengerjaan untuk laptop saya? Terima kasih.`;
+    const message = `Hai Sukron (4tune.labs), saya cek estimasi biaya servis di web:%0A${modelNote}- SSD: ${ssdLabel}%0A- RAM: ${ramLabel}%0A- Layanan: ${servLabels}${promoNote}%0A- Estimasi Biaya: ${formatRupiah(hwMin)} – ${formatRupiah(hwMax)}.%0A- Metode Serah Terima / Antar-Jemput: (Pilih: Drop-off Lab Kamar 304 / Gratis Jalan Kaki Asrama-Kampus CWE / Ongkir Berbayar Kosan Luar)%0A- Lokasi Saya di: [sebutkan kamar asrama / kampus / kosan luar]%0A%0ABisa bantu cek ketersediaan sparepart dan jadwal pengerjaannya? Terima kasih.`;
     return `https://wa.me/6283894496994?text=${message}`;
   };
 
@@ -603,9 +624,11 @@ export function CostEstimator() {
                   <div className="toggle-ui" />
                   <div>
                     <span className="toggle-title">
-                      {isRealFriday ? "Promo Spesial Hari Jum'at (Aktif Otomatis)" : "Klaim Promo Spesial Hari Jum'at"}
+                      {isRealFriday ? "Promo Spesial Hari Jum'at (Aktif Otomatis)" : "Klaim Promo Spesial Hari Jum'at (Diskon 10%)"}
                     </span>
-                    <p className="toggle-sub">Dapatkan potongan diskon 10% untuk seluruh pengerjaan servis hardware di hari Jum&apos;at.</p>
+                    <p className="toggle-sub">
+                      Dapatkan potongan diskon 10% untuk seluruh pengerjaan servis hardware. <strong>Booking sekarang untuk pengerjaan atau serah terima unit di hari Jum&apos;at di Lab Asrama SCWE (Gedung 2 Lantai 3 Kamar 304)</strong> agar tim teknisi kami dapat menjadwalkan slot servis lab lebih awal.
+                    </p>
                   </div>
                 </label>
               </div>
@@ -621,9 +644,16 @@ export function CostEstimator() {
                       Pilih Kebutuhan Anda
                     </span>
                   ) : (
-                    <span className="price-val">
-                      {formatRupiah(hwMin)} – {formatRupiah(hwMax)}
-                    </span>
+                    <div className="price-display-group">
+                      {isFridayPromo && discountMin > 0 && (
+                        <span className="price-original-strikethrough">
+                          {formatPriceRange(rawHwMin, rawHwMax)}
+                        </span>
+                      )}
+                      <span className="price-val">
+                        {formatPriceRange(hwMin, hwMax)}
+                      </span>
+                    </div>
                   )}
                   {isFridayPromo && !isZeroSelection && (
                     <span className="discount-tag">
@@ -634,8 +664,21 @@ export function CostEstimator() {
                 <p className="summary-explain">
                   {isZeroSelection
                     ? "Silakan pilih minimal satu opsi penyimpanan (SSD), RAM, atau layanan servis untuk memunculkan estimasi biaya."
-                    : "Estimasi biaya ALL-IN ramah mahasiswa/UMKM: sudah mencakup unit sparepart baru bergaransi resmi, jasa bongkar-pasang presisi, serta pengujian stabilitas BIOS. Tanpa biaya siluman."}
+                    : "Estimasi biaya ALL-IN ramah mahasiswa/UMKM: sudah mencakup unit sparepart baru bergaransi resmi, jasa bongkar-pasang presisi, serta pengujian stabilitas BIOS. Drop-off lab dan antar-jemput jalan kaki (asrama/kampus) gratis Rp 0; kosan luar berbayar sesuai jarak."}
                 </p>
+
+                {isFridayPromo && !isZeroSelection && (
+                  <div className="friday-edu-banner">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <circle cx="12" cy="12" r="10" />
+                      <line x1="12" y1="16" x2="12" y2="12" />
+                      <line x1="12" y1="8" x2="12.01" y2="8" />
+                    </svg>
+                    <span>
+                      <strong>Edukasi Booking Jum&apos;at:</strong> Diskon 10% berlaku khusus untuk pengerjaan servis atau serah terima unit di hari Jum&apos;at di Lab Asrama SCWE (Gedung 2 Lt. 3 Kamar 304). Booking lebih awal melalui WhatsApp agar slot part &amp; waktu teknisi langsung dialokasikan untuk Anda.
+                    </span>
+                  </div>
+                )}
 
                 {/* Feature 3: Itemized Breakdown Table */}
                 <div className="summary-breakdown">
@@ -692,6 +735,19 @@ export function CostEstimator() {
                           <span className="breakdown-detail">Bongkar pasang presisi + memory/burn-in test BIOS</span>
                         </div>
                         <span className="badge-included">Termasuk (Gratis)</span>
+                      </div>
+                    )}
+
+                    {/* Antar-Jemput / Serah Terima Unit */}
+                    {!isZeroSelection && (
+                      <div className="breakdown-row">
+                        <div className="breakdown-left">
+                          <span className="breakdown-name">Antar-Jemput / Serah Terima Unit</span>
+                          <span className="breakdown-detail">Gratis Rp 0 (jalan kaki asrama/kampus CWE) • Kosan luar berbayar sesuai jarak</span>
+                        </div>
+                        <span className="breakdown-val" style={{ fontSize: "11px", color: "var(--ink-2)", fontWeight: 500 }}>
+                          SOP Jarak
+                        </span>
                       </div>
                     )}
 
@@ -903,18 +959,30 @@ export function CostEstimator() {
               )}
             </span>
             <span className={`mobile-bar-price ${pricePulse ? "price-pulse" : ""}`}>
-              {activeTab === "hardware"
-                ? isZeroSelection
-                  ? "Pilih Kebutuhan"
-                  : `${formatRupiah(hwMin)} – ${formatRupiah(hwMax)}`
-                : `${formatRupiah(swMin)} – ${formatRupiah(swMax)}`}
+              {activeTab === "hardware" ? (
+                isZeroSelection ? (
+                  "Pilih Kebutuhan"
+                ) : (
+                  <span className="mobile-bar-price-wrap">
+                    {isFridayPromo && discountMin > 0 && (
+                      <span className="price-original-strikethrough mobile-strike">
+                        {formatPriceRange(rawHwMin, rawHwMax)}
+                      </span>
+                    )}
+                    <span>{formatPriceRange(hwMin, hwMax)}</span>
+                  </span>
+                )
+              ) : (
+                formatPriceRange(swMin, swMax)
+              )}
             </span>
           </div>
           <div className="mobile-bar-right">
             <button
               type="button"
               className="mobile-bar-details-btn"
-              onClick={scrollToSummary}
+              onClick={() => setIsBottomSheetOpen(true)}
+              aria-label="Buka rincian estimasi biaya"
             >
               Rincian
             </button>
@@ -932,6 +1000,219 @@ export function CostEstimator() {
           </div>
         </div>
       </div>
+
+      {/* Feature 4: Vaul Bottom Sheet for Mobile Details (No Scroll-Jump) */}
+      <Drawer.Root open={isBottomSheetOpen} onOpenChange={setIsBottomSheetOpen}>
+        <Drawer.Portal>
+          <Drawer.Overlay className="vaul-drawer-overlay fixed inset-0 bg-black/60 backdrop-blur-sm z-[200]" />
+          <Drawer.Content
+            data-lenis-prevent="true"
+            className="vaul-drawer-content fixed bottom-0 left-0 right-0 max-h-[88vh] z-[210] bg-[var(--charcoal)] text-[var(--paper)] rounded-t-[24px] outline-none flex flex-col border-t border-[rgba(244,242,234,0.15)] shadow-2xl"
+          >
+            {/* Grab handle */}
+            <div className="pt-3.5 pb-2 flex justify-center w-full flex-shrink-0">
+              <div className="w-12 h-1.5 rounded-full bg-white/25" />
+            </div>
+
+            {/* Header */}
+            <div className="px-5 py-3 border-b border-white/10 flex items-center justify-between flex-shrink-0">
+              <div>
+                <Drawer.Title className="text-base font-bold text-[var(--paper)]">
+                  Rincian Estimasi Biaya
+                </Drawer.Title>
+                <Drawer.Description className="text-xs text-[var(--paper)]/60 font-mono">
+                  {activeTab === "hardware" ? "Servis Hardware & Upgrade PC" : "Pengembangan Web & Software"} • Transparan
+                </Drawer.Description>
+              </div>
+              <Drawer.Close asChild>
+                <button
+                  type="button"
+                  className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-sm text-[var(--paper)] hover:bg-white/20 transition-colors"
+                  aria-label="Tutup rincian kalkulator"
+                >
+                  ✕
+                </button>
+              </Drawer.Close>
+            </div>
+
+            {/* Scrollable breakdown list */}
+            <div
+              data-lenis-prevent="true"
+              className="px-5 py-4 overflow-y-auto space-y-4 max-h-[58vh] text-sm"
+            >
+              {/* Total Price Display inside Bottom Sheet */}
+              <div className="p-3.5 rounded-xl bg-white/[0.05] border border-white/10">
+                <span className="text-xs font-mono text-[var(--paper)]/60 block mb-1">Total Estimasi ALL-IN:</span>
+                {activeTab === "hardware" ? (
+                  isZeroSelection ? (
+                    <span className="text-base text-[var(--amber)] font-bold">Pilih Kebutuhan Anda</span>
+                  ) : (
+                    <div className="flex items-baseline gap-2 flex-wrap">
+                      {isFridayPromo && discountMin > 0 && (
+                        <span className="price-original-strikethrough text-sm">
+                          {formatPriceRange(rawHwMin, rawHwMax)}
+                        </span>
+                      )}
+                      <span className="text-xl font-extrabold text-[var(--amber)] font-mono">
+                        {formatPriceRange(hwMin, hwMax)}
+                      </span>
+                      {isFridayPromo && (
+                        <span className="text-[11px] font-mono font-medium px-2 py-0.5 rounded-full bg-[#65b584]/20 text-[#65b584] border border-[#65b584]/30">
+                          Diskon Jum&apos;at 10% Aktif
+                        </span>
+                      )}
+                    </div>
+                  )
+                ) : (
+                  <span className="text-xl font-extrabold text-[var(--amber)] font-mono">
+                    {formatRupiah(swMin)} – {formatRupiah(swMax)}
+                  </span>
+                )}
+              </div>
+
+              {/* Education Banner */}
+              {activeTab === "hardware" && isFridayPromo && !isZeroSelection && (
+                <div className="friday-edu-banner">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="12" y1="16" x2="12" y2="12" />
+                    <line x1="12" y1="8" x2="12.01" y2="8" />
+                  </svg>
+                  <span>
+                    <strong>Edukasi Booking Jum&apos;at:</strong> Diskon 10% berlaku untuk serah terima unit atau pengerjaan pada hari Jum&apos;at di Lab Asrama SCWE (Gedung 2 Lantai 3 Kamar 304). Booking lebih awal via WA agar slot part &amp; teknisi siap untuk Anda.
+                  </span>
+                </div>
+              )}
+
+              {/* Breakdown Rows */}
+              <div className="space-y-3">
+                {activeTab === "hardware" ? (
+                  <>
+                    <div className="flex justify-between items-start pb-2.5 border-b border-white/5">
+                      <div>
+                        <div className="font-semibold text-[var(--paper)]">Penyimpanan (SSD)</div>
+                        <div className="text-xs text-[var(--paper)]/60">
+                          {currentSsd.id === "ssd-none" ? "Tidak perlu SSD baru" : currentSsd.label}
+                        </div>
+                      </div>
+                      <div className="font-mono text-xs font-semibold text-[var(--paper)] text-right">
+                        {currentSsd.minPrice === 0 ? "Rp 0" : `${formatRupiah(currentSsd.minPrice)} – ${formatRupiah(currentSsd.maxPrice)}`}
+                      </div>
+                    </div>
+
+                    <div className="flex justify-between items-start pb-2.5 border-b border-white/5">
+                      <div>
+                        <div className="font-semibold text-[var(--paper)]">Memori (RAM)</div>
+                        <div className="text-xs text-[var(--paper)]/60">
+                          {currentRam.id === "ram-none" ? "RAM bawaan cukup" : currentRam.label}
+                        </div>
+                      </div>
+                      <div className="font-mono text-xs font-semibold text-[var(--paper)] text-right">
+                        {currentRam.minPrice === 0 ? "Rp 0" : `${formatRupiah(currentRam.minPrice)} – ${formatRupiah(currentRam.maxPrice)}`}
+                      </div>
+                    </div>
+
+                    {currentServices.map((serv) => (
+                      <div key={serv.id} className="flex justify-between items-start pb-2.5 border-b border-white/5">
+                        <div>
+                          <div className="font-semibold text-[var(--paper)]">{serv.label}</div>
+                          <div className="text-xs text-[var(--paper)]/60">Layanan servis pengerjaan</div>
+                        </div>
+                        <div className="font-mono text-xs font-semibold text-[var(--paper)] text-right">
+                          +{formatRupiah(serv.minPrice)} – +{formatRupiah(serv.maxPrice)}
+                        </div>
+                      </div>
+                    ))}
+
+                    {(currentSsd.id !== "ssd-none" || currentRam.id !== "ram-none") && (
+                      <div className="flex justify-between items-start pb-2.5 border-b border-white/5">
+                        <div>
+                          <div className="font-semibold text-[var(--paper)]">Jasa Pasang &amp; Uji Diagnostik</div>
+                          <div className="text-xs text-[var(--paper)]/60">Bongkar pasang presisi + burn-in test BIOS</div>
+                        </div>
+                        <span className="badge-included text-xs">Termasuk (Gratis)</span>
+                      </div>
+                    )}
+
+                    {!isZeroSelection && (
+                      <div className="flex justify-between items-start pb-2.5 border-b border-white/5">
+                        <div>
+                          <div className="font-semibold text-[var(--paper)]">Antar-Jemput / Serah Terima Unit</div>
+                          <div className="text-xs text-[var(--paper)]/60">Gratis Rp 0 (jalan kaki asrama/kampus CWE) • Kosan luar berbayar sesuai jarak</div>
+                        </div>
+                        <span className="text-[11px] font-mono text-[var(--paper)]/70 text-right">SOP Jarak</span>
+                      </div>
+                    )}
+
+                    {isFridayPromo && !isZeroSelection && discountMin > 0 && (
+                      <div className="flex justify-between items-start pb-2.5 border-b border-white/5 text-[#65b584]">
+                        <div>
+                          <div className="font-semibold">Diskon Spesial Hari Jum&apos;at (10%)</div>
+                          <div className="text-xs text-[#65b584]/80">Potongan langsung seluruh hardware &amp; servis</div>
+                        </div>
+                        <div className="font-mono text-xs font-bold text-right">
+                          -{formatRupiah(discountMin)} – -{formatRupiah(discountMax)}
+                        </div>
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <div className="flex justify-between items-start pb-2.5 border-b border-white/5">
+                      <div>
+                        <div className="font-semibold text-[var(--paper)]">Jenis Proyek</div>
+                        <div className="text-xs text-[var(--paper)]/60">{currentWebType.label}</div>
+                      </div>
+                      <div className="font-mono text-xs font-semibold text-[var(--paper)] text-right">
+                        {formatRupiah(currentWebType.minPrice)}
+                      </div>
+                    </div>
+
+                    {currentAddons.map((addon) => (
+                      <div key={addon.id} className="flex justify-between items-start pb-2.5 border-b border-white/5">
+                        <div>
+                          <div className="font-semibold text-[var(--paper)]">{addon.label}</div>
+                          <div className="text-xs text-[var(--paper)]/60">Fitur tambahan</div>
+                        </div>
+                        <div className="font-mono text-xs font-semibold text-[var(--paper)] text-right">
+                          +{formatRupiah(addon.minPrice)}
+                        </div>
+                      </div>
+                    ))}
+
+                    <div className="flex justify-between items-start pb-2.5 border-b border-white/5">
+                      <div>
+                        <div className="font-semibold text-[var(--paper)]">Server Hosting</div>
+                        <div className="text-xs text-[var(--paper)]/60">Vercel Edge Network (Bebas Biaya Bulanan)</div>
+                      </div>
+                      <span className="badge-included text-xs">Gratis Permanen</span>
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+
+            {/* Footer with CTA WA */}
+            <div className="p-4 border-t border-white/10 bg-[var(--charcoal)] flex flex-col gap-2 flex-shrink-0">
+              <a
+                className="btn btn-primary w-full justify-center text-center font-bold"
+                target="_blank"
+                rel="noopener noreferrer"
+                href={activeTab === "hardware" ? getHardwareWaUrl() : getSoftwareWaUrl()}
+                onClick={() => setIsBottomSheetOpen(false)}
+              >
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+                </svg>
+                <span>Konsultasikan via WhatsApp ↗</span>
+              </a>
+              <div className="text-center text-[11px] font-mono text-[var(--paper)]/50">
+                {activeTab === "hardware" ? "Langsung dengan Sukron & Mamad (Lab Asrama SCWE)" : "Langsung dengan Felich & Dika"}
+              </div>
+            </div>
+          </Drawer.Content>
+        </Drawer.Portal>
+      </Drawer.Root>
     </div>
   );
 }

@@ -4,10 +4,70 @@ import React, { useState, useMemo } from "react";
 import { SOLUTIONS_DATA, SolutionItem } from "@/data/solutions-data";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+interface SymptomChip {
+  id: string;
+  label: string;
+  query: string;
+  targetId: string;
+  category: "hardware" | "business" | "student" | "all";
+}
+
+const QUICK_SYMPTOM_CHIPS: SymptomChip[] = [
+  {
+    id: "chip-panas",
+    label: "🔥 Laptop Panas & Kipas Bising",
+    query: "panas",
+    targetId: "sol-1",
+    category: "hardware",
+  },
+  {
+    id: "chip-lemot",
+    label: "⚡ Booting Lemot & Not Responding",
+    query: "lemot",
+    targetId: "sol-2",
+    category: "hardware",
+  },
+  {
+    id: "chip-katalog",
+    label: "🛍️ Profil Usaha & Katalog WA",
+    query: "katalog",
+    targetId: "sol-3",
+    category: "business",
+  },
+  {
+    id: "chip-portofolio",
+    label: "🎓 Portofolio Personal Mahasiswa",
+    query: "portofolio",
+    targetId: "sol-4",
+    category: "student",
+  },
+  {
+    id: "chip-baterai",
+    label: "🔋 Baterai HP Bocor / Cas Rusak",
+    query: "baterai",
+    targetId: "sol-5",
+    category: "hardware",
+  },
+];
+
 export function SolutionFinder() {
   const [activeCategory, setActiveCategory] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [expandedId, setExpandedId] = useState<string>(SOLUTIONS_DATA[0].id);
+
+  const handleChipClick = (chip: SymptomChip) => {
+    if (searchQuery.toLowerCase() === chip.query.toLowerCase()) {
+      setSearchQuery("");
+      setActiveCategory("all");
+    } else {
+      setSearchQuery(chip.query);
+      setActiveCategory(chip.category);
+      setExpandedId(chip.targetId);
+    }
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 120);
+  };
 
   // Filter based on category and live search query
   const filteredSolutions = useMemo(() => {
@@ -91,6 +151,32 @@ export function SolutionFinder() {
               ✕
             </button>
           )}
+        </div>
+
+        {/* Quick Symptom Chips */}
+        <div className="quick-symptoms-container">
+          <span className="quick-symptoms-label">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+            </svg>
+            Pilih Cepat Gejala Umum:
+          </span>
+          <div className="quick-symptoms-chips" role="group" aria-label="Pilihan Cepat Gejala Masalah" data-lenis-prevent="true">
+            {QUICK_SYMPTOM_CHIPS.map((chip) => {
+              const isActive = searchQuery.toLowerCase() === chip.query.toLowerCase();
+              return (
+                <button
+                  key={chip.id}
+                  type="button"
+                  onClick={() => handleChipClick(chip)}
+                  className={`symptom-chip ${isActive ? "active" : ""}`}
+                  aria-pressed={isActive}
+                >
+                  {chip.label}
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {searchQuery && (

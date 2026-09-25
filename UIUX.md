@@ -100,11 +100,12 @@
   - Garis hamburger berputar membentuk tanda silang 'X' dengan warna putih terang (`#F7F5EF`).
   - Bar navigasi menyatu dengan warna gelap drawer (`background: rgba(35,39,45,0.96)`).
   - Tautan navigasi bernomor `01` hingga `07` dianimasikan bertahap (*staggered fade-in*).
-  - Tombol aksi *Chat WhatsApp* tersedia di bagian bawah.
+  - Tombol aksi *Chat WhatsApp* tersedia di bagian bawah drawer footer.
 * **Dismiss Mechanism:**
-  - Mengetuk tombol 'X'.
-  - Mengetuk salah satu tautan menu (scroll mulus ke section terkait).
+  - Mengetuk tombol eksplisit **[✕ Tutup]** di sudut kanan atas drawer.
+  - Mengetuk salah satu tautan menu (scroll mulus ke section terkait dan menutup drawer seketika).
   - Menekan tombol keyboard `Escape`.
+  - Pembersihan deterministik: sinkronisasi status dengan `lenis.start()` dan penghapusan class `menu-open` seketika.
 
 ---
 
@@ -119,3 +120,28 @@
    - Durasi animasi diatur ke `0.01ms`.
    - Headline langsung tampil tanpa translasi sumbu Y.
    - Marquee animasi track dihentikan (*static presentation*).
+
+---
+
+## 6. Kalibrasi UX & Fitur Interaktif Terbaru (Update Sesi Terkini)
+
+1. **Mobile Bottom Sheet Biaya Terpadu (`vaul`):**
+   - Menghilangkan friksi lompatan viewport (*scroll-jump*) saat pengguna mobile menekan *"Rincian"*.
+   - Sheet dapat digulir dan ditarik (*swipe-down to dismiss*), terkoordinasi dengan scroll engine Lenis (`lenis.stop()` & `data-lenis-prevent="true"`).
+2. **Visualisasi Harga Coret (*Strike-Through Pricing*):**
+   - Menampilkan harga normal dicoret berdampingan dengan harga diskon 10% promo Jum'at pada seluruh breakpoint (desktop, sticky bar mobile, dan bottom sheet).
+3. **Ergonomi Slider Sebelum vs Sesudah Servis:**
+   - Penerapan `touch-action: pan-y` pada `.ba-stage` untuk mencegah benturan gestur scroll vertikal di smartphone.
+   - Dukungan sentuhan tap instan (*tap-to-position*) langsung pada kanvas komparasi.
+4. **Basis Fisik Lab & Peta Vektor Interaktif OpenFreeMap:**
+   - Penegasan titik drop-off fisik di **Asrama Sarana Citra Widya Edukasi Gedung 2 Lt. 3 Kamar 304**.
+   - Peta interaktif live ditenagai **MapLibre GL JS** dengan Web Worker lokal same-origin (`/public/maplibre/`), fallback otomatis raster OSM, dan kontrol kamera instan *"Pusatkan ke Kamar 304"*.
+   - Tab switcher instan antara Peta Vektor dan Skema Radius Konsentris.
+5. **Kebijakan Antar-Jemput Transparan (Realistis):**
+   - **Gratis (Rp 0):** Eksklusif untuk jarak jalan kaki (*walking distance*) di lingkungan Asrama Mahasiswa SCWE dan kampus utama Politeknik CWE.
+   - **Berbayar:** Dikenakan ongkir bensin terjangkau proporsional sesuai jarak tempuh untuk kosan luar atau area sekitarnya (dengan opsi COD / ojol).
+6. **Mobile Reader Full-Screen Lab Notes:**
+   - Tampilan modal artikel berubah menjadi full-screen sheet pada layar $\le 640\text{px}$ dengan sticky header (`env(safe-area-inset-top)`).
+7. **Diagnostic Quick Symptom Chips:**
+   - Tag gejala populer di bawah input pencarian kendala yang langsung meng-auto-fill query dan membuka accordion jawaban solusi secara otomatis.
+
