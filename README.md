@@ -64,6 +64,10 @@ Platform resmi **4tune.labs**, studio rekayasa teknologi independen yang didirik
     * **SOP Diagnosa HP Mati Total: Melacak Jalur Short VPH_PWR dengan DC Power Supply & Thermal Cam (Zulkifli)**
     * **Pertolongan Pertama HP Kemasukan Air & Panduan Cerdas Memilih Panel Layar LCD (Zulkifli)**
   - Modal Reader Lab Notes full-screen di mobile dengan sticky header (`env(safe-area-inset-top)`) dan routing konsultasi WhatsApp dinamis berdasarkan penulis artikel.
+* **Open Graph & WhatsApp Social Share Preview:**
+  - Banner pratinjau media sosial 1200×630 px berstandar Open Graph (`og:image` & `twitter:image`).
+  - Menampilkan identitas visual warm-paper, master logo vector, 3 pilar layanan, alamat lab fisik Asrama SCWE Kamar 304, serta teaser kalkulator biaya live saat tautan dibagikan di WhatsApp, Telegram, X/Twitter, Facebook, Discord, dan iMessage.
+  - Didukung pre-rendering statis via `app/opengraph-image.tsx` dan file statis teroptimasi di `public/og-image.png` (< 100 KB) untuk penanganan instan crawler WhatsApp.
 * **Command Palette (`Ctrl+K` / `Cmd+K`):**
   - Antarmuka pencarian cepat bergaya keyboard-first untuk navigasi instan antar section dan modul.
 * **Responsive Multi-Device Design:**
