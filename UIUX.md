@@ -87,7 +87,7 @@
 │ [ MARQUEE: SERVIS LAPTOP • SSD RAM ]  │
 ├───────────────────────────────────────┤
 │ SOLUSI KENDALA (Horizontal Pills ->)  │
-│ [Semua] [Laptop & Gadget] [UMKM] ...  │
+│ [Semua] [Laptop] [Smartphone HP] ...  │
 │ ┌───────────────────────────────────┐ │
 │ │ 01. "Laptop cepat panas..."   [v] │ │
 │ └───────────────────────────────────┘ │

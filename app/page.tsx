@@ -748,11 +748,12 @@ export default function Home() {
             <div className="marquee-group">
               <span>Website Mahasiswa &amp; UMKM <b>•</b></span>
               <span>Servis Laptop &amp; Komputer <b>•</b></span>
+              <span>Servis Smartphone &amp; Ganti LCD HP <b>•</b></span>
               <span>Upgrade SSD &amp; RAM <b>•</b></span>
               <span>Aplikasi Web &amp; AI <b>•</b></span>
-              <span>Perbaikan HP &amp; Tablet <b>•</b></span>
+              <span>HP Matot &amp; Jalur VPH_PWR <b>•</b></span>
               <span>Instalasi OS &amp; Software <b>•</b></span>
-              <span>IoT &amp; Mikrokontroler <b>•</b></span>
+              <span>Elektronika &amp; Mikrosolder <b>•</b></span>
               <span>Desain UI/UX Modern <b>•</b></span>
               <span>Maintenance &amp; Deep Cleaning <b>•</b></span>
             </div>
@@ -760,11 +761,12 @@ export default function Home() {
             <div className="marquee-group">
               <span>Website Mahasiswa &amp; UMKM <b>•</b></span>
               <span>Servis Laptop &amp; Komputer <b>•</b></span>
+              <span>Servis Smartphone &amp; Ganti LCD HP <b>•</b></span>
               <span>Upgrade SSD &amp; RAM <b>•</b></span>
               <span>Aplikasi Web &amp; AI <b>•</b></span>
-              <span>Perbaikan HP &amp; Tablet <b>•</b></span>
+              <span>HP Matot &amp; Jalur VPH_PWR <b>•</b></span>
               <span>Instalasi OS &amp; Software <b>•</b></span>
-              <span>IoT &amp; Mikrokontroler <b>•</b></span>
+              <span>Elektronika &amp; Mikrosolder <b>•</b></span>
               <span>Desain UI/UX Modern <b>•</b></span>
               <span>Maintenance &amp; Deep Cleaning <b>•</b></span>
             </div>
@@ -1274,25 +1276,25 @@ export default function Home() {
               {/* Member 03 - Zulkifli */}
               <div className="member" data-reveal>
                 <div className="avatar av-3">ZL</div>
-                <span className="member-role">ELECTRONICS &amp; REPAIR SPECIALIST</span>
+                <span className="member-role">ELEKTRONIKA &amp; REPARASI HP SPECIALIST</span>
                 <h3>Zulkifli (&ldquo;Mamad&rdquo;)</h3>
                 <p>
-                  Ahli reparasi perangkat elektronik &amp; gadget (HP dan tablet), instalasi kelistrikan ringan yang aman, serta perakitan mikrokontroler sensor IoT. Mengutamakan ketelitian pada jalur fisik komponen dan solder presisi.
+                  Ahli reparasi smartphone (HP) &amp; gadget: penggantian panel layar LCD/OLED presisi, baterai kembung/drop, modul kamera &amp; port cas, pelacakan HP mati total jalur short VPH_PWR via thermal camera, mikrosolder PCB, serta sensor IoT. Mengutamakan ketelitian tanpa merusak sirkuit.
                 </p>
                 <div className="card-chips">
-                  <span>Perbaikan HP &amp; Tablet</span>
-                  <span>Elektronika &amp; IoT</span>
-                  <span>Instalasi Listrik Ringan</span>
-                  <span>Maintenance Perangkat</span>
+                  <span>Reparasi Smartphone &amp; HP</span>
+                  <span>Ganti LCD &amp; Baterai</span>
+                  <span>HP Matot &amp; Jalur VPH_PWR</span>
+                  <span>Mikrosolder &amp; IoT</span>
                 </div>
                 <div className="member-actions">
                   <a
                     className="btn btn-ghost btn-sm"
                     target="_blank"
                     rel="noopener noreferrer"
-                    href="https://wa.me/6283159392826?text=Hai%20Zulkifli%20(Mamad)%2C%20saya%20ingin%20konsultasi%20perbaikan%20gadget%20%2F%20elektronik."
+                    href="https://wa.me/6283159392826?text=Hai%20Zulkifli%20(Mamad)%2C%20saya%20ingin%20konsultasi%20servis%20smartphone%20%2F%20HP%20saya."
                   >
-                    Konsultasi Reparasi via WA ↗
+                    Konsultasi Servis HP via WA ↗
                   </a>
                 </div>
               </div>
@@ -1382,7 +1384,27 @@ export default function Home() {
                 >
                   <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
                 </svg>
-                WhatsApp Servis &amp; Hardware
+                WhatsApp Servis Laptop &amp; PC
+              </a>
+              <a
+                className="btn btn-ghost magnetic"
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://wa.me/6283159392826?text=Hai%20Zulkifli%20(4tune.labs)%2C%20saya%20ingin%20konsultasi%20servis%20smartphone%20%2F%20HP%20saya."
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+                  <line x1="12" y1="18" x2="12.01" y2="18" />
+                </svg>
+                WhatsApp Servis Smartphone (HP)
               </a>
               <a className="btn btn-ghost" href="mailto:4tune.labs@gmail.com">
                 <svg
@@ -1411,7 +1433,7 @@ export default function Home() {
                   <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
                   <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                 </svg>
-                <span>{copiedCta === "cta-felich" ? "No WA Felich (Web) Tersalin!" : "Salin No WA Web (+62 823-8652-6982)"}</span>
+                <span>{copiedCta === "cta-felich" ? "No WA Web Tersalin!" : "Salin No WA Web (+62 823-8652-6982)"}</span>
               </button>
               <span style={{ color: "var(--ink-2)", opacity: 0.35 }}>•</span>
               <button
@@ -1423,7 +1445,19 @@ export default function Home() {
                   <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
                   <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                 </svg>
-                <span>{copiedCta === "cta-sukron" ? "No WA Sukron (Servis) Tersalin!" : "Salin No WA Servis (+62 838-9449-6994)"}</span>
+                <span>{copiedCta === "cta-sukron" ? "No WA Laptop Tersalin!" : "Salin No WA Laptop (+62 838-9449-6994)"}</span>
+              </button>
+              <span style={{ color: "var(--ink-2)", opacity: 0.35 }}>•</span>
+              <button
+                type="button"
+                onClick={() => copyToClipboard("+6283159392826", "cta-zul")}
+                style={{ fontSize: "12px", fontFamily: "var(--font-mono)", color: "var(--ink-2)", background: "none", border: "none", cursor: "pointer", padding: "4px 8px", display: "inline-flex", alignItems: "center", gap: "6px" }}
+              >
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                </svg>
+                <span>{copiedCta === "cta-zul" ? "No WA Smartphone Tersalin!" : "Salin No WA HP (+62 831-5939-2826)"}</span>
               </button>
             </div>
 
@@ -1517,7 +1551,14 @@ export default function Home() {
                   rel="noopener noreferrer"
                   href="https://wa.me/6283894496994?text=Hai%204tune.labs%20(Cloud%20Service)%2C%20saya%20ingin%20tanya%20servis%20hardware."
                 >
-                  WhatsApp Servis &amp; Hardware
+                  WhatsApp Servis Laptop &amp; PC
+                </a>
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://wa.me/6283159392826?text=Hai%20Zulkifli%20(4tune.labs)%2C%20saya%20ingin%20tanya%20servis%20smartphone%20%2F%20HP."
+                >
+                  WhatsApp Servis Smartphone (HP)
                 </a>
                 <a
                   target="_blank"

@@ -480,6 +480,10 @@ export function CostEstimator() {
 
   // Generate WhatsApp Links
   const getHardwareWaUrl = () => {
+    if (isZeroSelection) {
+      const modelNote = laptopModel.trim() ? ` (tipe: ${laptopModel.trim()})` : "";
+      return `https://wa.me/6283894496994?text=Hai%20Sukron%20(4tune.labs)%2C%20saya%20ingin%20konsultasi%20kendala%20laptop%20%2F%20PC%20saya${encodeURIComponent(modelNote)}.%20Bisa%20bantu%20diagnosa%20dan%20cek%20estimasi%20biayanya%3F%20Terima%20kasih.`;
+    }
     const modelNote = laptopModel.trim() ? `- Tipe Laptop: ${laptopModel.trim()}%0A` : "";
     const ssdLabel =
       currentSsd.id === "ssd-none"
@@ -498,6 +502,10 @@ export function CostEstimator() {
   };
 
   const getSmartphoneWaUrl = () => {
+    if (isHpZeroSelection) {
+      const modelNote = hpModel.trim() ? ` (tipe: ${hpModel.trim()})` : "";
+      return `https://wa.me/6283159392826?text=Hai%20Zulkifli%20(4tune.labs)%2C%20saya%20ingin%20konsultasi%20kendala%20smartphone%20%2F%20HP%20saya${encodeURIComponent(modelNote)}.%20Bisa%20bantu%20diagnosa%20dan%20cek%20estimasi%20biayanya%3F%20Terima%20kasih.`;
+    }
     const modelNote = hpModel.trim() ? `- Tipe HP: ${hpModel.trim()}%0A` : "";
     const screenLabel =
       currentHpScreen.id === "screen-none"
@@ -1315,7 +1323,7 @@ export function CostEstimator() {
                     ))}
 
                     {/* Installation Status */}
-                    {!isHpZeroSelection && (
+                    {currentHpScreen.id !== "screen-none" ? (
                       <div className="breakdown-row breakdown-row-highlight">
                         <div className="breakdown-left">
                           <span className="breakdown-name">Jasa Pasang &amp; Uji Fungsi Layar</span>
@@ -1323,7 +1331,15 @@ export function CostEstimator() {
                         </div>
                         <span className="badge-included">Termasuk (Gratis)</span>
                       </div>
-                    )}
+                    ) : currentHpServices.length > 0 && !currentHpServices.some((s) => s.id === "hp-install-only") ? (
+                      <div className="breakdown-row breakdown-row-highlight">
+                        <div className="breakdown-left">
+                          <span className="breakdown-name">Jasa Pengerjaan &amp; Quality Control</span>
+                          <span className="breakdown-detail">Bongkar pasang presisi + uji kelistrikan &amp; komponen</span>
+                        </div>
+                        <span className="badge-included">Termasuk (Gratis)</span>
+                      </div>
+                    ) : null}
 
                     {/* Antar-Jemput */}
                     {!isHpZeroSelection && (
@@ -1812,7 +1828,7 @@ export function CostEstimator() {
                       </div>
                     ))}
 
-                    {!isHpZeroSelection && (
+                    {currentHpScreen.id !== "screen-none" ? (
                       <div className="flex justify-between items-start pb-2.5 border-b border-white/5">
                         <div>
                           <div className="font-semibold text-[var(--paper)]">Jasa Pasang &amp; Uji Fungsi Layar</div>
@@ -1820,7 +1836,15 @@ export function CostEstimator() {
                         </div>
                         <span className="badge-included text-xs">Termasuk (Gratis)</span>
                       </div>
-                    )}
+                    ) : currentHpServices.length > 0 && !currentHpServices.some((s) => s.id === "hp-install-only") ? (
+                      <div className="flex justify-between items-start pb-2.5 border-b border-white/5">
+                        <div>
+                          <div className="font-semibold text-[var(--paper)]">Jasa Pengerjaan &amp; Quality Control</div>
+                          <div className="text-xs text-[var(--paper)]/60">Bongkar pasang presisi + uji kelistrikan &amp; komponen</div>
+                        </div>
+                        <span className="badge-included text-xs">Termasuk (Gratis)</span>
+                      </div>
+                    ) : null}
 
                     {!isHpZeroSelection && (
                       <div className="flex justify-between items-start pb-2.5 border-b border-white/5">

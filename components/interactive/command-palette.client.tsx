@@ -92,51 +92,83 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
             {/* Navigation Group */}
             <Command.Group heading="NAVIGASI">
               <Command.Item
-                onSelect={() => scrollTo("#principals")}
-                className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-secondary hover:text-primary hover:bg-surface-hover cursor-pointer"
-              >
-                <Users size={14} className="text-neutral-300" />
-                <span>02. Tim Builder Kami (4 Mahasiswa)</span>
-              </Command.Item>
-
-              <Command.Item
-                onSelect={() => scrollTo("#playground")}
+                onSelect={() => scrollTo("#solusi-kendala")}
                 className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-secondary hover:text-primary hover:bg-surface-hover cursor-pointer"
               >
                 <Zap size={14} className="text-neutral-300" />
-                <span>03. Simulasi &amp; Estimasi Proyek</span>
+                <span>01. Solusi Kendala (Laptop, HP &amp; Web)</span>
               </Command.Item>
 
               <Command.Item
-                onSelect={() => scrollTo("#capabilities")}
+                onSelect={() => scrollTo("#layanan")}
                 className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-secondary hover:text-primary hover:bg-surface-hover cursor-pointer"
               >
                 <Layers size={14} className="text-neutral-300" />
-                <span>04. Layanan &amp; Solusi Website</span>
+                <span>02. Layanan Servis Hardware &amp; Web</span>
               </Command.Item>
 
               <Command.Item
-                onSelect={() => scrollTo("#showcase")}
+                onSelect={() => scrollTo("#paket-pilihan")}
+                className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-secondary hover:text-primary hover:bg-surface-hover cursor-pointer"
+              >
+                <Zap size={14} className="text-neutral-300" />
+                <span>03. Paket Pilihan Siap Pakai</span>
+              </Command.Item>
+
+              <Command.Item
+                onSelect={() => scrollTo("#kalkulator-biaya")}
+                className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-secondary hover:text-primary hover:bg-surface-hover cursor-pointer"
+              >
+                <Zap size={14} className="text-neutral-300" />
+                <span>04. Kalkulator Biaya (Laptop, HP &amp; Web)</span>
+              </Command.Item>
+
+              <Command.Item
+                onSelect={() => scrollTo("#lokasi-lab")}
+                className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-secondary hover:text-primary hover:bg-surface-hover cursor-pointer"
+              >
+                <Layers size={14} className="text-neutral-300" />
+                <span>05. Lokasi Fisik Lab Asrama SCWE (Kamar 304)</span>
+              </Command.Item>
+
+              <Command.Item
+                onSelect={() => scrollTo("#karya")}
                 className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-secondary hover:text-primary hover:bg-surface-hover cursor-pointer"
               >
                 <FolderGit2 size={14} className="text-neutral-300" />
-                <span>05. Contoh Karya &amp; Proyek Kami</span>
+                <span>06. Karya Terpilih &amp; Proyek Kami</span>
               </Command.Item>
 
               <Command.Item
-                onSelect={() => scrollTo("#model")}
+                onSelect={() => scrollTo("#lab-notes")}
+                className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-secondary hover:text-primary hover:bg-surface-hover cursor-pointer"
+              >
+                <Layers size={14} className="text-neutral-300" />
+                <span>07. Lab Notes &amp; Catatan Teknis Edukasi</span>
+              </Command.Item>
+
+              <Command.Item
+                onSelect={() => scrollTo("#cara-kerja")}
+                className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-secondary hover:text-primary hover:bg-surface-hover cursor-pointer"
+              >
+                <Layers size={14} className="text-neutral-300" />
+                <span>08. Alur Kerja Kami</span>
+              </Command.Item>
+
+              <Command.Item
+                onSelect={() => scrollTo("#tim")}
                 className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-secondary hover:text-primary hover:bg-surface-hover cursor-pointer"
               >
                 <Users size={14} className="text-neutral-300" />
-                <span>06. Alur Kerja Kami</span>
+                <span>09. Tim Builder Kami (4 Mahasiswa)</span>
               </Command.Item>
 
               <Command.Item
-                onSelect={() => scrollTo("#inquiry")}
+                onSelect={() => scrollTo("#kontak")}
                 className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-secondary hover:text-primary hover:bg-surface-hover cursor-pointer"
               >
                 <Shield size={14} className="text-neutral-300" />
-                <span>07. Konsultasi Santai (Hubungi Kami)</span>
+                <span>10. Konsultasi Santai (Hubungi Kami)</span>
               </Command.Item>
             </Command.Group>
 

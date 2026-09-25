@@ -288,6 +288,10 @@ export function SolutionFinder() {
                     ? `https://wa.me/6283159392826?text=Halo%20Zulkifli%20(4tune.labs)%2C%20HP%20saya%20ada%20kendala%20khusus%3A%20${encodeURIComponent(
                         searchQuery
                       )}`
+                    : activeCategory === "business" || activeCategory === "student"
+                    ? `https://wa.me/6282386526982?text=Halo%20Felich%20%26%20Dika%20(4tune.labs)%2C%20saya%20ada%20kebutuhan%20proyek%20khusus%3A%20${encodeURIComponent(
+                        searchQuery
+                      )}`
                     : `https://wa.me/6283894496994?text=Halo%20teknisi%204tune.labs%2C%20perangkat%20saya%20ada%20kendala%20khusus%3A%20${encodeURIComponent(
                         searchQuery
                       )}`

@@ -251,6 +251,7 @@ export interface SmartphoneScreenOption {
   id: string;
   label: string;
   grade: "incell" | "oled" | "original" | "none";
+  gradeLabel?: string;
   description: string;
   minPrice: number;
   maxPrice: number;
