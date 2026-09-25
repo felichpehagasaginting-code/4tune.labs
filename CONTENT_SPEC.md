@@ -91,7 +91,7 @@
    - Integrasi asisten AI/LLM streaming interaktif.
    - Setup lingkungan coding modern & pipeline otomasi.
    - Garansi pengerjaan dan pendampingan 3 bulan.
-   - *Tim:* Felich, Sukron, Aris.
+   - *Tim:* Felich, Sukron, Dika.
 
 ---
 
@@ -148,8 +148,8 @@
    Spesialis perbaikan jalur motherboard, mikrosoldering, diagnosa arus pendek perangkat keras, dan reparasi modul gadget serta power supply.
 3. **Sukron** — *PC Hardware & OS Specialist*  
    Ahli perakitan PC, diagnosa pendinginan sistem, migrasi penyimpanan berkecepatan tinggi, dan optimasi kernel sistem operasi untuk kestabilan jangka panjang.
-4. **Aris** — *Embedded Systems & IoT Engineer*  
-   Insinyur elektronika cerdas yang menghubungkan mikrokontroler (ESP32/STM32), jaringan mikrotik, dan sensor fisik dengan sistem perangkat lunak terpusat.
+4. **Dika** — *Product & UI/UX Design*  
+   Perancang pengalaman visual dan alur antarmuka yang bersih, ergonomis, dan tidak membingungkan pengguna non-IT. Memastikan website profil bisnis, portal edukasi, maupun dashboard sistem tampil kredibel dan berkarakter.
 
 ---
 

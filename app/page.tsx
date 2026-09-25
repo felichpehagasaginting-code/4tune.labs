@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLenis } from "@/providers/smooth-scroll.client";
@@ -1216,7 +1217,16 @@ export default function Home() {
             <div className="team-grid">
               {/* Member 01 - Sukron */}
               <div className="member" data-reveal>
-                <div className="avatar av-1">SU</div>
+                <div className="avatar av-1">
+                  <Image
+                    src="/assets/team/sukron.jpg"
+                    alt="Sukron"
+                    className="avatar-img"
+                    width={84}
+                    height={84}
+                    priority={false}
+                  />
+                </div>
                 <span className="member-role">HARDWARE &amp; SYSTEM SUPPORT</span>
                 <h3>Sukron (&ldquo;Cuklon&rdquo;)</h3>
                 <p>
@@ -1242,7 +1252,16 @@ export default function Home() {
 
               {/* Member 02 - Felich */}
               <div className="member" data-reveal>
-                <div className="avatar av-2">FE</div>
+                <div className="avatar av-2">
+                  <Image
+                    src="/assets/team/felich.jpg"
+                    alt="Felich"
+                    className="avatar-img"
+                    width={84}
+                    height={84}
+                    priority={false}
+                  />
+                </div>
                 <span className="member-role">FULL-STACK &amp; AI ENGINEER</span>
                 <h3>Felich</h3>
                 <p>
@@ -1275,7 +1294,16 @@ export default function Home() {
 
               {/* Member 03 - Zulkifli */}
               <div className="member" data-reveal>
-                <div className="avatar av-3">ZL</div>
+                <div className="avatar av-3">
+                  <Image
+                    src="/assets/team/zulkifli.jpg"
+                    alt="Zulkifli"
+                    className="avatar-img"
+                    width={84}
+                    height={84}
+                    priority={false}
+                  />
+                </div>
                 <span className="member-role">ELEKTRONIKA &amp; REPARASI HP SPECIALIST</span>
                 <h3>Zulkifli (&ldquo;Mamad&rdquo;)</h3>
                 <p>
@@ -1301,7 +1329,16 @@ export default function Home() {
 
               {/* Member 04 - Dika */}
               <div className="member" data-reveal>
-                <div className="avatar av-4">DI</div>
+                <div className="avatar av-4">
+                  <Image
+                    src="/assets/team/dika.jpg"
+                    alt="Dika"
+                    className="avatar-img"
+                    width={84}
+                    height={84}
+                    priority={false}
+                  />
+                </div>
                 <span className="member-role">PRODUCT &amp; UI/UX DESIGN</span>
                 <h3>Dika</h3>
                 <p>
@@ -1327,7 +1364,7 @@ export default function Home() {
 
             <p className="team-note" data-reveal>
               <i />
-              Foto profil tim sedang disiapkan. Setiap divisi ditangani langsung oleh orang yang bersangkutan — silakan hubungi langsung teknisi atau engineer yang Anda perlukan.
+              Setiap divisi ditangani langsung oleh orang yang bersangkutan — silakan hubungi langsung teknisi, desainer, atau engineer yang Anda perlukan.
             </p>
           </div>
         </section>

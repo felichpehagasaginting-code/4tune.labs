@@ -22,7 +22,7 @@ Klien mahasiswa, UMKM, dan kreator sering terjebak di antara dua masalah besar s
 * **Felich** — Full-Stack & AI Engineer
 * **Zulkifli ("Mamad")** — Electronics & Repair Specialist
 * **Sukron** — PC Hardware & OS Specialist
-* **Aris** — Embedded Systems & IoT Engineer
+* **Dika** — Product & UI/UX Design
 
 Studio ini mengusung moto **"Dari kode web hingga hardware, beres tanpa perantara."** Klien berinteraksi langsung dengan engineer yang mengeksekusi proyeknya. Transparan, bergaransi, dan ramah kantong mahasiswa serta pelaku UMKM.
 
