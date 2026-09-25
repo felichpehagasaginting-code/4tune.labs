@@ -4443,6 +4443,7 @@ input:focus-visible,
   z-index: 85;
   max-width: calc(100vw - 28px);
   animation: iosCapsuleFadeUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: bottom 0.32s cubic-bezier(0.16, 1, 0.3, 1), transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
   -webkit-user-select: none;
 }
@@ -4609,7 +4610,7 @@ input:focus-visible,
 
 @media (max-width: 768px) {
   .ios-nav-capsule {
-    bottom: 18px;
+    bottom: 84px; /* Permanently elevated above mobile bottom floating bar and gesture navigation bar */
     max-width: calc(100vw - 20px);
   }
   .ios-nav-container {

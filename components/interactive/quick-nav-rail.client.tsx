@@ -89,6 +89,7 @@ const QUICK_NAV_ITEMS: QuickNavItem[] = [
 export function QuickNavRail() {
   const [isVisible, setIsVisible] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("solusi-kendala");
+  const [hasMobileCostBar, setHasMobileCostBar] = useState(false);
   const [indicatorStyle, setIndicatorStyle] = useState<{ left: number; width: number }>({
     left: 0,
     width: 0,
@@ -107,6 +108,10 @@ export function QuickNavRail() {
         window.requestAnimationFrame(() => {
           const scrollY = window.scrollY;
           setIsVisible(scrollY > 400);
+
+          // Check if mobile cost summary bar is currently visible in DOM
+          const mobileBarEl = document.querySelector(".mobile-floating-bar.visible");
+          setHasMobileCostBar(Boolean(mobileBarEl));
 
           const spyPos = scrollY + window.innerHeight * 0.35;
           for (const item of QUICK_NAV_ITEMS) {
@@ -177,7 +182,7 @@ export function QuickNavRail() {
 
   return (
     <aside
-      className="ios-nav-capsule"
+      className={`ios-nav-capsule ${hasMobileCostBar ? "with-mobile-bar" : ""}`}
       aria-label="Navigasi Cepat Cerdas"
     >
       <div className="ios-nav-container">
