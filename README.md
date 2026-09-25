@@ -1,4 +1,4 @@
-# 4tune.labs — Studio Rekayasa Software & Servis Hardware PC
+# 4tune.labs — Studio Rekayasa Software & Servis Hardware HP, Laptop maupun PC
 
 > **"Dari kode web hingga hardware, beres tanpa perantara."**
 

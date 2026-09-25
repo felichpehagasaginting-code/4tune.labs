@@ -26,12 +26,14 @@ const plusJakarta = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://4tunelabs.vercel.app"),
-  title: "4tune.labs — Studio Rekayasa Software & Servis Hardware PC",
+  title: "4tune.labs — Studio Rekayasa Software & Servis Hardware HP, Laptop maupun PC",
   description:
-    "4tune.labs adalah studio rekayasa teknologi yang dijalankan langsung oleh empat engineer mahasiswa. Menggabungkan pembuatan website modern & aplikasi AI dengan servis laptop/PC lemot, upgrade SSD & RAM, reparasi gadget, dan perawatan perangkat bergaransi.",
+    "4tune.labs adalah studio rekayasa teknologi yang dijalankan langsung oleh empat engineer mahasiswa. Menggabungkan pembuatan website modern & aplikasi AI dengan reparasi smartphone (HP), servis laptop/PC lemot, upgrade SSD & RAM, dan perawatan perangkat bergaransi.",
   keywords: [
     "4tune.labs",
     "servis laptop",
+    "servis hp",
+    "reparasi smartphone",
     "upgrade SSD RAM",
     "jasa website mahasiswa",
     "landing page UMKM",
@@ -41,7 +43,7 @@ export const metadata: Metadata = {
     "Next.js web development",
   ],
   openGraph: {
-    title: "4tune.labs — Studio Rekayasa Software & Servis Hardware PC",
+    title: "4tune.labs — Studio Rekayasa Software & Servis Hardware HP, Laptop maupun PC",
     description:
       "Dari kode web modern hingga sirkuit hardware, kami bereskan tuntas. Transparan, bergaransi, dan ramah kantong mahasiswa & UMKM.",
     url: "https://4tunelabs.vercel.app",
@@ -54,14 +56,14 @@ export const metadata: Metadata = {
         secureUrl: "https://4tunelabs.vercel.app/og-image.png",
         width: 1200,
         height: 630,
-        alt: "4tune.labs — Studio Rekayasa Software & Servis Hardware PC",
+        alt: "4tune.labs — Studio Rekayasa Software & Servis Hardware HP, Laptop maupun PC",
         type: "image/png",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "4tune.labs — Studio Rekayasa Software & Servis Hardware PC",
+    title: "4tune.labs — Studio Rekayasa Software & Servis Hardware HP, Laptop maupun PC",
     description:
       "Dari kode web modern hingga sirkuit hardware, kami bereskan tuntas. Transparan, bergaransi, dan ramah kantong mahasiswa & UMKM.",
     images: ["https://4tunelabs.vercel.app/og-image.png"],
