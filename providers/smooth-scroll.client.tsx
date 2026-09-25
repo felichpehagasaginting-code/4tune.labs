@@ -19,6 +19,12 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
       return;
     }
 
+    if (typeof window !== "undefined") {
+      if ("scrollRestoration" in window.history) {
+        window.history.scrollRestoration = "manual";
+      }
+    }
+
     const lenis = new Lenis({
       lerp: 0.08,
       duration: 1.2,
@@ -29,6 +35,12 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
 
     lenisRef.current = lenis;
     setLenisInstance(lenis);
+
+    // Default ke posisi paling atas (Hero Section) jika tidak ada hash URL khusus
+    if (typeof window !== "undefined" && !window.location.hash) {
+      window.scrollTo(0, 0);
+      lenis.scrollTo(0, { immediate: true });
+    }
 
     // Hubungkan scroll Lenis ke ScrollTrigger
     lenis.on("scroll", ScrollTrigger.update);

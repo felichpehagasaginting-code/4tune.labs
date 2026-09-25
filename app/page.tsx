@@ -101,6 +101,29 @@ export default function Home() {
     };
   }, [lenis]);
 
+  // Pastikan posisi scroll default di section awal (Hero) saat web dibuka
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+
+    if (!window.location.hash) {
+      window.scrollTo(0, 0);
+      if (lenis) {
+        lenis.scrollTo(0, { immediate: true });
+      }
+      const timer = setTimeout(() => {
+        window.scrollTo(0, 0);
+        if (lenis) {
+          lenis.scrollTo(0, { immediate: true });
+        }
+      }, 60);
+      return () => clearTimeout(timer);
+    }
+  }, [lenis]);
+
   useEffect(() => {
     if (!pageRef.current) return;
 
