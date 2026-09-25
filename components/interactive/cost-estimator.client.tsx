@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { HARDWARE_PRICING, SOFTWARE_PRICING } from "@/data/pricing-matrix";
+import { HARDWARE_PRICING, SMARTPHONE_PRICING, SOFTWARE_PRICING } from "@/data/pricing-matrix";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Drawer } from "vaul";
 import { useLenis } from "@/providers/smooth-scroll.client";
@@ -31,6 +31,17 @@ interface PresetItem {
   services: string[];
   ssdFilter: "all" | "gen3" | "gen4";
   ramFilter: "all" | "ddr4" | "ddr5";
+}
+
+interface SmartphonePresetItem {
+  id: string;
+  title: string;
+  badge: string;
+  icon: React.ReactNode;
+  desc: string;
+  screen: string;
+  services: string[];
+  screenFilter: "all" | "incell" | "oled" | "original";
 }
 
 const HARDWARE_PRESETS: PresetItem[] = [
@@ -101,18 +112,119 @@ const HARDWARE_PRESETS: PresetItem[] = [
   },
 ];
 
+const SMARTPHONE_PRESETS: SmartphonePresetItem[] = [
+  {
+    id: "hp-layar",
+    title: "Ganti Layar Segar",
+    badge: "Paling Diminati",
+    icon: (
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+        <line x1="12" y1="18" x2="12.01" y2="18" />
+      </svg>
+    ),
+    desc: "LCD Incell/OLED + Deep Clean Internal & Mesh",
+    screen: "screen-incell",
+    services: ["hp-deep-clean"],
+    screenFilter: "incell",
+  },
+  {
+    id: "hp-baterai",
+    title: "Baterai Awet & Cas Normal",
+    badge: "Solusi Cepat",
+    icon: (
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <rect x="2" y="7" width="16" height="10" rx="2" ry="2" />
+        <line x1="22" y1="11" x2="22" y2="13" />
+      </svg>
+    ),
+    desc: "Baterai Baru Awet + Port Cas Type-C/Lightning",
+    screen: "screen-none",
+    services: ["hp-battery", "hp-charging-port"],
+    screenFilter: "all",
+  },
+  {
+    id: "hp-matot",
+    title: "HP Mati Total / Korslet",
+    badge: "Diagnosa Sirkuit",
+    icon: (
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+      </svg>
+    ),
+    desc: "Pelacakan Short VPH_PWR + Thermal Cam + Clean",
+    screen: "screen-none",
+    services: ["hp-matot", "hp-deep-clean"],
+    screenFilter: "all",
+  },
+  {
+    id: "hp-kamera-audio",
+    title: "Kamera & Audio Jernih",
+    badge: "Audio Visual",
+    icon: (
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+        <circle cx="12" cy="13" r="4" />
+      </svg>
+    ),
+    desc: "Ganti Modul/Lensa Kamera + Pembersihan Mesh Speaker",
+    screen: "screen-none",
+    services: ["hp-camera", "hp-deep-clean"],
+    screenFilter: "all",
+  },
+  {
+    id: "hp-bawa-part",
+    title: "Bawa Sparepart Sendiri",
+    badge: "Jasa Saja",
+    icon: (
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+      </svg>
+    ),
+    desc: "Jasa Bongkar Pasang Presisi LCD / Baterai",
+    screen: "screen-none",
+    services: ["hp-install-only"],
+    screenFilter: "all",
+  },
+];
+
 export function CostEstimator() {
-  const [activeTab, setActiveTab] = useState<"hardware" | "software">("hardware");
+  const [activeTab, setActiveTab] = useState<"hardware" | "smartphone" | "software">("hardware");
   const [copiedType, setCopiedType] = useState<string>("");
   const [isRealFriday, setIsRealFriday] = useState<boolean>(false);
   const lenis = useLenis();
 
-  // Preset & Compatibility State
+  // Hardware State
   const [activePreset, setActivePreset] = useState<string>("skripsi");
   const [laptopModel, setLaptopModel] = useState<string>("");
+  const [selectedSsd, setSelectedSsd] = useState<string>("ssd-512-gen3");
+  const [selectedRam, setSelectedRam] = useState<string>("ram-none");
+  const [ssdFilter, setSsdFilter] = useState<"all" | "gen3" | "gen4">("gen3");
+  const [ramFilter, setRamFilter] = useState<"all" | "ddr4" | "ddr5">("all");
+  const [selectedServices, setSelectedServices] = useState<string[]>(["deep-clean", "backup-data"]);
+  const [isFridayPromo, setIsFridayPromo] = useState<boolean>(false);
+
+  // Smartphone State
+  const [activeHpPreset, setActiveHpPreset] = useState<string>("hp-layar");
+  const [hpModel, setHpModel] = useState<string>("");
+  const [selectedHpScreen, setSelectedHpScreen] = useState<string>("screen-incell");
+  const [hpScreenFilter, setHpScreenFilter] = useState<"all" | "incell" | "oled" | "original">("all");
+  const [selectedHpServices, setSelectedHpServices] = useState<string[]>(["hp-deep-clean"]);
+
+  // Software State
+  const [selectedWebType, setSelectedWebType] = useState<string>("web-landing");
+  const [selectedAddons, setSelectedAddons] = useState<string[]>(["seo-gmaps"]);
+
+  // UI Micro-interactions & Mobile Drawer State
   const [pricePulse, setPricePulse] = useState<boolean>(false);
   const [showMobileBar, setShowMobileBar] = useState<boolean>(false);
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState<boolean>(false);
+
+  // Refs for Scroll Detection
+  const estimatorWrapperRef = useRef<HTMLDivElement>(null);
+  const summaryRef = useRef<HTMLDivElement>(null);
+  const hpSummaryRef = useRef<HTMLDivElement>(null);
+  const swSummaryRef = useRef<HTMLDivElement>(null);
 
   // Sync Lenis scroll freeze with Vaul Bottom Sheet
   useEffect(() => {
@@ -125,23 +237,6 @@ export function CostEstimator() {
       if (lenis) lenis.start();
     };
   }, [isBottomSheetOpen, lenis]);
-
-  // Hardware State
-  const [selectedSsd, setSelectedSsd] = useState<string>("ssd-512-gen3");
-  const [selectedRam, setSelectedRam] = useState<string>("ram-none");
-  const [ssdFilter, setSsdFilter] = useState<"all" | "gen3" | "gen4">("gen3");
-  const [ramFilter, setRamFilter] = useState<"all" | "ddr4" | "ddr5">("all");
-  const [selectedServices, setSelectedServices] = useState<string[]>(["deep-clean", "backup-data"]);
-  const [isFridayPromo, setIsFridayPromo] = useState<boolean>(false);
-
-  // Software State
-  const [selectedWebType, setSelectedWebType] = useState<string>("web-landing");
-  const [selectedAddons, setSelectedAddons] = useState<string[]>(["seo-gmaps"]);
-
-  // Refs for Scroll Detection
-  const estimatorWrapperRef = useRef<HTMLDivElement>(null);
-  const summaryRef = useRef<HTMLDivElement>(null);
-  const swSummaryRef = useRef<HTMLDivElement>(null);
 
   // Detect real-world Friday on client mount
   useEffect(() => {
@@ -159,7 +254,16 @@ export function CostEstimator() {
     setPricePulse(true);
     const timer = setTimeout(() => setPricePulse(false), 450);
     return () => clearTimeout(timer);
-  }, [selectedSsd, selectedRam, selectedServices, isFridayPromo, selectedWebType, selectedAddons]);
+  }, [
+    selectedSsd,
+    selectedRam,
+    selectedServices,
+    isFridayPromo,
+    selectedHpScreen,
+    selectedHpServices,
+    selectedWebType,
+    selectedAddons,
+  ]);
 
   // Mobile Sticky Floating Bar Scroll Listener
   useEffect(() => {
@@ -170,7 +274,12 @@ export function CostEstimator() {
       const wrapRect = estimatorWrapperRef.current.getBoundingClientRect();
       const isInside = wrapRect.top < window.innerHeight * 0.75 && wrapRect.bottom > 180;
 
-      const currentCard = activeTab === "hardware" ? summaryRef.current : swSummaryRef.current;
+      const currentCard =
+        activeTab === "hardware"
+          ? summaryRef.current
+          : activeTab === "smartphone"
+          ? hpSummaryRef.current
+          : swSummaryRef.current;
       let isSummaryInView = false;
       if (currentCard) {
         const sumRect = currentCard.getBoundingClientRect();
@@ -188,15 +297,22 @@ export function CostEstimator() {
   // Listen to external preset selection (e.g. from CuratedBundles)
   useEffect(() => {
     const handleCustomPreset = (e: Event) => {
-      const customEv = e as CustomEvent<{ presetId: string; tab?: "hardware" | "software" }>;
+      const customEv = e as CustomEvent<{
+        presetId: string;
+        tab?: "hardware" | "smartphone" | "software";
+      }>;
       if (!customEv.detail) return;
       if (customEv.detail.tab) {
         setActiveTab(customEv.detail.tab);
       }
       if (customEv.detail.presetId) {
-        const found = HARDWARE_PRESETS.find((p) => p.id === customEv.detail.presetId);
-        if (found) {
-          applyPreset(found);
+        const foundHw = HARDWARE_PRESETS.find((p) => p.id === customEv.detail.presetId);
+        if (foundHw) {
+          applyPreset(foundHw);
+        }
+        const foundHp = SMARTPHONE_PRESETS.find((p) => p.id === customEv.detail.presetId);
+        if (foundHp) {
+          applyHpPreset(foundHp);
         }
       }
     };
@@ -205,7 +321,7 @@ export function CostEstimator() {
     return () => window.removeEventListener("4tune:apply-preset", handleCustomPreset);
   }, []);
 
-  const handleTabChange = (tab: "hardware" | "software") => {
+  const handleTabChange = (tab: "hardware" | "smartphone" | "software") => {
     setActiveTab(tab);
     setTimeout(() => {
       ScrollTrigger.refresh();
@@ -220,13 +336,6 @@ export function CostEstimator() {
     }
   };
 
-  const scrollToSummary = () => {
-    const target = activeTab === "hardware" ? summaryRef.current : swSummaryRef.current;
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
-  };
-
   const applyPreset = (preset: PresetItem) => {
     setActivePreset(preset.id);
     setSelectedSsd(preset.ssd);
@@ -234,6 +343,14 @@ export function CostEstimator() {
     setSelectedServices(preset.services);
     setSsdFilter(preset.ssdFilter);
     setRamFilter(preset.ramFilter);
+    setTimeout(() => ScrollTrigger.refresh(), 100);
+  };
+
+  const applyHpPreset = (preset: SmartphonePresetItem) => {
+    setActiveHpPreset(preset.id);
+    setSelectedHpScreen(preset.screen);
+    setSelectedHpServices(preset.services);
+    setHpScreenFilter(preset.screenFilter);
     setTimeout(() => ScrollTrigger.refresh(), 100);
   };
 
@@ -247,11 +364,24 @@ export function CostEstimator() {
     setActivePreset("custom");
   };
 
+  const handleHpScreenSelect = (screenId: string) => {
+    setSelectedHpScreen(screenId);
+    setActiveHpPreset("custom");
+  };
+
   const toggleHardwareService = (serviceId: string) => {
     setSelectedServices((prev) =>
       prev.includes(serviceId) ? prev.filter((id) => id !== serviceId) : [...prev, serviceId]
     );
     setActivePreset("custom");
+    setTimeout(() => ScrollTrigger.refresh(), 100);
+  };
+
+  const toggleHpService = (serviceId: string) => {
+    setSelectedHpServices((prev) =>
+      prev.includes(serviceId) ? prev.filter((id) => id !== serviceId) : [...prev, serviceId]
+    );
+    setActiveHpPreset("custom");
     setTimeout(() => ScrollTrigger.refresh(), 100);
   };
 
@@ -276,14 +406,23 @@ export function CostEstimator() {
   });
 
   // Calculate Hardware Total & Discounts
-  const currentSsd = HARDWARE_PRICING.ssd.options.find((o) => o.id === selectedSsd) || HARDWARE_PRICING.ssd.options[0];
-  const currentRam = HARDWARE_PRICING.ram.options.find((o) => o.id === selectedRam) || HARDWARE_PRICING.ram.options[0];
+  const currentSsd =
+    HARDWARE_PRICING.ssd.options.find((o) => o.id === selectedSsd) || HARDWARE_PRICING.ssd.options[0];
+  const currentRam =
+    HARDWARE_PRICING.ram.options.find((o) => o.id === selectedRam) || HARDWARE_PRICING.ram.options[0];
   const currentServices = HARDWARE_PRICING.services.filter((s) => selectedServices.includes(s.id));
 
-  const isZeroSelection = currentSsd.id === "ssd-none" && currentRam.id === "ram-none" && currentServices.length === 0;
+  const isZeroSelection =
+    currentSsd.id === "ssd-none" && currentRam.id === "ram-none" && currentServices.length === 0;
 
-  const rawHwMin = currentSsd.minPrice + currentRam.minPrice + currentServices.reduce((acc, curr) => acc + curr.minPrice, 0);
-  const rawHwMax = currentSsd.maxPrice + currentRam.maxPrice + currentServices.reduce((acc, curr) => acc + curr.maxPrice, 0);
+  const rawHwMin =
+    currentSsd.minPrice +
+    currentRam.minPrice +
+    currentServices.reduce((acc, curr) => acc + curr.minPrice, 0);
+  const rawHwMax =
+    currentSsd.maxPrice +
+    currentRam.maxPrice +
+    currentServices.reduce((acc, curr) => acc + curr.maxPrice, 0);
 
   let hwMin = rawHwMin;
   let hwMax = rawHwMax;
@@ -296,8 +435,44 @@ export function CostEstimator() {
   const discountMin = isFridayPromo && !isZeroSelection ? rawHwMin - hwMin : 0;
   const discountMax = isFridayPromo && !isZeroSelection ? rawHwMax - hwMax : 0;
 
+  // Filter Smartphone Options & Calculate
+  const filteredHpScreenOptions = SMARTPHONE_PRICING.screen.options.filter((opt) => {
+    if (opt.id === "screen-none") return true;
+    if (hpScreenFilter === "all") return true;
+    return opt.grade === hpScreenFilter;
+  });
+
+  const currentHpScreen =
+    SMARTPHONE_PRICING.screen.options.find((o) => o.id === selectedHpScreen) ||
+    SMARTPHONE_PRICING.screen.options[0];
+  const currentHpServices = SMARTPHONE_PRICING.services.filter((s) =>
+    selectedHpServices.includes(s.id)
+  );
+
+  const isHpZeroSelection =
+    currentHpScreen.id === "screen-none" && currentHpServices.length === 0;
+
+  const rawHpMin =
+    currentHpScreen.minPrice +
+    currentHpServices.reduce((acc, curr) => acc + curr.minPrice, 0);
+  const rawHpMax =
+    currentHpScreen.maxPrice +
+    currentHpServices.reduce((acc, curr) => acc + curr.maxPrice, 0);
+
+  let hpMin = rawHpMin;
+  let hpMax = rawHpMax;
+
+  if (isFridayPromo && !isHpZeroSelection) {
+    hpMin = Math.round(hpMin * 0.9);
+    hpMax = Math.round(hpMax * 0.9);
+  }
+
+  const hpDiscountMin = isFridayPromo && !isHpZeroSelection ? rawHpMin - hpMin : 0;
+  const hpDiscountMax = isFridayPromo && !isHpZeroSelection ? rawHpMax - hpMax : 0;
+
   // Calculate Software Total
-  const currentWebType = SOFTWARE_PRICING.type.options.find((o) => o.id === selectedWebType) || SOFTWARE_PRICING.type.options[0];
+  const currentWebType =
+    SOFTWARE_PRICING.type.options.find((o) => o.id === selectedWebType) || SOFTWARE_PRICING.type.options[0];
   const currentAddons = SOFTWARE_PRICING.addons.filter((a) => selectedAddons.includes(a.id));
 
   const swMin = currentWebType.minPrice + currentAddons.reduce((acc, curr) => acc + curr.minPrice, 0);
@@ -314,11 +489,28 @@ export function CostEstimator() {
       currentRam.id === "ram-none"
         ? "Tidak perlu RAM"
         : `${currentRam.label}${currentRam.speed ? ` [${currentRam.speed}]` : ""}`;
-    const servLabels = currentServices.length > 0 ? currentServices.map((s) => s.label).join(", ") : "Tidak ada servis tambahan";
+    const servLabels =
+      currentServices.length > 0 ? currentServices.map((s) => s.label).join(", ") : "Tidak ada servis tambahan";
     const promoNote = isFridayPromo ? " (Diskon Hari Jum'at Aktif 10%)" : "";
 
     const message = `Hai Sukron (4tune.labs), saya cek estimasi biaya servis di web:%0A${modelNote}- SSD: ${ssdLabel}%0A- RAM: ${ramLabel}%0A- Layanan: ${servLabels}${promoNote}%0A- Estimasi Biaya: ${formatRupiah(hwMin)} – ${formatRupiah(hwMax)}.%0A- Metode Serah Terima / Antar-Jemput: (Pilih: Drop-off Lab Kamar 304 / Gratis Jalan Kaki Asrama-Kampus CWE / Ongkir Berbayar Kosan Luar)%0A- Lokasi Saya di: [sebutkan kamar asrama / kampus / kosan luar]%0A%0ABisa bantu cek ketersediaan sparepart dan jadwal pengerjaannya? Terima kasih.`;
     return `https://wa.me/6283894496994?text=${message}`;
+  };
+
+  const getSmartphoneWaUrl = () => {
+    const modelNote = hpModel.trim() ? `- Tipe HP: ${hpModel.trim()}%0A` : "";
+    const screenLabel =
+      currentHpScreen.id === "screen-none"
+        ? "Tidak perlu ganti LCD"
+        : `${currentHpScreen.label}`;
+    const servLabels =
+      currentHpServices.length > 0
+        ? currentHpServices.map((s) => s.label).join(", ")
+        : "Tidak ada servis tambahan";
+    const promoNote = isFridayPromo ? " (Diskon Hari Jum'at Aktif 10%)" : "";
+
+    const message = `Hai Zulkifli (4tune.labs), saya cek estimasi biaya servis HP di web:%0A${modelNote}- Layar (LCD): ${screenLabel}%0A- Layanan Servis: ${servLabels}${promoNote}%0A- Estimasi Biaya: ${formatRupiah(hpMin)} – ${formatRupiah(hpMax)}.%0A- Metode Serah Terima / Antar-Jemput: (Pilih: Drop-off Lab Kamar 304 / Gratis Jalan Kaki Asrama-Kampus CWE / Ongkir Berbayar Kosan Luar)%0A- Lokasi Saya di: [sebutkan kamar asrama / kampus / kosan luar]%0A%0ABisa bantu cek ketersediaan sparepart dan jadwal pengerjaannya? Terima kasih.`;
+    return `https://wa.me/6283159392826?text=${message}`;
   };
 
   const getSoftwareWaUrl = () => {
@@ -343,8 +535,23 @@ export function CostEstimator() {
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
           </svg>
-          <span>Divisi Servis Hardware &amp; PC</span>
+          <span>Servis Laptop &amp; PC</span>
         </button>
+
+        <button
+          type="button"
+          role="tab"
+          aria-selected={activeTab === "smartphone"}
+          className={`tab-btn ${activeTab === "smartphone" ? "active" : ""}`}
+          onClick={() => handleTabChange("smartphone")}
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+            <line x1="12" y1="18" x2="12.01" y2="18" />
+          </svg>
+          <span>Servis Smartphone / HP</span>
+        </button>
+
         <button
           type="button"
           role="tab"
@@ -680,7 +887,7 @@ export function CostEstimator() {
                   </div>
                 )}
 
-                {/* Feature 3: Itemized Breakdown Table */}
+                {/* Breakdown Table */}
                 <div className="summary-breakdown">
                   <div className="breakdown-header">
                     <span>Rincian Biaya Transparan</span>
@@ -738,7 +945,7 @@ export function CostEstimator() {
                       </div>
                     )}
 
-                    {/* Antar-Jemput / Serah Terima Unit */}
+                    {/* Antar-Jemput */}
                     {!isZeroSelection && (
                       <div className="breakdown-row">
                         <div className="breakdown-left">
@@ -805,6 +1012,386 @@ export function CostEstimator() {
 
                 <span className="summary-guarantee">
                   <i /> Sudah termasuk jasa pemasangan presisi &amp; dites langsung oleh Sukron (&ldquo;Cuklon&rdquo;) &amp; Zulkifli (&ldquo;Mamad&rdquo;).
+                </span>
+              </div>
+            </div>
+          </div>
+        ) : activeTab === "smartphone" ? (
+          /* ================= SMARTPHONE ESTIMATOR ================= */
+          <div className="estimator-grid">
+            <div className="estimator-inputs">
+              {/* Feature 4: 1-Click Solution Presets */}
+              <div className="estimator-presets-block">
+                <span className="presets-label">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                  </svg>
+                  <span>Pilih Cepat Masalah HP (1-Click Preset)</span>
+                </span>
+                <div className="presets-grid">
+                  {SMARTPHONE_PRESETS.map((preset) => {
+                    const isPresetActive = activeHpPreset === preset.id;
+                    return (
+                      <button
+                        key={preset.id}
+                        type="button"
+                        onClick={() => applyHpPreset(preset)}
+                        className={`preset-chip ${isPresetActive ? "active" : ""}`}
+                      >
+                        <div className="preset-top">
+                          <span className="preset-icon">{preset.icon}</span>
+                          <span className="preset-badge">{preset.badge}</span>
+                        </div>
+                        <span className="preset-title">{preset.title}</span>
+                        <span className="preset-desc">{preset.desc}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Smartphone Model Helper & Model Input */}
+              <div className="compat-helper">
+                <div className="compat-info-row">
+                  <div className="compat-badge-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+                      <line x1="12" y1="18" x2="12.01" y2="18" />
+                    </svg>
+                  </div>
+                  <div className="compat-text">
+                    <span className="compat-title">Punya Seri / Merk HP Tertentu?</span>
+                    <p className="compat-desc">
+                      Ketikkan tipe smartphone Anda di bawah ini (misal: iPhone 11, Redmi Note 12, Samsung A54, Poco F3, Oppo Reno). Spesialis reparasi elektronika &amp; gadget kami (Zulkifli &ldquo;Mamad&rdquo;) akan langsung memeriksa ketersediaan part dan kompatibilitasnya.
+                    </p>
+                  </div>
+                </div>
+                <div className="laptop-input-wrapper">
+                  <label htmlFor="hp-model-input" className="laptop-input-label">
+                    <span>Merk &amp; Tipe Smartphone Anda</span>
+                    <span className="optional-tag">Opsional • Terhubung Otomatis ke WhatsApp</span>
+                  </label>
+                  <div className="input-with-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+                      <line x1="12" y1="18" x2="12.01" y2="18" />
+                    </svg>
+                    <input
+                      id="hp-model-input"
+                      type="text"
+                      value={hpModel}
+                      onChange={(e) => setHpModel(e.target.value)}
+                      placeholder="Contoh: iPhone 11 / 13, Redmi Note 12, Samsung A54, Poco F3..."
+                      className="laptop-input"
+                    />
+                    {hpModel && (
+                      <button
+                        type="button"
+                        onClick={() => setHpModel("")}
+                        className="clear-input-btn"
+                        title="Hapus input"
+                        aria-label="Hapus input tipe HP"
+                      >
+                        ×
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Screen Choice */}
+              <div className="input-group">
+                <label className="group-label">
+                  <span className="num-dot">1</span>
+                  <span>{SMARTPHONE_PRICING.screen.title}</span>
+                </label>
+                <p className="group-desc">{SMARTPHONE_PRICING.screen.subtitle}</p>
+
+                <div className="gen-pills" role="radiogroup" aria-label="Filter Kualitas Layar HP">
+                  <button
+                    type="button"
+                    className={`gen-pill ${hpScreenFilter === "all" ? "active" : ""}`}
+                    onClick={() => setHpScreenFilter("all")}
+                  >
+                    Semua Kualitas
+                  </button>
+                  <button
+                    type="button"
+                    className={`gen-pill ${hpScreenFilter === "incell" ? "active" : ""}`}
+                    onClick={() => setHpScreenFilter("incell")}
+                  >
+                    Incell (Hemat)
+                  </button>
+                  <button
+                    type="button"
+                    className={`gen-pill ${hpScreenFilter === "oled" ? "active" : ""}`}
+                    onClick={() => setHpScreenFilter("oled")}
+                  >
+                    OLED / AMOLED
+                  </button>
+                  <button
+                    type="button"
+                    className={`gen-pill ${hpScreenFilter === "original" ? "active" : ""}`}
+                    onClick={() => setHpScreenFilter("original")}
+                  >
+                    Original OEM
+                  </button>
+                </div>
+
+                <div className="options-grid">
+                  {filteredHpScreenOptions.map((opt) => (
+                    <button
+                      key={opt.id}
+                      type="button"
+                      onClick={() => handleHpScreenSelect(opt.id)}
+                      className={`option-btn ${selectedHpScreen === opt.id ? "selected" : ""}`}
+                    >
+                      <div className="opt-header-row">
+                        <span className="opt-title">{opt.label}</span>
+                        {opt.grade && opt.grade !== "none" && (
+                          <span className={`gen-badge ${opt.grade === "oled" ? "gen4" : opt.grade === "original" ? "ddr5" : "gen3"}`}>
+                            {opt.grade === "incell" ? "Incell Grade" : opt.grade === "oled" ? "OLED Super" : "Original OEM"}
+                          </span>
+                        )}
+                      </div>
+                      {opt.description && <span className="opt-desc">{opt.description}</span>}
+                      <span className="opt-price">
+                        {opt.minPrice === 0
+                          ? "Layar Normal (Lewati)"
+                          : opt.minPrice === opt.maxPrice
+                          ? formatRupiah(opt.minPrice)
+                          : `${formatRupiah(opt.minPrice)} – ${formatRupiah(opt.maxPrice)}`}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Additional Services */}
+              <div className="input-group">
+                <label className="group-label">
+                  <span className="num-dot">2</span>
+                  <span>Layanan Perbaikan &amp; Perawatan HP</span>
+                </label>
+                <div className="checklist-stack">
+                  {SMARTPHONE_PRICING.services.map((serv) => {
+                    const isChecked = selectedHpServices.includes(serv.id);
+                    return (
+                      <div
+                        key={serv.id}
+                        role="checkbox"
+                        aria-checked={isChecked}
+                        tabIndex={0}
+                        onClick={() => toggleHpService(serv.id)}
+                        onKeyDown={(e) => {
+                          if (e.key === " " || e.key === "Enter") {
+                            e.preventDefault();
+                            toggleHpService(serv.id);
+                          }
+                        }}
+                        className={`check-card ${isChecked ? "checked" : ""}`}
+                      >
+                        <div className="check-box">
+                          {isChecked && (
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                              <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                          )}
+                        </div>
+                        <div className="check-info">
+                          <div className="check-title-row">
+                            <span className="check-title">{serv.label}</span>
+                            {serv.recommended && <span className="rec-badge">Sangat Dianjurkan</span>}
+                          </div>
+                          <span className="check-desc">{serv.description}</span>
+                        </div>
+                        <span className="check-price">+{formatRupiah(serv.minPrice)}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Friday Promo Toggle */}
+              <div className="friday-toggle-card">
+                <label className="toggle-label" htmlFor="hp-friday-checkbox">
+                  <input
+                    type="checkbox"
+                    id="hp-friday-checkbox"
+                    checked={isFridayPromo}
+                    onChange={(e) => setIsFridayPromo(e.target.checked)}
+                  />
+                  <div className="toggle-ui" />
+                  <div>
+                    <span className="toggle-title">
+                      {isRealFriday ? "Promo Spesial Hari Jum'at (Aktif Otomatis)" : "Klaim Promo Spesial Hari Jum'at (Diskon 10%)"}
+                    </span>
+                    <p className="toggle-sub">
+                      Dapatkan potongan diskon 10% untuk seluruh pengerjaan servis &amp; pergantian modul HP. <strong>Booking sekarang untuk serah terima unit di hari Jum&apos;at di Lab Asrama SCWE (Gedung 2 Lantai 3 Kamar 304)</strong> agar slot part teknisi kami disiapkan.
+                    </p>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            {/* Smartphone Result Card */}
+            <div className="estimator-summary" ref={hpSummaryRef}>
+              <div className="summary-card">
+                <span className="summary-kicker">Estimasi Servis HP Transparan</span>
+                <div className={`summary-price ${pricePulse ? "price-pulse" : ""}`}>
+                  {isHpZeroSelection ? (
+                    <span className="price-val" style={{ fontSize: "1.35rem", color: "var(--amber)" }}>
+                      Pilih Kebutuhan Anda
+                    </span>
+                  ) : (
+                    <div className="price-display-group">
+                      {isFridayPromo && hpDiscountMin > 0 && (
+                        <span className="price-original-strikethrough">
+                          {formatPriceRange(rawHpMin, rawHpMax)}
+                        </span>
+                      )}
+                      <span className="price-val">
+                        {formatPriceRange(hpMin, hpMax)}
+                      </span>
+                    </div>
+                  )}
+                  {isFridayPromo && !isHpZeroSelection && (
+                    <span className="discount-tag">
+                      {isRealFriday ? "Diskon Jum'at 10% Aktif" : "Sudah Termasuk Diskon 10%"}
+                    </span>
+                  )}
+                </div>
+                <p className="summary-explain">
+                  {isHpZeroSelection
+                    ? "Silakan pilih salah satu opsi layar LCD atau layanan servis smartphone untuk memunculkan estimasi biaya."
+                    : "Estimasi biaya ALL-IN transparan: sudah mencakup sparepart baru bergaransi, jasa bongkar pasang presisi, lem elastis standar pabrik, serta pengetesan fungsi. Drop-off lab dan antar-jemput jalan kaki (asrama/kampus CWE) gratis Rp 0; kosan luar berbayar sesuai jarak."}
+                </p>
+
+                {isFridayPromo && !isHpZeroSelection && (
+                  <div className="friday-edu-banner">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <circle cx="12" cy="12" r="10" />
+                      <line x1="12" y1="16" x2="12" y2="12" />
+                      <line x1="12" y1="8" x2="12.01" y2="8" />
+                    </svg>
+                    <span>
+                      <strong>Edukasi Booking Jum&apos;at:</strong> Diskon 10% berlaku khusus pengerjaan servis atau serah terima unit di hari Jum&apos;at di Lab Asrama SCWE (Kamar 304). Booking via WhatsApp agar sparepart disiapkan lebih awal.
+                    </span>
+                  </div>
+                )}
+
+                {/* Breakdown Table */}
+                <div className="summary-breakdown">
+                  <div className="breakdown-header">
+                    <span>Rincian Biaya Transparan</span>
+                    <span className="breakdown-subtitle">Tanpa Biaya Siluman</span>
+                  </div>
+
+                  <div className="breakdown-list">
+                    {/* LCD Screen Breakdown */}
+                    <div className="breakdown-row">
+                      <div className="breakdown-left">
+                        <span className="breakdown-name">Layar (LCD / OLED)</span>
+                        <span className="breakdown-detail">
+                          {currentHpScreen.id === "screen-none" ? "Layar normal (tidak ganti LCD)" : currentHpScreen.label}
+                        </span>
+                      </div>
+                      <span className="breakdown-val">
+                        {currentHpScreen.minPrice === 0 ? "Rp 0" : `${formatRupiah(currentHpScreen.minPrice)} – ${formatRupiah(currentHpScreen.maxPrice)}`}
+                      </span>
+                    </div>
+
+                    {/* Services Breakdown */}
+                    {currentHpServices.map((serv) => (
+                      <div key={serv.id} className="breakdown-row">
+                        <div className="breakdown-left">
+                          <span className="breakdown-name">{serv.label}</span>
+                          <span className="breakdown-detail">Layanan servis HP</span>
+                        </div>
+                        <span className="breakdown-val">
+                          +{formatRupiah(serv.minPrice)} – +{formatRupiah(serv.maxPrice)}
+                        </span>
+                      </div>
+                    ))}
+
+                    {/* Installation Status */}
+                    {!isHpZeroSelection && (
+                      <div className="breakdown-row breakdown-row-highlight">
+                        <div className="breakdown-left">
+                          <span className="breakdown-name">Jasa Pasang &amp; Uji Fungsi Layar</span>
+                          <span className="breakdown-detail">Pengeleman presisi + kalibrasi touch &amp; sensor</span>
+                        </div>
+                        <span className="badge-included">Termasuk (Gratis)</span>
+                      </div>
+                    )}
+
+                    {/* Antar-Jemput */}
+                    {!isHpZeroSelection && (
+                      <div className="breakdown-row">
+                        <div className="breakdown-left">
+                          <span className="breakdown-name">Antar-Jemput / Serah Terima Unit</span>
+                          <span className="breakdown-detail">Gratis Rp 0 (jalan kaki asrama/kampus CWE) • Kosan luar berbayar sesuai jarak</span>
+                        </div>
+                        <span className="breakdown-val" style={{ fontSize: "11px", color: "var(--ink-2)", fontWeight: 500 }}>
+                          SOP Jarak
+                        </span>
+                      </div>
+                    )}
+
+                    {/* Friday Promo Discount */}
+                    {isFridayPromo && !isHpZeroSelection && hpDiscountMin > 0 && (
+                      <div className="breakdown-row breakdown-row-discount">
+                        <div className="breakdown-left">
+                          <span className="breakdown-name" style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                            </svg>
+                            <span>Diskon Spesial Hari Jum&apos;at (10%)</span>
+                          </span>
+                          <span className="breakdown-detail">Potongan langsung seluruh servis &amp; modul HP</span>
+                        </div>
+                        <span className="breakdown-discount-val">
+                          -{formatRupiah(hpDiscountMin)} – -{formatRupiah(hpDiscountMax)}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {isHpZeroSelection ? (
+                  <button type="button" disabled className="btn btn-ghost btn-summary" style={{ opacity: 0.5, cursor: "not-allowed" }}>
+                    Pilih Kebutuhan Terlebih Dahulu
+                  </button>
+                ) : (
+                  <a
+                    className="btn btn-primary btn-summary magnetic"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href={getSmartphoneWaUrl()}
+                  >
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+                    </svg>
+                    Konsultasikan ke Zulkifli via WA ↗
+                  </a>
+                )}
+
+                <div style={{ marginTop: "12px", display: "flex", justifyContent: "space-between" }}>
+                  <button
+                    type="button"
+                    onClick={() => copyToClipboard("+6283159392826", "hp-no")}
+                    style={{ fontSize: "11.5px", fontFamily: "var(--font-mono)", color: "rgba(244,242,234,0.7)", background: "none", border: "none", cursor: "pointer", padding: "0", display: "inline-flex", alignItems: "center", gap: "5px" }}
+                  >
+                    <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                    </svg>
+                    <span>{copiedType === "hp-no" ? "No WA Zulkifli Tersalin!" : "Salin No WA (+62 831-5939-2826)"}</span>
+                  </button>
+                </div>
+
+                <span className="summary-guarantee">
+                  <i /> Sudah termasuk lem perekat presisi, pembersihan frame, &amp; dites langsung oleh Zulkifli (&ldquo;Mamad&rdquo;).
                 </span>
               </div>
             </div>
@@ -953,8 +1540,8 @@ export function CostEstimator() {
         <div className="mobile-bar-inner">
           <div className="mobile-bar-left">
             <span className="mobile-bar-label">
-              Total {activeTab === "hardware" ? "Hardware" : "Website"}
-              {activeTab === "hardware" && isFridayPromo && !isZeroSelection && (
+              Total {activeTab === "hardware" ? "Laptop & PC" : activeTab === "smartphone" ? "Smartphone HP" : "Website"}
+              {(activeTab === "hardware" || activeTab === "smartphone") && isFridayPromo && (activeTab === "hardware" ? !isZeroSelection : !isHpZeroSelection) && (
                 <span className="mobile-bar-promo">Disc 10%</span>
               )}
             </span>
@@ -970,6 +1557,19 @@ export function CostEstimator() {
                       </span>
                     )}
                     <span>{formatPriceRange(hwMin, hwMax)}</span>
+                  </span>
+                )
+              ) : activeTab === "smartphone" ? (
+                isHpZeroSelection ? (
+                  "Pilih Kebutuhan"
+                ) : (
+                  <span className="mobile-bar-price-wrap">
+                    {isFridayPromo && hpDiscountMin > 0 && (
+                      <span className="price-original-strikethrough mobile-strike">
+                        {formatPriceRange(rawHpMin, rawHpMax)}
+                      </span>
+                    )}
+                    <span>{formatPriceRange(hpMin, hpMax)}</span>
                   </span>
                 )
               ) : (
@@ -990,7 +1590,13 @@ export function CostEstimator() {
               className="btn btn-primary mobile-bar-cta"
               target="_blank"
               rel="noopener noreferrer"
-              href={activeTab === "hardware" ? getHardwareWaUrl() : getSoftwareWaUrl()}
+              href={
+                activeTab === "hardware"
+                  ? getHardwareWaUrl()
+                  : activeTab === "smartphone"
+                  ? getSmartphoneWaUrl()
+                  : getSoftwareWaUrl()
+              }
             >
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
@@ -1021,7 +1627,11 @@ export function CostEstimator() {
                   Rincian Estimasi Biaya
                 </Drawer.Title>
                 <Drawer.Description className="text-xs text-[var(--paper)]/60 font-mono">
-                  {activeTab === "hardware" ? "Servis Hardware & Upgrade PC" : "Pengembangan Web & Software"} • Transparan
+                  {activeTab === "hardware"
+                    ? "Servis Hardware & Upgrade PC"
+                    : activeTab === "smartphone"
+                    ? "Servis Smartphone / HP & Gadget"
+                    : "Pengembangan Web & Software"} • Transparan
                 </Drawer.Description>
               </div>
               <Drawer.Close asChild>
@@ -1063,6 +1673,26 @@ export function CostEstimator() {
                       )}
                     </div>
                   )
+                ) : activeTab === "smartphone" ? (
+                  isHpZeroSelection ? (
+                    <span className="text-base text-[var(--amber)] font-bold">Pilih Kebutuhan Anda</span>
+                  ) : (
+                    <div className="flex items-baseline gap-2 flex-wrap">
+                      {isFridayPromo && hpDiscountMin > 0 && (
+                        <span className="price-original-strikethrough text-sm">
+                          {formatPriceRange(rawHpMin, rawHpMax)}
+                        </span>
+                      )}
+                      <span className="text-xl font-extrabold text-[var(--amber)] font-mono">
+                        {formatPriceRange(hpMin, hpMax)}
+                      </span>
+                      {isFridayPromo && (
+                        <span className="text-[11px] font-mono font-medium px-2 py-0.5 rounded-full bg-[#65b584]/20 text-[#65b584] border border-[#65b584]/30">
+                          Diskon Jum&apos;at 10% Aktif
+                        </span>
+                      )}
+                    </div>
+                  )
                 ) : (
                   <span className="text-xl font-extrabold text-[var(--amber)] font-mono">
                     {formatRupiah(swMin)} – {formatRupiah(swMax)}
@@ -1071,7 +1701,7 @@ export function CostEstimator() {
               </div>
 
               {/* Education Banner */}
-              {activeTab === "hardware" && isFridayPromo && !isZeroSelection && (
+              {((activeTab === "hardware" && !isZeroSelection) || (activeTab === "smartphone" && !isHpZeroSelection)) && isFridayPromo && (
                 <div className="friday-edu-banner">
                   <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <circle cx="12" cy="12" r="10" />
@@ -1156,6 +1786,64 @@ export function CostEstimator() {
                       </div>
                     )}
                   </>
+                ) : activeTab === "smartphone" ? (
+                  <>
+                    <div className="flex justify-between items-start pb-2.5 border-b border-white/5">
+                      <div>
+                        <div className="font-semibold text-[var(--paper)]">Layar (LCD / OLED)</div>
+                        <div className="text-xs text-[var(--paper)]/60">
+                          {currentHpScreen.id === "screen-none" ? "Layar normal (tidak ganti LCD)" : currentHpScreen.label}
+                        </div>
+                      </div>
+                      <div className="font-mono text-xs font-semibold text-[var(--paper)] text-right">
+                        {currentHpScreen.minPrice === 0 ? "Rp 0" : `${formatRupiah(currentHpScreen.minPrice)} – ${formatRupiah(currentHpScreen.maxPrice)}`}
+                      </div>
+                    </div>
+
+                    {currentHpServices.map((serv) => (
+                      <div key={serv.id} className="flex justify-between items-start pb-2.5 border-b border-white/5">
+                        <div>
+                          <div className="font-semibold text-[var(--paper)]">{serv.label}</div>
+                          <div className="text-xs text-[var(--paper)]/60">Layanan servis HP</div>
+                        </div>
+                        <div className="font-mono text-xs font-semibold text-[var(--paper)] text-right">
+                          +{formatRupiah(serv.minPrice)} – +{formatRupiah(serv.maxPrice)}
+                        </div>
+                      </div>
+                    ))}
+
+                    {!isHpZeroSelection && (
+                      <div className="flex justify-between items-start pb-2.5 border-b border-white/5">
+                        <div>
+                          <div className="font-semibold text-[var(--paper)]">Jasa Pasang &amp; Uji Fungsi Layar</div>
+                          <div className="text-xs text-[var(--paper)]/60">Bongkar pasang presisi + pengeleman standar pabrik</div>
+                        </div>
+                        <span className="badge-included text-xs">Termasuk (Gratis)</span>
+                      </div>
+                    )}
+
+                    {!isHpZeroSelection && (
+                      <div className="flex justify-between items-start pb-2.5 border-b border-white/5">
+                        <div>
+                          <div className="font-semibold text-[var(--paper)]">Antar-Jemput / Serah Terima Unit</div>
+                          <div className="text-xs text-[var(--paper)]/60">Gratis Rp 0 (jalan kaki asrama/kampus CWE) • Kosan luar berbayar sesuai jarak</div>
+                        </div>
+                        <span className="text-[11px] font-mono text-[var(--paper)]/70 text-right">SOP Jarak</span>
+                      </div>
+                    )}
+
+                    {isFridayPromo && !isHpZeroSelection && hpDiscountMin > 0 && (
+                      <div className="flex justify-between items-start pb-2.5 border-b border-white/5 text-[#65b584]">
+                        <div>
+                          <div className="font-semibold">Diskon Spesial Hari Jum&apos;at (10%)</div>
+                          <div className="text-xs text-[#65b584]/80">Potongan langsung seluruh servis &amp; modul HP</div>
+                        </div>
+                        <div className="font-mono text-xs font-bold text-right">
+                          -{formatRupiah(hpDiscountMin)} – -{formatRupiah(hpDiscountMax)}
+                        </div>
+                      </div>
+                    )}
+                  </>
                 ) : (
                   <>
                     <div className="flex justify-between items-start pb-2.5 border-b border-white/5">
@@ -1198,7 +1886,13 @@ export function CostEstimator() {
                 className="btn btn-primary w-full justify-center text-center font-bold"
                 target="_blank"
                 rel="noopener noreferrer"
-                href={activeTab === "hardware" ? getHardwareWaUrl() : getSoftwareWaUrl()}
+                href={
+                  activeTab === "hardware"
+                    ? getHardwareWaUrl()
+                    : activeTab === "smartphone"
+                    ? getSmartphoneWaUrl()
+                    : getSoftwareWaUrl()
+                }
                 onClick={() => setIsBottomSheetOpen(false)}
               >
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -1207,7 +1901,11 @@ export function CostEstimator() {
                 <span>Konsultasikan via WhatsApp ↗</span>
               </a>
               <div className="text-center text-[11px] font-mono text-[var(--paper)]/50">
-                {activeTab === "hardware" ? "Langsung dengan Sukron & Mamad (Lab Asrama SCWE)" : "Langsung dengan Felich & Dika"}
+                {activeTab === "hardware"
+                  ? "Langsung dengan Sukron & Mamad (Lab Asrama SCWE)"
+                  : activeTab === "smartphone"
+                  ? "Langsung dengan Zulkifli / Mamad (Lab Asrama SCWE)"
+                  : "Langsung dengan Felich & Dika"}
               </div>
             </div>
           </Drawer.Content>

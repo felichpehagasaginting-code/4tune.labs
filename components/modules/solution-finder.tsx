@@ -9,10 +9,52 @@ interface SymptomChip {
   label: string;
   query: string;
   targetId: string;
-  category: "hardware" | "business" | "student" | "all";
+  category: "hardware" | "smartphone" | "business" | "student" | "all";
 }
 
 const QUICK_SYMPTOM_CHIPS: SymptomChip[] = [
+  {
+    id: "chip-lcd",
+    label: "📱 LCD Retak / Bergaris",
+    query: "lcd",
+    targetId: "sol-hp-lcd",
+    category: "smartphone",
+  },
+  {
+    id: "chip-matot",
+    label: "⚡ HP Mati Total (Matot)",
+    query: "mati total",
+    targetId: "sol-hp-matot",
+    category: "smartphone",
+  },
+  {
+    id: "chip-cas",
+    label: "🔌 Tidak Bisa Di-Cas",
+    query: "cas",
+    targetId: "sol-hp-charging",
+    category: "smartphone",
+  },
+  {
+    id: "chip-kamera",
+    label: "📷 Kamera Blur & Bergetar",
+    query: "kamera",
+    targetId: "sol-hp-camera",
+    category: "smartphone",
+  },
+  {
+    id: "chip-speaker",
+    label: "🔊 Speaker Suara Pelan/Kresek",
+    query: "speaker",
+    targetId: "sol-hp-audio",
+    category: "smartphone",
+  },
+  {
+    id: "chip-baterai",
+    label: "🔋 Baterai HP Kembung / Drop",
+    query: "baterai",
+    targetId: "sol-hp-baterai",
+    category: "smartphone",
+  },
   {
     id: "chip-panas",
     label: "🔥 Laptop Panas & Kipas Bising",
@@ -40,13 +82,6 @@ const QUICK_SYMPTOM_CHIPS: SymptomChip[] = [
     query: "portofolio",
     targetId: "sol-4",
     category: "student",
-  },
-  {
-    id: "chip-baterai",
-    label: "🔋 Baterai HP Bocor / Cas Rusak",
-    query: "baterai",
-    targetId: "sol-5",
-    category: "hardware",
   },
 ];
 
@@ -133,7 +168,7 @@ export function SolutionFinder() {
           <input
             type="text"
             className="solution-search-input"
-            placeholder="Ketik keluhan Anda... (misal: laptop lemot, blue screen, kipas berisik, buat web)"
+            placeholder="Ketik keluhan Anda... (misal: ganti LCD HP, HP matot, port cas, laptop panas, buat web)"
             value={searchQuery}
             onChange={(e) => {
               setSearchQuery(e.target.value);
@@ -200,7 +235,14 @@ export function SolutionFinder() {
           className={`pill-btn ${activeCategory === "hardware" ? "active" : ""}`}
           onClick={() => handleCategoryChange("hardware")}
         >
-          Kendala Laptop &amp; Gadget
+          Kendala Laptop &amp; PC
+        </button>
+        <button
+          type="button"
+          className={`pill-btn ${activeCategory === "smartphone" ? "active" : ""}`}
+          onClick={() => handleCategoryChange("smartphone")}
+        >
+          Kendala Smartphone &amp; HP
         </button>
         <button
           type="button"
@@ -230,7 +272,7 @@ export function SolutionFinder() {
             </div>
             <h3>Keluhan Anda Belum Tercantum?</h3>
             <p>
-              Jangan khawatir. Tidak semua masalah laptop atau kebutuhan sistem tercatat di daftar ini.
+              Jangan khawatir. Tidak semua masalah laptop, HP, atau kebutuhan sistem tercatat di daftar ini.
               Sampaikan keluhan spesifik Anda langsung ke teknisi kami untuk diagnosa gratis.
             </p>
             <div className="empty-actions">
@@ -241,9 +283,15 @@ export function SolutionFinder() {
                 className="btn btn-primary btn-sm magnetic"
                 target="_blank"
                 rel="noopener noreferrer"
-                href={`https://wa.me/6283894496994?text=Halo%20teknisi%204tune.labs%2C%20laptop%20saya%20ada%20kendala%20khusus%3A%20${encodeURIComponent(
-                  searchQuery
-                )}`}
+                href={
+                  activeCategory === "smartphone"
+                    ? `https://wa.me/6283159392826?text=Halo%20Zulkifli%20(4tune.labs)%2C%20HP%20saya%20ada%20kendala%20khusus%3A%20${encodeURIComponent(
+                        searchQuery
+                      )}`
+                    : `https://wa.me/6283894496994?text=Halo%20teknisi%204tune.labs%2C%20perangkat%20saya%20ada%20kendala%20khusus%3A%20${encodeURIComponent(
+                        searchQuery
+                      )}`
+                }
               >
                 Konsultasikan Masalah Ini ↗
               </a>

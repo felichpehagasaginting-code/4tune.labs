@@ -193,7 +193,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
               >
                 <div className="flex items-center gap-2.5">
                   <PhoneCall size={14} className="text-neutral-300" />
-                  <span>Zulkifli (Hardware &amp; Embedded Specialist)</span>
+                  <span>Zulkifli (Elektronika &amp; Reparasi HP Specialist)</span>
                 </div>
                 <span className="text-[10px] text-muted">+62 831-5939-2826</span>
               </Command.Item>

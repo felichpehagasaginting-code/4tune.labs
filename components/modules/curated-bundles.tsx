@@ -9,14 +9,17 @@ export function CuratedBundles() {
 
   const handleCustomizeInEstimator = (bundleId: string) => {
     let presetId = "skripsi";
-    let tab: "hardware" | "software" = "hardware";
+    let tab: "hardware" | "smartphone" | "software" = "hardware";
 
-    if (bundleId === "bundle-fresh") {
+    if (bundleId === "bundle-refresh") {
       presetId = "adem";
     } else if (bundleId === "bundle-creators") {
       presetId = "gaming";
-    } else if (bundleId === "bundle-umkm") {
+    } else if (bundleId === "bundle-umkm" || bundleId === "bundle-portfolio") {
       tab = "software";
+    } else if (bundleId === "bundle-hp-revive") {
+      tab = "smartphone";
+      presetId = "hp-layar";
     }
 
     // Dispatch event to cost estimator

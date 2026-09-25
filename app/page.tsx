@@ -912,26 +912,28 @@ export default function Home() {
                 <span className="svc-num">/ 02</span>
                 <div>
                   <div className="flex items-center gap-3 flex-wrap">
-                    <h3>Servis Hardware, Upgrade &amp; Pemulihan Sistem</h3>
+                    <h3>Servis Hardware Laptop, PC &amp; Reparasi Smartphone (HP)</h3>
                     <span className="inline-block text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-[rgba(61,155,99,0.15)] text-[var(--green-deep)] font-semibold border border-[rgba(61,155,99,0.3)]">
                       PROMO: Diskon Setiap Hari Jum&apos;at!
                     </span>
                   </div>
                   <span className="svc-tag">
-                    laptop lemot kembali ngebut, upgrade hardware, dan perbaikan perangkat bergaransi.
+                    laptop lemot kembali ngebut, perbaikan smartphone tuntas, dan servis komponen bergaransi.
                   </span>
                   <p className="svc-desc">
                     Penyelamat perangkat kuliah &amp; kerja Anda. Mulai dari laptop lemot yang butuh upgrade SSD &amp; ekspansi RAM
-                    agar booting hitungan detik, instalasi bersih OS (Windows/Linux) &amp; software esensial, perbaikan hardware laptop &amp; PC,
-                    service gadget (HP &amp; Tablet), hingga deep cleaning kipas &amp; penggantian pasta pendingin thermal. Pengerjaan transparan,
-                    data Anda aman terjamin, serah terima unit di Lab Kamar 304 atau antar-jemput (gratis jalan kaki asrama/kampus, kosan luar berbayar sesuai jarak), serta bergaransi resmi.
+                    agar booting hitungan detik, servis smartphone HP (ganti layar LCD Incell/OLED/Original, ganti baterai drop/kembung,
+                    perbaikan port cas Type-C/Lightning longgar, modul kamera, perbaikan HP mati total korslet jalur VPH_PWR, hingga bootloop),
+                    instalasi bersih OS (Windows/Linux) &amp; software esensial, hingga deep cleaning internal &amp; pembersihan mesh akustik speaker.
+                    Pengerjaan transparan tanpa perantara, data privasi 100% aman, serah terima unit di Lab Kamar 304 atau antar-jemput (gratis jalan kaki asrama/kampus, kosan luar berbayar sesuai jarak), serta bergaransi resmi.
                   </p>
                   <div className="chips">
-                    <span>Upgrade SSD &amp; RAM</span>
                     <span>Service Laptop &amp; PC</span>
-                    <span>Perbaikan HP &amp; Tablet</span>
-                    <span>Instalasi OS &amp; Software</span>
-                    <span>Deep Cleaning &amp; Thermal</span>
+                    <span>Ganti LCD &amp; Baterai HP</span>
+                    <span>HP Matot &amp; Jalur VPH_PWR</span>
+                    <span>Port Cas &amp; Kamera HP</span>
+                    <span>Upgrade SSD &amp; RAM</span>
+                    <span>Deep Cleaning &amp; Mesh Audio</span>
                     <span>Pengecekan Transparan</span>
                     <span>Garansi Servis</span>
                   </div>

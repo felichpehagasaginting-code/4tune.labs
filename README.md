@@ -30,20 +30,22 @@ Platform resmi **4tune.labs**, studio rekayasa teknologi independen yang didirik
   - Orbit kinetik ganda (`orbit-a` & `orbit-b`) dengan simulasi rotasi inersial dan efek *breathing idle*.
   - Geometri vektor presisi tinggi yang memadukan 4 pita ribbon interlocking (Amber `#E4A932` & Green `#369966`), prisma rumah arsitektural (`#424449`), dan heksagon inti.
 * **SolutionFinder (Pencari Solusi Kendala):**
-  - Modul diagnostik interaktif berbasis gejala keluhan nyata (laptop panas, boot lemot, tugas akhir, website UMKM).
-  - Quick Symptom Chips: chip diagnosa instan yang otomatis mengisi query pencarian dan membuka solusi terkait (*auto-expand*).
-  - Filter pills kategori yang dapat digeser secara horizontal pada perangkat mobile (*touch momentum swipe*).
-  - Tautan WhatsApp langsung yang membawa ringkasan diagnosa keluhan klien secara otomatis.
+  - Modul diagnostik interaktif berbasis gejala keluhan nyata (laptop panas, boot lemot, tugas akhir, website UMKM, serta kendala smartphone/HP).
+  - **Quick Symptom Chips Khusus HP & Laptop:** chip diagnosa instan (`📱 LCD Retak / Bergaris`, `⚡ HP Mati Total (Matot)`, `🔌 Tidak Bisa Di-Cas`, `📷 Kamera Blur & Bergetar`, `🔊 Speaker Suara Pelan/Kresek`, `🔋 Baterai HP Kembung / Drop`, `🔥 Laptop Panas`, `⚡ Booting Lemot`) yang otomatis mengisi query pencarian dan membuka solusi terkait (*auto-expand*).
+  - Filter pills kategori interaktif: *Semua Masalah*, *Kendala Laptop & PC*, *Kendala Smartphone & HP*, *Kebutuhan Usaha & UMKM*, dan *Tugas Akhir & Portofolio*.
+  - Tautan WhatsApp langsung ke spesialis terkait (Zulkifli untuk HP, Sukron untuk PC, Felich untuk Web).
 * **CuratedBundles (Paket Pilihan Terkurasi):**
-  - Paket siap pakai terstruktur: **Paket Mahasiswa Fresh & Kencang**, **Paket UMKM Go-Online**, dan **Paket Kreator & AI Ready**.
+  - Paket siap pakai terstruktur: **Paket Skripsi Anti-Panik**, **Paket Laptop Segar Kembali**, **Paket HP Segar & Normal Kembali**, **Paket UMKM Go-Online**, dan **Paket Portofolio Personal**.
   - Rincian checklist pekerjaan terstandardisasi dan badge verifikasi teknisi penanggung jawab.
 * **CostEstimator (Kalkulator Biaya Interaktif):**
-  - Kalkulator real-time dengan tab kategori dinamis (Hardware Servis vs Pembuatan Web & AI).
-  - Pilihan kapasitas SSD berkecepatan tinggi (PCIe Gen 3 hemat & Gen 4 ultra-fast), ekspansi RAM (DDR4 3200MHz & DDR5 5600MHz) dengan visual badge generasi dan sub-filter pills.
-  - Multi-select add-on pengerjaan hardware (deep cleaning, instalasi OS, penggantian baterai) dan toggle promo otomatis hari Jum'at (10% OFF).
+  - Kalkulator real-time dengan 3 tab kategori dinamis:
+    1. **Servis Laptop & PC:** SSD (PCIe Gen 3 & Gen 4), RAM (DDR4 & DDR5), deep cleaning, thermal repasta, OS install, dan baterai laptop.
+    2. **Servis Smartphone / HP:** Penggantian layar LCD (Incell ekonomis, OLED tajam, hingga Original OEM), penggantian baterai kembung/drop, perbaikan port cas Type-C/Lightning longgar, ganti modul kamera & kaca lensa, perbaikan HP mati total korslet jalur VPH_PWR, penanganan bootloop/flashing, hingga deep cleaning internal & pembersihan mesh speaker/port.
+    3. **Divisi Web & Software:** Landing page, portofolio personal, web apps AI, custom domain, Google Maps SEO, dan bot asisten.
+  - Multi-select add-on pengerjaan hardware/gadget dan toggle promo otomatis hari Jum'at (10% OFF).
   - Visualisasi harga coret (*strike-through pricing*) proporsional saat diskon Jum'at aktif.
   - **Swipeable Bottom Sheet (Vaul):** Rekapitulasi rincian biaya mobile terpadu tanpa scroll-jump, terkoordinasi dengan scroll engine Lenis (`data-lenis-prevent`).
-  - Format pesan WhatsApp otomatis sekali klik dan tombol salin ringkasan estimasi ke clipboard.
+  - Format pesan WhatsApp otomatis sekali klik ke teknisi spesialis (Sukron untuk PC, Zulkifli untuk HP, Felich untuk Web) dan tombol salin ringkasan estimasi ke clipboard.
 * **BeforeAfterSlider (Komparasi Thermal & Radiator):**
   - Slider komparasi interaktif sebelum vs sesudah servis dengan dukungan tap instan dan touch target 44px (`touch-action: pan-y`).
 * **LabLocation & Peta Interaktif OpenFreeMap:**
@@ -52,9 +54,16 @@ Platform resmi **4tune.labs**, studio rekayasa teknologi independen yang didirik
   - Mode switcher antara Peta Interaktif Live dan Skema Radius Konsentris.
   - Kebijakan antar-jemput transparan: **Gratis (Rp 0)** untuk jarak jalan kaki (lingkungan asrama & kampus CWE); **Berbayar** sesuai jarak tempuh untuk kosan luar atau area sekitarnya.
   - Tombol instan salin alamat lengkap & patokan lab dengan fallback clipboard.
-* **Portfolio Showcase (Karya Terpilih) & Lab Notes:**
+* **Portfolio Showcase & Lab Notes (Catatan Teknis Ringkas):**
   - Galeri proyek rekayasa nyata (Felys AI Companion, Nettas PB AI, Sistem Pembelajaran TRPL 2026, dll.) dengan modal detail interaktif.
-  - Modal Reader Lab Notes full-screen di mobile dengan sticky header (`env(safe-area-inset-top)`) yang ramah pembaca.
+  - **Lab Notes Edukasi & Studi Kasus:**
+    * 5 Tanda Harddisk Mulai Sekarat (Sukron)
+    * Kenapa Pasta Pendingin Kering Bikin Laptop Drop Separuh (Zulkifli)
+    * Membangun Web Portofolio Hemat Nol Biaya Bulanan (Felich)
+    * Prinsip Desain Antarmuka Ramah Pengguna Awam (Dika)
+    * **SOP Diagnosa HP Mati Total: Melacak Jalur Short VPH_PWR dengan DC Power Supply & Thermal Cam (Zulkifli)**
+    * **Pertolongan Pertama HP Kemasukan Air & Panduan Cerdas Memilih Panel Layar LCD (Zulkifli)**
+  - Modal Reader Lab Notes full-screen di mobile dengan sticky header (`env(safe-area-inset-top)`) dan routing konsultasi WhatsApp dinamis berdasarkan penulis artikel.
 * **Command Palette (`Ctrl+K` / `Cmd+K`):**
   - Antarmuka pencarian cepat bergaya keyboard-first untuk navigasi instan antar section dan modul.
 * **Responsive Multi-Device Design:**
@@ -158,8 +167,9 @@ pnpm start
 
 ## 📞 Konsultasi & Kontak Resmi
 
-* **WhatsApp Divisi Web & AI (Felich):** [+62 823-8652-6982](https://wa.me/6282386526982)
-* **WhatsApp Divisi Servis & Hardware (Sukron):** [+62 838-9449-6994](https://wa.me/6283894496994)
+* **WhatsApp Divisi Servis Laptop & PC (Sukron):** [+62 838-9449-6994](https://wa.me/6283894496994)
+* **WhatsApp Divisi Reparasi Smartphone & HP (Zulkifli):** [+62 831-5939-2826](https://wa.me/6283159392826)
+* **WhatsApp Divisi Web, Software & AI (Felich):** [+62 823-8652-6982](https://wa.me/6282386526982)
 * **Email Resmi:** [4tune.labs@gmail.com](mailto:4tune.labs@gmail.com)
 * **Portofolio Developer:** [felich-dev.vercel.app](https://felich-dev.vercel.app/)
 

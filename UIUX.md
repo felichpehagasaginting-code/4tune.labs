@@ -15,7 +15,7 @@
 ### 1.1 Model Mental Pengguna
 * **Immediate Clarity (Kejelasan Langsung):** Begitu membuka halaman di ponsel atau laptop, pengunjung langsung disajikan proposisi nilai yang tegas: *"Dari kode web hingga hardware, beres tanpa perantara."*
 * **Low-Friction Action:** Estimasi biaya dapat dihitung langsung tanpa harus mengisi formulir panjang atau registrasi akun.
-* **Direct Human Touch:** Tombol WhatsApp langsung mengarahkan klien ke engineer spesialis yang tepat (Felich untuk Web/AI, Sukron untuk Hardware).
+* **Direct Human Touch:** Tombol WhatsApp langsung mengarahkan klien ke engineer spesialis yang tepat (Felich untuk Web/AI, Sukron untuk PC & Laptop, Zulkifli untuk Smartphone & Elektronika).
 
 ---
 
@@ -24,19 +24,26 @@
 ### 2.1 Journey A: Mahasiswa dengan Laptop Panas / Lemot (Tugas Akhir)
 1. **Entry:** Membuka web dari tautan media sosial atau rekomendasi teman di smartphone.
 2. **First Fold:** Langsung membaca headline dan badge *"Ramah Mahasiswa & UMKM"*.
-3. **Problem Matching:** Menelusuri bagian *Solusi Kendala*, memilih filter pill *"Kendala Laptop & Gadget"*. Menemukan gejala: *"Laptop cepat panas, kipas bising, dan suka mati tiba-tiba saat Zoom."*
+3. **Problem Matching:** Menelusuri bagian *Solusi Kendala*, memilih filter pill *"Kendala Laptop & PC"*. Menemukan gejala: *"Laptop cepat panas, kipas bising, dan suka mati tiba-tiba saat Zoom."*
 4. **Diagnosis & Solution:** Membaca diagnosa pasta kering dan debu radiator, melihat estimasi pengerjaan 1–3 jam bisa ditunggu.
-5. **Cost Verification:** Menggulir ke *Kalkulator Biaya*, memilih opsi Deep Cleaning (+ thermal paste) dan SSD 512GB, melihat diskon otomatis hari Jum'at.
+5. **Cost Verification:** Menggulir ke *Kalkulator Biaya*, memilih tab *Servis Laptop & PC*, memilih opsi Deep Cleaning (+ thermal paste) dan SSD 512GB, melihat diskon otomatis hari Jum'at.
 6. **Conversion:** Mengetuk tombol *Mulai Percakapan* atau *Jadwalkan Deep Cleaning*, membawa teks detail opsi ke WhatsApp Sukron.
 
-### 2.2 Journey B: Pemilik Usaha / UMKM Go-Online
+### 2.2 Journey B: Pemilik Smartphone Layar Retak / HP Mati Total
+1. **Entry:** Membuka web dari HP cadangan atau laptop setelah smartphone utama mengalami masalah.
+2. **Problem Matching:** Memilih Quick Symptom Chip `📱 LCD Retak / Bergaris` atau `⚡ HP Mati Total (Matot)`.
+3. **Diagnostic Inspection:** Membaca penjelasan jalur korslet VPH_PWR / IC Power dan perbandingan panel layar (Original vs OLED vs Incell).
+4. **Cost Estimator Verification:** Beralih ke tab *Servis Smartphone / HP*, memilih jenis layar (misal Incell atau OLED) dan layanan tambahan (ganti baterai atau deep clean mesh audio).
+5. **Direct Technician WhatsApp:** Mengetuk tombol *Konsultasikan ke Zulkifli via WA*, pesan terformat otomatis dengan tipe HP dan detail servis terkirim ke Zulkifli ("Mamad").
+
+### 2.3 Journey C: Pemilik Usaha / UMKM Go-Online
 1. **Entry:** Mengakses web melalui laptop atau tablet.
 2. **Evaluation:** Melihat bagian *Paket Pilihan*, menemukan kartu **Paket UMKM Go-Online** (Rp 450.000 – Rp 850.000).
 3. **Feature Inspection:** Memeriksa checklist: Desain responsif, domain & hosting, integrasi WA & Google Maps, SEO lokal.
 4. **Validation:** Mengamati showcase *Karya Terpilih* dan profil tim untuk memverifikasi track record rekayasa.
 5. **Conversion:** Mengklik tombol *Konsultasikan Usaha via WA*, langsung terhubung dengan Felich untuk diskusi desain.
 
-### 2.3 Journey C: Power User / Keyboard-First Navigator
+### 2.4 Journey D: Power User / Keyboard-First Navigator
 1. **Entry:** Menekan tombol `Ctrl+K` atau `Cmd+K` pada desktop.
 2. **Fuzzy Search:** Mengetik `Kalkulator` atau `Tim`, keyboard navigasi mengarahkan langsung via `lenis.scrollTo` secara mulus ke section yang dituju.
 3. **Direct Contact:** Menekan tombol salin nomor telepon instan untuk disimpan ke kontak.

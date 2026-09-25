@@ -246,3 +246,119 @@ export const SOFTWARE_PRICING = {
     },
   ],
 };
+
+export interface SmartphoneScreenOption {
+  id: string;
+  label: string;
+  grade: "incell" | "oled" | "original" | "none";
+  description: string;
+  minPrice: number;
+  maxPrice: number;
+  recommended?: boolean;
+}
+
+export interface SmartphoneServiceOption {
+  id: string;
+  label: string;
+  description: string;
+  minPrice: number;
+  maxPrice: number;
+  recommended?: boolean;
+}
+
+export const SMARTPHONE_PRICING = {
+  screen: {
+    title: "Pilihan Penggantian Layar (LCD / OLED)",
+    subtitle: "Pilih kualitas panel layar pengganti. Estimasi ALL-IN sudah termasuk unit baru bergaransi + jasa pasang & pengeleman presisi",
+    options: [
+      {
+        id: "screen-none",
+        label: "Layar Normal (Tidak Perlu Ganti LCD)",
+        grade: "none" as const,
+        description: "Pilih opsi ini jika layar Anda masih normal dan hanya butuh perbaikan modul, baterai, port, atau mesin",
+        minPrice: 0,
+        maxPrice: 0,
+      },
+      {
+        id: "screen-incell",
+        label: "LCD Incell (Ekonomis Mahasiswa)",
+        grade: "incell" as const,
+        description: "Tampilan jernih & sentuhan responsif • Solusi hemat untuk pemakaian kuliah harian, tugas, & medsos",
+        minPrice: 160000,
+        maxPrice: 280000,
+      },
+      {
+        id: "screen-oled",
+        label: "OLED / AMOLED High-Grade",
+        grade: "oled" as const,
+        description: "Warna hitam pekat, saturasi kaya & hemat daya • Mendukung refresh rate 90/120Hz mulus tanpa lag",
+        gradeLabel: "OLED High-Grade",
+        minPrice: 350000,
+        maxPrice: 680000,
+        recommended: true,
+      },
+      {
+        id: "screen-original",
+        label: "LCD Original Pabrik / Copotan OEM",
+        grade: "original" as const,
+        description: "Standar visual pabrik 100% presisi • Mendukung TrueTone & sensor sidik jari di layar (under-display)",
+        gradeLabel: "Original OEM",
+        minPrice: 600000,
+        maxPrice: 1250000,
+      },
+    ],
+  },
+  services: [
+    {
+      id: "hp-deep-clean",
+      label: "Deep Cleaning Internal & Pembersihan Mesh Speaker / Port",
+      description: "Pembersihan debu & kerak minyak pada mesh earpiece/mic, port cas, dan residu papan sirkuit",
+      minPrice: 40000,
+      maxPrice: 70000,
+      recommended: true,
+    },
+    {
+      id: "hp-battery",
+      label: "Penggantian Baterai HP (High-Capacity / Original)",
+      description: "Solusi baterai kembung/drop drastis • Termasuk baterai baru + perekat tarik elastis standar pabrik",
+      minPrice: 120000,
+      maxPrice: 220000,
+    },
+    {
+      id: "hp-charging-port",
+      label: "Perbaikan Port Charger (Type-C / Lightning) Longgar",
+      description: "Ganti/rekondisi modul konektor cas sub-board agar kembali pas, kokoh, dan fast charging normal",
+      minPrice: 75000,
+      maxPrice: 135000,
+    },
+    {
+      id: "hp-camera",
+      label: "Ganti Modul Kamera (Depan / Belakang) & Kaca Lensa",
+      description: "Atasi kamera blur/bergetar bunyi mendengung (OIS rusak) atau kaca kamera luar retak pecah",
+      minPrice: 95000,
+      maxPrice: 240000,
+    },
+    {
+      id: "hp-matot",
+      label: "Perbaikan HP Mati Total (Short Jalur VPH_PWR / IC Power)",
+      description: "Injeksi tegangan DC power supply, deteksi komponen panas via thermal cam & mikrosolder kapasitor bocor",
+      minPrice: 150000,
+      maxPrice: 350000,
+    },
+    {
+      id: "hp-bootloop",
+      label: "Penanganan Bootloop & Flashing Firmware Resmi",
+      description: "Pemulihan HP mentok logo merk berulang kali, unbrick sistem Android/iOS & perbaikan partisi OS",
+      minPrice: 60000,
+      maxPrice: 110000,
+    },
+    {
+      id: "hp-install-only",
+      label: "Jasa Pasang Sparepart HP Bawa Sendiri",
+      description: "Bongkar pasang rapi untuk LCD/baterai/modul kamera yang Anda beli sendiri dari marketplace",
+      minPrice: 45000,
+      maxPrice: 75000,
+    },
+  ],
+};
+

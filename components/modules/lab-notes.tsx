@@ -134,9 +134,22 @@ export function LabNotes() {
                 className="btn btn-primary btn-sm magnetic"
                 target="_blank"
                 rel="noopener noreferrer"
-                href="https://wa.me/6283894496994?text=Hai%204tune.labs%2C%20saya%20baru%20baca%20Lab%20Notes%20di%20website%20dan%20ingin%20tanya%20lebih%20lanjut."
+                href={
+                  activeArticle.author.toLowerCase().includes("zulkifli")
+                    ? `https://wa.me/6283159392826?text=Hai%20Zulkifli%20(4tune.labs)%2C%20saya%20baru%20baca%20Lab%20Notes%20%22${encodeURIComponent(
+                        activeArticle.title
+                      )}%22%20dan%20ingin%20konsultasi%20servis%20HP.`
+                    : activeArticle.author.toLowerCase().includes("felich") ||
+                      activeArticle.author.toLowerCase().includes("dika")
+                    ? `https://wa.me/6282386526982?text=Hai%20Felich%20%26%20Dika%20(4tune.labs)%2C%20saya%20baru%20baca%20Lab%20Notes%20%22${encodeURIComponent(
+                        activeArticle.title
+                      )}%22%20dan%20ingin%20diskusi%20lebih%20lanjut.`
+                    : `https://wa.me/6283894496994?text=Hai%20Sukron%20(4tune.labs)%2C%20saya%20baru%20baca%20Lab%20Notes%20%22${encodeURIComponent(
+                        activeArticle.title
+                      )}%22%20dan%20ingin%20tanya%20servis%20hardware.`
+                }
               >
-                Tanya Langsung ke Teknisi / Engineer ↗
+                Tanya Langsung ke {activeArticle.author.split(" ")[0]} ↗
               </a>
             </div>
           </div>
