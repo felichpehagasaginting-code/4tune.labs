@@ -24,10 +24,11 @@ const OpenFreeMapEmbed = dynamic(
 const FULL_LAB_ADDRESS_AND_LANDMARK = `4tune.labs — Lab Servis Hardware & Web Studio
 Alamat Utama: Asrama Sarana Citra Widya Edukasi (SCWE)
 Spesifik Lokasi: Asrama Gedung 2 Lantai 3 Kamar 304
-Kawasan Kampus Politeknik Kelapa Sawit Citra Widya Edukasi (CWE), Jl. Gapura No. 1, Cibuntu, Kec. Cibitung / Setu, Kabupaten Bekasi, Jawa Barat 17520.
+Titik Presisi: -6.300819787803049, 107.06610593887473 (Plus Code: M3X8+MF7)
+Alamat Peta: M3X8+MF7, Jl. Raya Setu, Cibuntu, Kec. Cibitung, Kabupaten Bekasi, Jawa Barat 17520 (Kawasan Kampus Politeknik Kelapa Sawit Citra Widya Edukasi).
 
 Patokan Serah Terima Unit:
-- Masuk melalui gerbang utama Politeknik CWE / Asrama SCWE.
+- Masuk melalui gerbang utama Politeknik CWE / Asrama SCWE (Jl. Raya Setu / Jl. Gapura).
 - Langsung tuju Gedung Asrama 2, naik ke Lantai 3, Kamar 304.
 - Unit/barang laptop atau gadget dapat langsung diserahkan kepada teknisi (Sukron / Mamad / Felich / Dika) untuk diagnosa kilat dan tanda terima digital.
 - Layanan Antar-Jemput: Gratis (Rp 0) untuk jarak yang masuk akal ditempuh jalan kaki (lingkungan Asrama SCWE & kawasan utama kampus CWE). Di luar jarak jalan kaki (kosan luar / area Cibuntu / Setu), berlaku ongkir/bensin terjangkau sesuai jarak tempuh (atau opsi titik temu COD/kurir ojol).`;
@@ -35,7 +36,7 @@ Patokan Serah Terima Unit:
 export function LabLocation() {
   const [copied, setCopied] = useState(false);
   const [activeView, setActiveView] = useState<"openfreemap" | "schematic">("openfreemap");
-  const gmapsUrl = "https://www.google.com/maps/search/?api=1&query=Politeknik+Kelapa+Sawit+Citra+Widya+Edukasi+Bekasi";
+  const gmapsUrl = "https://www.google.com/maps/place/Asrama+Sarana+Citra+Widya/@-6.3008198,107.0661059,17z";
   const waPickupUrl = "https://wa.me/6283894496994?text=Halo%20Sukron%20%26%20Mamad%20(4tune.labs)%2C%20saya%20mau%20jadwalkan%20antar-jemput%20servis%20laptop.%20Lokasi%20saya%20di%20(sebutkan%20kamar%20asrama%20%2F%20area%20kampus%20%2F%20kosan%20luar)%3A";
 
   const fallbackCopy = () => {
@@ -109,8 +110,8 @@ export function LabLocation() {
             </div>
 
             <p className="loc-address">
-              Area Kampus Politeknik Kelapa Sawit Citra Widya Edukasi (CWE),<br />
-              Jl. Gapura No. 1, Cibuntu, Kec. Cibitung / Setu, Kabupaten Bekasi, Jawa Barat 17520.
+              M3X8+MF7, Jl. Raya Setu, Cibuntu, Kec. Cibitung, Kabupaten Bekasi, Jawa Barat 17520<br />
+              (Area Asrama SCWE / Kawasan Politeknik Kelapa Sawit Citra Widya Edukasi).
             </p>
 
             <div className="loc-features-grid">

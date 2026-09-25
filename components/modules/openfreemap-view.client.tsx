@@ -14,8 +14,8 @@ if (typeof window !== "undefined") {
   }
 }
 
-// Koordinat Asrama Sarana Citra Widya Edukasi (SCWE) - Kampus CWE Cibuntu, Bekasi
-const SCWE_COORDINATES: [number, number] = [107.062763, -6.301785]; // [lng, lat]
+// Koordinat Presisi Asrama Sarana Citra Widya Edukasi (SCWE) - Jl. Raya Setu, Cibuntu, Bekasi (Plus Code: M3X8+MF7)
+const SCWE_COORDINATES: [number, number] = [107.06610593887473, -6.300819787803049]; // [lng, lat]
 
 // Minimalist, fast-loading OpenFreeMap vector style
 const PRIMARY_STYLE = "https://tiles.openfreemap.org/styles/positron";
@@ -262,7 +262,7 @@ export function OpenFreeMapEmbed({ isVisible = true }: OpenFreeMapEmbedProps) {
         <div className="ofm-error-overlay">
           <p>Peta interaktif tidak dapat dimuat di browser ini.</p>
           <a
-            href="https://www.google.com/maps/search/?api=1&query=Politeknik+Kelapa+Sawit+Citra+Widya+Edukasi+Bekasi"
+            href="https://www.google.com/maps/place/Asrama+Sarana+Citra+Widya/@-6.3008198,107.0661059,17z"
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-primary btn-sm"
