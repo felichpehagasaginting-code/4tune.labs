@@ -93,7 +93,7 @@ Platform resmi **4tune.labs**, studio rekayasa teknologi independen yang didirik
 
 | Nama | Disiplin & Peran | Fokus Utama |
 | :--- | :--- | :--- |
-| **Felich** | Full-Stack & AI Engineer | Arsitektur web modern, integrasi AI/LLM, Next.js, dan antarmuka interaktif |
+| **Felich** | AI & Product Engineer | Arsitektur web modern, integrasi AI/LLM, Next.js, dan antarmuka interaktif |
 | **Zulkifli ("Mamad")** | Electronics & Repair Specialist | Reparasi level komponen, micro-soldering, jalur PCB, dan diagnosa gadget |
 | **Sukron** | PC Hardware & OS Specialist | Optimalisasi sistem operasi, perakitan PC kustom, ekspansi SSD/RAM, pendinginan |
 | **Dika** | Product & UI/UX Design | Perancangan antarmuka visual, arsitektur UI/UX ergonomis, dan sistem desain produk |

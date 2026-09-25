@@ -1262,7 +1262,7 @@ export default function Home() {
                     priority={false}
                   />
                 </div>
-                <span className="member-role">FULL-STACK &amp; AI ENGINEER</span>
+                <span className="member-role">AI &amp; PRODUCT ENGINEER</span>
                 <h3>Felich</h3>
                 <p>
                   Penerjemah ide menjadi arsitektur web modern yang interaktif, cepat, dan cerdas. Pengembang utama di balik platform Felys (AI Companion), Nettas PB AI (Photobooth Cross-Platform), dan sistem pembelajaran TRPL 2026.

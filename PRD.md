@@ -19,7 +19,7 @@ Klien mahasiswa, UMKM, dan kreator sering terjebak di antara dua masalah besar s
 
 ### 1.2 Solusi 4tune.labs
 **4tune.labs** adalah studio rekayasa teknologi independen yang didirikan dan dijalankan langsung oleh empat mahasiswa rekayasa:
-* **Felich** — Full-Stack & AI Engineer
+* **Felich** — AI & Product Engineer
 * **Zulkifli ("Mamad")** — Electronics & Repair Specialist
 * **Sukron** — PC Hardware & OS Specialist
 * **Dika** — Product & UI/UX Design

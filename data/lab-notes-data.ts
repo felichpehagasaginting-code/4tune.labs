@@ -56,7 +56,7 @@ export const LAB_NOTES_DATA: LabArticle[] = [
     title: "Membangun Web Portofolio Cepat & Nol Biaya Bulanan untuk Mahasiswa Non-IT",
     summary: "Anda tidak perlu membayar sewa server jutaan per tahun hanya untuk memajang karya dan CV agar terlihat kredibel di mata perekrut.",
     author: "Felich",
-    role: "Full-Stack & AI Engineer",
+    role: "AI & Product Engineer",
     readTime: "4 mnt baca",
     date: "September 2026",
     tag: "Web & Karir",

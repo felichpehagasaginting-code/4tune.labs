@@ -142,7 +142,7 @@
 
 ## 7. Tim Rekayasa (Team Dataset)
 
-1. **Felich** — *Full-Stack & AI Engineer*  
+1. **Felich** — *AI & Product Engineer*  
    Penerjemah ide menjadi arsitektur web modern yang interaktif, cepat, dan cerdas. Pengembang utama di balik platform Felys (AI Companion), Nettas PB AI (Photobooth Cross-Platform), dan sistem pembelajaran TRPL 2026.
 2. **Zulkifli ("Mamad")** — *Electronics & Repair Specialist*  
    Spesialis perbaikan jalur motherboard, mikrosoldering, diagnosa arus pendek perangkat keras, dan reparasi modul gadget serta power supply.
