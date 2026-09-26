@@ -141,8 +141,8 @@
    - Penerapan `touch-action: pan-y` pada `.ba-stage` untuk mencegah benturan gestur scroll vertikal di smartphone.
    - Dukungan sentuhan tap instan (*tap-to-position*) langsung pada kanvas komparasi.
 4. **Basis Fisik Lab & Peta Vektor Interaktif OpenFreeMap:**
-   - Penegasan titik drop-off fisik di **Asrama Sarana Citra Widya Edukasi Gedung 2 Lt. 3 Kamar 304**.
-   - Peta interaktif live ditenagai **MapLibre GL JS** dengan Web Worker lokal same-origin (`/public/maplibre/`), fallback otomatis raster OSM, dan kontrol kamera instan *"Pusatkan ke Kamar 304"*.
+   - Penegasan titik drop-off fisik di **Asrama Sarana Citra Widya Edukasi Gedung 2 Lt. 3** (detail kamar & titik temu via WhatsApp).
+   - Peta interaktif live ditenagai **MapLibre GL JS** dengan Web Worker lokal same-origin (`/public/maplibre/`), fallback otomatis raster OSM, dan kontrol kamera instan *"Pusatkan ke Lab Asrama"*.
    - Tab switcher instan antara Peta Vektor dan Skema Radius Konsentris.
 5. **Kebijakan Antar-Jemput Transparan (Realistis):**
    - **Gratis (Rp 0):** Eksklusif untuk jarak jalan kaki (*walking distance*) di lingkungan Asrama Mahasiswa SCWE dan kampus utama Politeknik CWE.

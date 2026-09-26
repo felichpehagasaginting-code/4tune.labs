@@ -124,8 +124,8 @@ export function OpenFreeMapEmbed({ isVisible = true }: OpenFreeMapEmbedProps) {
         .setLngLat(SCWE_COORDINATES)
         .setHTML(`
           <div class="ofm-popup-content">
-            <strong class="ofm-popup-title">4tune.labs — Kamar 304</strong>
-            <p class="ofm-popup-sub">Asrama SCWE Gedung 2 Lt. 3 (Kampus CWE) • Gratis jalan kaki, kosan luar berbayar</p>
+            <strong class="ofm-popup-title">4tune.labs — Lab Servis &amp; Studio</strong>
+            <p class="ofm-popup-sub">Asrama SCWE Gedung 2 Lt. 3 (Kampus CWE) • Detail kamar &amp; antar-jemput via WhatsApp</p>
           </div>
         `);
 
@@ -241,7 +241,7 @@ export function OpenFreeMapEmbed({ isVisible = true }: OpenFreeMapEmbedProps) {
         type="button"
         onClick={handleResetView}
         className="ofm-reset-btn"
-        title="Pusatkan kembali ke lokasi Lab (Kamar 304)"
+        title="Pusatkan kembali ke lokasi Lab Asrama SCWE"
         aria-label="Pusatkan kembali ke lokasi Lab"
       >
         <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

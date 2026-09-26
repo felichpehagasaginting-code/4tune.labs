@@ -497,7 +497,7 @@ export function CostEstimator() {
       currentServices.length > 0 ? currentServices.map((s) => s.label).join(", ") : "Tidak ada servis tambahan";
     const promoNote = isFridayPromo ? " (Diskon Hari Jum'at Aktif 10%)" : "";
 
-    const message = `Hai Sukron (4tune.labs), saya cek estimasi biaya servis di web:%0A${modelNote}- SSD: ${ssdLabel}%0A- RAM: ${ramLabel}%0A- Layanan: ${servLabels}${promoNote}%0A- Estimasi Biaya: ${formatRupiah(hwMin)} – ${formatRupiah(hwMax)}.%0A- Metode Serah Terima / Antar-Jemput: (Pilih: Drop-off Lab Kamar 304 / Gratis Jalan Kaki Asrama-Kampus CWE / Ongkir Berbayar Kosan Luar)%0A- Lokasi Saya di: [sebutkan kamar asrama / kampus / kosan luar]%0A%0ABisa bantu cek ketersediaan sparepart dan jadwal pengerjaannya? Terima kasih.`;
+    const message = `Hai Sukron (4tune.labs), saya cek estimasi biaya servis di web:%0A${modelNote}- SSD: ${ssdLabel}%0A- RAM: ${ramLabel}%0A- Layanan: ${servLabels}${promoNote}%0A- Estimasi Biaya: ${formatRupiah(hwMin)} – ${formatRupiah(hwMax)}.%0A- Metode Serah Terima / Antar-Jemput: (Pilih: Drop-off Lab Asrama SCWE / Gratis Jalan Kaki Asrama-Kampus CWE / Ongkir Berbayar Kosan Luar)%0A- Lokasi Saya di: [sebutkan area asrama / kampus / kosan luar]%0A%0ABisa bantu cek ketersediaan sparepart dan jadwal pengerjaannya? Mohon info nomor kamar/titik temu penjemputan unitnya saat saya sampai. Terima kasih.`;
     return `https://wa.me/6283894496994?text=${message}`;
   };
 
@@ -517,7 +517,7 @@ export function CostEstimator() {
         : "Tidak ada servis tambahan";
     const promoNote = isFridayPromo ? " (Diskon Hari Jum'at Aktif 10%)" : "";
 
-    const message = `Hai Zulkifli (4tune.labs), saya cek estimasi biaya servis HP di web:%0A${modelNote}- Layar (LCD): ${screenLabel}%0A- Layanan Servis: ${servLabels}${promoNote}%0A- Estimasi Biaya: ${formatRupiah(hpMin)} – ${formatRupiah(hpMax)}.%0A- Metode Serah Terima / Antar-Jemput: (Pilih: Drop-off Lab Kamar 304 / Gratis Jalan Kaki Asrama-Kampus CWE / Ongkir Berbayar Kosan Luar)%0A- Lokasi Saya di: [sebutkan kamar asrama / kampus / kosan luar]%0A%0ABisa bantu cek ketersediaan sparepart dan jadwal pengerjaannya? Terima kasih.`;
+    const message = `Hai Zulkifli (4tune.labs), saya cek estimasi biaya servis HP di web:%0A${modelNote}- Layar (LCD): ${screenLabel}%0A- Layanan Servis: ${servLabels}${promoNote}%0A- Estimasi Biaya: ${formatRupiah(hpMin)} – ${formatRupiah(hpMax)}.%0A- Metode Serah Terima / Antar-Jemput: (Pilih: Drop-off Lab Asrama SCWE / Gratis Jalan Kaki Asrama-Kampus CWE / Ongkir Berbayar Kosan Luar)%0A- Lokasi Saya di: [sebutkan area asrama / kampus / kosan luar]%0A%0ABisa bantu cek ketersediaan sparepart dan jadwal pengerjaannya? Mohon info nomor kamar/titik temu penjemputan unitnya saat saya sampai. Terima kasih.`;
     return `https://wa.me/6283159392826?text=${message}`;
   };
 
@@ -842,7 +842,7 @@ export function CostEstimator() {
                       {isRealFriday ? "Promo Spesial Hari Jum'at (Aktif Otomatis)" : "Klaim Promo Spesial Hari Jum'at (Diskon 10%)"}
                     </span>
                     <p className="toggle-sub">
-                      Dapatkan potongan diskon 10% untuk seluruh pengerjaan servis hardware. <strong>Booking sekarang untuk pengerjaan atau serah terima unit di hari Jum&apos;at di Lab Asrama SCWE (Gedung 2 Lantai 3 Kamar 304)</strong> agar tim teknisi kami dapat menjadwalkan slot servis lab lebih awal.
+                      Dapatkan potongan diskon 10% untuk seluruh pengerjaan servis hardware. <strong>Booking sekarang untuk pengerjaan atau serah terima unit di hari Jum&apos;at di Lab Asrama SCWE (Gedung 2 Lantai 3)</strong> agar tim teknisi kami dapat menjadwalkan slot servis lab lebih awal.
                     </p>
                   </div>
                 </label>
@@ -890,7 +890,7 @@ export function CostEstimator() {
                       <line x1="12" y1="8" x2="12.01" y2="8" />
                     </svg>
                     <span>
-                      <strong>Edukasi Booking Jum&apos;at:</strong> Diskon 10% berlaku khusus untuk pengerjaan servis atau serah terima unit di hari Jum&apos;at di Lab Asrama SCWE (Gedung 2 Lt. 3 Kamar 304). Booking lebih awal melalui WhatsApp agar slot part &amp; waktu teknisi langsung dialokasikan untuk Anda.
+                      <strong>Edukasi Booking Jum&apos;at:</strong> Diskon 10% berlaku khusus untuk pengerjaan servis atau serah terima unit di hari Jum&apos;at di Lab Asrama SCWE (Gedung 2 Lt. 3). Booking lebih awal melalui WhatsApp agar slot part &amp; waktu teknisi langsung dialokasikan untuk Anda.
                     </span>
                   </div>
                 )}
@@ -1235,7 +1235,7 @@ export function CostEstimator() {
                       {isRealFriday ? "Promo Spesial Hari Jum'at (Aktif Otomatis)" : "Klaim Promo Spesial Hari Jum'at (Diskon 10%)"}
                     </span>
                     <p className="toggle-sub">
-                      Dapatkan potongan diskon 10% untuk seluruh pengerjaan servis &amp; pergantian modul HP. <strong>Booking sekarang untuk serah terima unit di hari Jum&apos;at di Lab Asrama SCWE (Gedung 2 Lantai 3 Kamar 304)</strong> agar slot part teknisi kami disiapkan.
+                      Dapatkan potongan diskon 10% untuk seluruh pengerjaan servis &amp; pergantian modul HP. <strong>Booking sekarang untuk serah terima unit di hari Jum&apos;at di Lab Asrama SCWE (Gedung 2 Lantai 3)</strong> agar slot part teknisi kami disiapkan.
                     </p>
                   </div>
                 </label>
@@ -1283,7 +1283,7 @@ export function CostEstimator() {
                       <line x1="12" y1="8" x2="12.01" y2="8" />
                     </svg>
                     <span>
-                      <strong>Edukasi Booking Jum&apos;at:</strong> Diskon 10% berlaku khusus pengerjaan servis atau serah terima unit di hari Jum&apos;at di Lab Asrama SCWE (Kamar 304). Booking via WhatsApp agar sparepart disiapkan lebih awal.
+                      <strong>Edukasi Booking Jum&apos;at:</strong> Diskon 10% berlaku khusus pengerjaan servis atau serah terima unit di hari Jum&apos;at di Lab Asrama SCWE (Gedung 2 Lt. 3). Booking via WhatsApp agar sparepart disiapkan lebih awal.
                     </span>
                   </div>
                 )}
@@ -1725,7 +1725,7 @@ export function CostEstimator() {
                     <line x1="12" y1="8" x2="12.01" y2="8" />
                   </svg>
                   <span>
-                    <strong>Edukasi Booking Jum&apos;at:</strong> Diskon 10% berlaku untuk serah terima unit atau pengerjaan pada hari Jum&apos;at di Lab Asrama SCWE (Gedung 2 Lantai 3 Kamar 304). Booking lebih awal via WA agar slot part &amp; teknisi siap untuk Anda.
+                    <strong>Edukasi Booking Jum&apos;at:</strong> Diskon 10% berlaku untuk serah terima unit atau pengerjaan pada hari Jum&apos;at di Lab Asrama SCWE (Gedung 2 Lantai 3). Booking lebih awal via WA agar slot part &amp; teknisi siap untuk Anda.
                   </span>
                 </div>
               )}

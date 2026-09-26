@@ -49,7 +49,7 @@ Platform resmi **4tune.labs**, studio rekayasa teknologi independen yang didirik
 * **BeforeAfterSlider (Komparasi Thermal & Radiator):**
   - Slider komparasi interaktif sebelum vs sesudah servis dengan dukungan tap instan dan touch target 44px (`touch-action: pan-y`).
 * **LabLocation & Peta Interaktif OpenFreeMap:**
-  - Basis fisik di **Asrama Sarana Citra Widya Edukasi (SCWE) Gedung 2 Lantai 3 Kamar 304**.
+  - Basis fisik di **Asrama Sarana Citra Widya Edukasi (SCWE) Gedung 2 Lantai 3** (detail kamar & penjemputan unit dikonfirmasi via WhatsApp).
   - Peta interaktif live ditenagai **OpenFreeMap** via **MapLibre GL JS** dengan worker lokal same-origin, bebas API key.
   - Mode switcher antara Peta Interaktif Live dan Skema Radius Konsentris.
   - Kebijakan antar-jemput transparan: **Gratis (Rp 0)** untuk jarak jalan kaki (lingkungan asrama & kampus CWE); **Berbayar** sesuai jarak tempuh untuk kosan luar atau area sekitarnya.
@@ -66,7 +66,7 @@ Platform resmi **4tune.labs**, studio rekayasa teknologi independen yang didirik
   - Modal Reader Lab Notes full-screen di mobile dengan sticky header (`env(safe-area-inset-top)`) dan routing konsultasi WhatsApp dinamis berdasarkan penulis artikel.
 * **Open Graph & WhatsApp Social Share Preview:**
   - Banner pratinjau media sosial 1200×630 px berstandar Open Graph (`og:image` & `twitter:image`).
-  - Menampilkan identitas visual warm-paper, master logo vector, 3 pilar layanan, alamat lab fisik Asrama SCWE Kamar 304, serta teaser kalkulator biaya live saat tautan dibagikan di WhatsApp, Telegram, X/Twitter, Facebook, Discord, dan iMessage.
+  - Menampilkan identitas visual warm-paper, master logo vector, 3 pilar layanan, alamat lab fisik Asrama SCWE Gedung 2 Lt. 3, serta teaser kalkulator biaya live saat tautan dibagikan di WhatsApp, Telegram, X/Twitter, Facebook, Discord, dan iMessage.
   - Didukung pre-rendering statis via `app/opengraph-image.tsx` dan file statis teroptimasi di `public/og-image.png` (< 100 KB) untuk penanganan instan crawler WhatsApp.
 * **Command Palette (`Ctrl+K` / `Cmd+K`):**
   - Antarmuka pencarian cepat bergaya keyboard-first untuk navigasi instan antar section dan modul.

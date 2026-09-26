@@ -128,7 +128,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                 className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-secondary hover:text-primary hover:bg-surface-hover cursor-pointer"
               >
                 <Layers size={14} className="text-neutral-300" />
-                <span>05. Lokasi Fisik Lab Asrama SCWE (Kamar 304)</span>
+                <span>05. Lokasi Fisik Lab Asrama SCWE (Gedung 2 Lt. 3)</span>
               </Command.Item>
 
               <Command.Item

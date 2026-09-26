@@ -928,7 +928,7 @@ export default function Home() {
                     agar booting hitungan detik, servis smartphone HP (ganti layar LCD Incell/OLED/Original, ganti baterai drop/kembung,
                     perbaikan port cas Type-C/Lightning longgar, modul kamera, perbaikan HP mati total korslet jalur VPH_PWR, hingga bootloop),
                     instalasi bersih OS (Windows/Linux) &amp; software esensial, hingga deep cleaning internal &amp; pembersihan mesh akustik speaker.
-                    Pengerjaan transparan tanpa perantara, data privasi 100% aman, serah terima unit di Lab Kamar 304 atau antar-jemput (gratis jalan kaki asrama/kampus, kosan luar berbayar sesuai jarak), serta bergaransi resmi.
+                    Pengerjaan transparan tanpa perantara, data privasi 100% aman, serah terima unit di Lab Asrama SCWE Gedung 2 Lt. 3 atau antar-jemput (gratis jalan kaki asrama/kampus, kosan luar berbayar sesuai jarak), serta bergaransi resmi.
                   </p>
                   <div className="chips">
                     <span>Service Laptop &amp; PC</span>
